@@ -495,21 +495,29 @@ on conflict (name) do nothing;
       </div>
       <ol>
         <li>Go to <a href="https://console.cloud.google.com">console.cloud.google.com</a> and create a project called <code>our-pace</code>.</li>
-        <li>Search for <b>Google Calendar API</b> and press <b>Enable</b>.</li>
-        <li>Go to <b>APIs &amp; Services → OAuth consent screen</b>. Choose <b>External</b>, fill in the name and your email, and under <b>Test users</b> add <b>both</b> of your Gmail addresses.</li>
-        <li><b>Credentials → Create credentials → OAuth client ID → Web application.</b></li>
-        <li>Under <b>Authorised redirect URIs</b> add these two now (the third comes in step 5):</li>
+        <li>Search for <b>Google Calendar API</b> and press <b>Enable</b> / <b>Habilitar</b>.</li>
+        <li>Open <b>Google Auth Platform</b> (<i>Plataforma de autenticaci&oacute;n de Google</i>). If it says <b>&ldquo;A&uacute;n no se configur&oacute;&rdquo;</b>, press <b>Comenzar</b> / <b>Get started</b> and answer the four short screens:
+          <ul>
+            <li><b>App name:</b> <code>Our Pace</code>. <b>Support email:</b> your own Gmail.</li>
+            <li><b>Audience</b> / <b>P&uacute;blico:</b> <b>External</b> / <b>Externo</b>.</li>
+            <li><b>Contact:</b> your email again.</li>
+            <li>Tick the policy box and press <b>Create</b> / <b>Crear</b>.</li>
+          </ul>
+        </li>
+        <li>Open the <b>Clients</b> / <b>Clientes</b> tab &rarr; <b>Create client</b>. Application type: <b>Web application</b>. Under <b>Authorised redirect URIs</b> add these two (the third comes in step 5):</li>
       </ol>
       <button class="copy" data-copy="https://YOUR-PROJECT.supabase.co/auth/v1/callback
 http://localhost:3000/auth/callback">Copy both</button>
       <pre><code>https://YOUR-PROJECT.supabase.co/auth/v1/callback
 http://localhost:3000/auth/callback</code></pre>
       <p>Replace <code>YOUR-PROJECT</code> with your real Supabase project address.</p>
-      <ol start="6">
-        <li>Copy the <b>Client ID</b> and <b>Client secret</b>.</li>
-        <li>Back in Supabase: <b>Authentication → Providers → Google</b>. Turn it on and paste the same two values there. Save.</li>
+      <ol start="5">
+        <li>Press <b>Create</b>, then copy the <b>Client ID</b> and <b>Client secret</b>. You can reopen them later from the same tab.</li>
+        <li>Open the <b>Audience</b> / <b>P&uacute;blico</b> tab &rarr; <b>Test users</b> &rarr; <b>Add users</b>, and add <b>both</b> of your Gmail addresses. Save. Without this, sign-in will refuse you.</li>
+        <li>Back in Supabase: <b>Authentication → Providers → Google</b>. Turn it on, paste the Client ID and secret, and Save.</li>
       </ol>
       <div class="callout"><p>You do <b>not</b> need to publish the app or pass Google's verification. Test users work forever, and there are only two of you.</p></div>
+      <div class="callout"><p>Older guides mention an <b>OAuth consent screen</b> page. Google removed it &mdash; it is now the <b>Branding</b>, <b>Audience</b> and <b>Clients</b> tabs of Google Auth Platform. Same settings, three tabs instead of one.</p></div>
     </div>
   </div>
 
