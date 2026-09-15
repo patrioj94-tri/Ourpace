@@ -1,0 +1,377 @@
+<title>Getting Our Pace Onto Your Phone</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#EFF3F3; --surface:#FFFFFF; --surface-2:#F5F8F8; --line:#D4DFDF;
+  --ink:#0E2226; --muted:#5B7479; --faint:#8CA1A5;
+  --accent:#D64F17; --accent-soft:#FBE6DC;
+  --ok:#2A7350; --ok-soft:#DEEFE6; --warn:#A3353D; --warn-soft:#F7E1E2;
+  --display:Archivo,"Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#07161A; --surface:#0F2328; --surface-2:#152C31; --line:#23414A;
+  --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
+  --accent:#FF7C46; --accent-soft:#3A1F14;
+  --ok:#5DBE8A; --ok-soft:#11322A; --warn:#E78990; --warn-soft:#381E21;
+}}
+:root[data-theme="dark"]{
+  --ground:#07161A; --surface:#0F2328; --surface-2:#152C31; --line:#23414A;
+  --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
+  --accent:#FF7C46; --accent-soft:#3A1F14;
+  --ok:#5DBE8A; --ok-soft:#11322A; --warn:#E78990; --warn-soft:#381E21;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:var(--accent);overflow-wrap:anywhere}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.wrap{max-width:760px;margin:0 auto;padding-block:30px;padding-left:18px;padding-right:18px}
+
+.masthead{border-bottom:2px solid var(--ink);padding-bottom:18px}
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,6.5vw,46px);line-height:1;letter-spacing:-.04em;margin:0 0 12px;text-wrap:balance}
+.standfirst{color:var(--muted);font-size:16.5px;max-width:58ch;margin:0}
+
+.progress{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--ground);padding:12px 0 10px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.progress .bar{height:8px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.progress .bar i{display:block;height:100%;background:var(--ok);border-radius:999px;transition:width .25s}
+.progress p{margin:7px 0 0;font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.progress .saved{margin-left:auto;color:var(--faint)}
+.progress .saved[data-on="true"]{color:var(--ok)}
+
+h2{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.03em;margin:38px 0 6px;text-wrap:balance}
+.part{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0}
+.when{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin:2px 0 0}
+.lede{color:var(--muted);font-size:15px;margin:10px 0 0;max-width:62ch}
+
+.step{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-top:14px;overflow:hidden}
+.step.done{border-color:var(--ok)}
+.steptop{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;width:100%;text-align:left}
+.tickbox{width:26px;height:26px;border-radius:7px;border:2px solid var(--line);flex:none;display:grid;place-items:center;margin-top:1px;transition:background .15s,border-color .15s}
+.step.done .tickbox{background:var(--ok);border-color:var(--ok)}
+.steptop .t{flex:1;min-width:0}
+.steptop .t b{display:block;font-family:var(--display);font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+.step.done .steptop .t b{color:var(--faint);text-decoration:line-through;text-decoration-thickness:1.5px}
+.steptop .t span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.stepbody{padding:0 16px 16px 54px}
+.stepbody p{margin:0 0 10px;font-size:15px}
+.stepbody ol,.stepbody ul{margin:0 0 10px;padding-left:20px}
+.stepbody li{margin-bottom:7px;font-size:15px}
+.stepbody li::marker{color:var(--faint)}
+
+code{font-family:var(--mono);font-size:13.5px;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;overflow-wrap:anywhere}
+pre{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:12px 13px;overflow-x:auto;margin:0 0 10px}
+pre code{background:none;border:none;padding:0;font-size:13px;line-height:1.65}
+.copy{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted);margin-bottom:10px}
+.copy:hover{color:var(--ink);background:var(--surface-2)}
+.copy[data-copied="true"]{color:var(--ok);border-color:currentColor}
+
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 9px 9px 0;padding:11px 14px;margin:0 0 10px}
+.callout p{margin:0;font-size:14.5px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout b{font-weight:600}
+
+.field{display:grid;grid-template-columns:1fr;gap:2px;padding:9px 0;border-top:1px solid var(--line)}
+.field:first-of-type{border-top:none}
+.field code{background:none;border:none;padding:0;font-weight:600;color:var(--ink);font-size:13px}
+.field span{font-size:13.5px;color:var(--muted)}
+.fields{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:6px 13px;margin-bottom:10px}
+
+.bigbtn{display:block;background:var(--accent);color:#fff;text-decoration:none;text-align:center;border-radius:11px;padding:14px;font-family:var(--display);font-weight:700;font-size:16px;margin:14px 0}
+.foot{margin-top:38px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--faint);line-height:1.7}
+.reset{font-family:var(--mono);font-size:11px;color:var(--faint);text-decoration:underline}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Our Pace · Setup</p>
+    <h1>Getting Our Pace onto your phone</h1>
+    <p class="standfirst">Two minutes for the preview. About an hour for the real one, and the hour is mostly waiting on Google and Strava to say yes. Nothing here costs money.</p>
+  </header>
+
+  <div class="progress">
+    <div class="bar"><i id="bar" style="width:0%"></i></div>
+    <p><span id="count">0 of 0 done</span><span class="saved" id="saved">Not saving yet</span></p>
+  </div>
+
+  <p class="part">Part one · on your phone</p>
+  <h2>Try it now</h2>
+  <p class="when">2 minutes</p>
+  <p class="lede">This is the preview: the whole 40-week plan, your real Strava history, and everything you tap is saved. It is yours only — Jean cannot open this one, and it has no live Strava. Part two fixes both.</p>
+
+  <a class="bigbtn" href="https://claude.ai/artifact/Cit7GdurTXNQ7mjWLxTiyu">Open Our Pace →</a>
+
+  <div class="step" data-id="p1s1">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Put it on your home screen</b><span>iPhone</span></span></button>
+    <div class="stepbody">
+      <ol>
+        <li>Open the link above <b>in Safari</b> — this does not work in Chrome on iPhone.</li>
+        <li>Tap the <b>Share</b> button (the square with the arrow, at the bottom).</li>
+        <li>Scroll down and tap <b>Add to Home Screen</b>.</li>
+        <li>Name it <b>Our Pace</b> and tap <b>Add</b>.</li>
+      </ol>
+      <p>On Android: open it in Chrome, tap the <b>⋮</b> menu, then <b>Add to Home screen</b>.</p>
+    </div>
+  </div>
+
+  <div class="step" data-id="p1s2">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Have a proper look</b><span>so you know what you are building</span></span></button>
+    <div class="stepbody">
+      <ul>
+        <li>The week you land on is this one. Tap <b>← Last week</b> to see sessions that ticked themselves off your real Strava.</li>
+        <li>Tap a circle to tick or un-tick a session by hand.</li>
+        <li>Use the jump button to cross into the plan proper, which starts 4 January 2027.</li>
+        <li>Add a to-do, log a game, move a dream along. It all saves.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="part" style="margin-top:42px">Part two · on a laptop</p>
+  <h2>Build the real one</h2>
+  <p class="when">About an hour · free</p>
+  <p class="lede">The real app adds the things a preview cannot have: Jean signs in too, Strava pushes every session the moment your watch uploads, and both Google calendars merge into the week.</p>
+
+  <div class="callout">
+    <p><b>Do this on a laptop, not your phone.</b> There are about ten keys to copy between websites, and that is miserable on a phone. You will only need the phone again at the very end.</p>
+  </div>
+  <div class="callout warn">
+    <p><b>Never paste a key into this page</b>, or into any chat. Keys go straight from the site that gave them to you into Vercel's settings, and nowhere else.</p>
+  </div>
+
+  <div class="step" data-id="p2s1">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Make the database</b><span>Step 1 · Supabase · 15 min</span></span></button>
+    <div class="stepbody">
+      <ol>
+        <li>Go to <a href="https://supabase.com">supabase.com</a> and sign up with GitHub. Free, no card.</li>
+        <li><b>New project</b>. Call it <code>our-pace</code>, choose region <b>Frankfurt</b> (closest to Belgium), and let it generate a database password — <b>save that password somewhere</b>.</li>
+        <li>Wait about two minutes while it builds.</li>
+        <li>Open <b>SQL Editor</b> in the left sidebar. Open the file <code>supabase/migrations/0001_init.sql</code> from the repo, copy all of it, paste, and press <b>Run</b>. It should say success.</li>
+        <li>Open <code>supabase/seed.sql</code>. <b>Replace the placeholder with Jean's real email address</b> — that line is the only thing that lets him in. Then paste it into the SQL Editor and <b>Run</b>.</li>
+        <li>Go to <b>Project Settings → API</b> and keep that tab open. You need three values from it in step 4.</li>
+      </ol>
+      <div class="callout warn"><p>The <code>service_role</code> key on that page bypasses every security rule. It goes into Vercel and nowhere else — never into a browser, a chat, or a commit.</p></div>
+    </div>
+  </div>
+
+  <div class="step" data-id="p2s2">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Let Google in</b><span>Step 2 · sign-in + calendars · 15 min</span></span></button>
+    <div class="stepbody">
+      <p>One Google app does both jobs: proving who you are, and reading your calendars.</p>
+      <ol>
+        <li>Go to <a href="https://console.cloud.google.com">console.cloud.google.com</a> and create a project called <code>our-pace</code>.</li>
+        <li>Search for <b>Google Calendar API</b> and press <b>Enable</b>.</li>
+        <li>Go to <b>APIs &amp; Services → OAuth consent screen</b>. Choose <b>External</b>, fill in the name and your email, and under <b>Test users</b> add <b>both</b> of your Gmail addresses.</li>
+        <li><b>Credentials → Create credentials → OAuth client ID → Web application.</b></li>
+        <li>Under <b>Authorised redirect URIs</b> add these two now (the third comes in step 5):</li>
+      </ol>
+      <button class="copy" data-copy="https://YOUR-PROJECT.supabase.co/auth/v1/callback
+http://localhost:3000/auth/callback">Copy both</button>
+      <pre><code>https://YOUR-PROJECT.supabase.co/auth/v1/callback
+http://localhost:3000/auth/callback</code></pre>
+      <p>Replace <code>YOUR-PROJECT</code> with your real Supabase project address.</p>
+      <ol start="6">
+        <li>Copy the <b>Client ID</b> and <b>Client secret</b>.</li>
+        <li>Back in Supabase: <b>Authentication → Providers → Google</b>. Turn it on and paste the same two values there. Save.</li>
+      </ol>
+      <div class="callout"><p>You do <b>not</b> need to publish the app or pass Google's verification. Test users work forever, and there are only two of you.</p></div>
+    </div>
+  </div>
+
+  <div class="step" data-id="p2s3">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Connect the watches</b><span>Step 3 · Strava · 10 min</span></span></button>
+    <div class="stepbody">
+      <div class="callout"><p><b>Garmin needs no setup at all.</b> Garmin already pushes every activity to Strava, and Our Pace reads Strava. Garmin's own API is closed to projects this size, so this is the route that works, not a compromise.</p></div>
+      <ol>
+        <li><b>Both of you:</b> open Garmin Connect → <b>Settings → Connected Apps → Strava</b> and connect, if you have not already. Yours is already done.</li>
+        <li>Go to <a href="https://www.strava.com/settings/api">strava.com/settings/api</a> and create an application. Any name. For <b>Authorization Callback Domain</b> put <code>localhost</code> for now.</li>
+        <li>Copy the <b>Client ID</b> and <b>Client Secret</b>.</li>
+        <li>Invent a random password-like string and write it down. That is your webhook token — it just has to match in two places.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step" data-id="p2s4">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Put it on the internet</b><span>Step 4 · Vercel · 10 min</span></span></button>
+    <div class="stepbody">
+      <ol>
+        <li>Go to <a href="https://vercel.com">vercel.com</a> and sign in with GitHub.</li>
+        <li><b>Add New → Project</b>, and import <code>patrioj94-tri/Ourpace</code>.</li>
+        <li>Under branch, choose <code>claude/our-pace-app-planning-6kwo40</code>.</li>
+        <li>Open <b>Environment Variables</b> and add these. Names must match exactly:</li>
+      </ol>
+      <div class="fields">
+        <div class="field"><code>NEXT_PUBLIC_SUPABASE_URL</code><span>Supabase → Settings → API → Project URL</span></div>
+        <div class="field"><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code><span>the same page, the <b>anon public</b> key</span></div>
+        <div class="field"><code>SUPABASE_SERVICE_ROLE_KEY</code><span>the same page, the <b>service_role</b> key</span></div>
+        <div class="field"><code>NEXT_PUBLIC_SITE_URL</code><span>put <code>https://ourpace.vercel.app</code> for now; you will correct it below</span></div>
+        <div class="field"><code>GOOGLE_CLIENT_ID</code><span>from step 2</span></div>
+        <div class="field"><code>GOOGLE_CLIENT_SECRET</code><span>from step 2</span></div>
+        <div class="field"><code>STRAVA_CLIENT_ID</code><span>from step 3</span></div>
+        <div class="field"><code>STRAVA_CLIENT_SECRET</code><span>from step 3</span></div>
+        <div class="field"><code>STRAVA_WEBHOOK_VERIFY_TOKEN</code><span>the random string you invented</span></div>
+        <div class="field"><code>CRON_SECRET</code><span>another random string you invent</span></div>
+        <div class="field"><code>ANTHROPIC_API_KEY</code><span>optional — only for the Sunday note</span></div>
+      </div>
+      <ol start="5">
+        <li>Press <b>Deploy</b> and wait a couple of minutes.</li>
+        <li>Vercel gives you a real address. <b>Go back to Environment Variables, correct <code>NEXT_PUBLIC_SITE_URL</code> to that exact address</b>, then <b>Redeploy</b>. Sign-in will not work until this is right.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step" data-id="p2s5">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Tell Google and Strava where it lives</b><span>Step 5 · 5 min</span></span></button>
+    <div class="stepbody">
+      <ol>
+        <li><b>Google:</b> back in Credentials, add a third redirect URI — your real address followed by <code>/auth/callback</code>.</li>
+        <li><b>Strava:</b> change <b>Authorization Callback Domain</b> from <code>localhost</code> to your real domain, with no <code>https://</code> and no path. Just the domain.</li>
+        <li><b>Register the webhook.</b> This is what makes sessions tick themselves off. Run this in a terminal, filling in your three values:</li>
+      </ol>
+      <button class="copy" data-copy="curl -X POST https://www.strava.com/api/v3/push_subscriptions -F client_id=YOUR_STRAVA_ID -F client_secret=YOUR_STRAVA_SECRET -F callback_url=https://YOUR-APP/api/strava/webhook -F verify_token=YOUR_VERIFY_TOKEN">Copy command</button>
+      <pre><code>curl -X POST https://www.strava.com/api/v3/push_subscriptions \
+  -F client_id=YOUR_STRAVA_ID \
+  -F client_secret=YOUR_STRAVA_SECRET \
+  -F callback_url=https://YOUR-APP/api/strava/webhook \
+  -F verify_token=YOUR_VERIFY_TOKEN</code></pre>
+      <p>It replies with an id. Strava calls your app back to check it is really yours, which is why this has to come after the deploy.</p>
+    </div>
+  </div>
+
+  <div class="step" data-id="p2s6">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Fill it with your life</b><span>Step 6 · 10 min</span></span></button>
+    <div class="stepbody">
+      <ol>
+        <li>Open your app's address and <b>sign in with Google</b>. That first sign-in creates your profile. Have Jean do the same on his phone — or wait, if he is not meant to know yet.</li>
+        <li>Go to <b>Settings</b> inside the app and press <b>Connect Strava</b>. Say yes. It pulls in your last month straight away.</li>
+        <li>Load the 40-week plan. On your laptop, with the repo cloned:</li>
+      </ol>
+      <button class="copy" data-copy="git clone https://github.com/patrioj94-tri/Ourpace.git
+cd Ourpace
+git checkout claude/our-pace-app-planning-6kwo40
+npm install
+export NEXT_PUBLIC_SUPABASE_URL=...
+export SUPABASE_SERVICE_ROLE_KEY=...
+node scripts/load-plan.mjs plans/malaga-70.3.csv">Copy commands</button>
+      <pre><code>git clone https://github.com/patrioj94-tri/Ourpace.git
+cd Ourpace
+git checkout claude/our-pace-app-planning-6kwo40
+npm install
+
+export NEXT_PUBLIC_SUPABASE_URL=...
+export SUPABASE_SERVICE_ROLE_KEY=...
+node scripts/load-plan.mjs plans/malaga-70.3.csv</code></pre>
+      <div class="callout"><p>Both of you must have signed in <b>before</b> this, or it will not know who to give the sessions to. It will tell you so rather than guess.</p></div>
+    </div>
+  </div>
+
+  <p class="part" style="margin-top:42px">Part three · both phones</p>
+  <h2>Install the real one</h2>
+  <p class="when">1 minute each</p>
+
+  <div class="step" data-id="p3s1">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Add it to both home screens</b><span>and delete the preview</span></span></button>
+    <div class="stepbody">
+      <ol>
+        <li>Open your app's real address in <b>Safari</b> on the phone, and sign in.</li>
+        <li><b>Share → Add to Home Screen → Add.</b></li>
+        <li>Delete the preview icon from part one — you do not need two.</li>
+        <li>Go for a run. By the time you are home, it should have ticked itself off.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h2>When something does not work</h2>
+  <div class="step" data-id="tr1">
+    <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Common stumbles</b><span>read if stuck</span></span></button>
+    <div class="stepbody">
+      <ul>
+        <li><b>"Our Pace is private" on sign-in.</b> That email is not in <code>allowed_emails</code>. Re-run <code>seed.sql</code> with the right address.</li>
+        <li><b>Sign-in loops, or lands on an error.</b> Almost always <code>NEXT_PUBLIC_SITE_URL</code> not matching the real address, or a missing redirect URI in Google. Both must be exact, including <code>https://</code>.</li>
+        <li><b>Sessions never tick themselves off.</b> Check Settings shows Strava connected. Then press <b>Check Strava now</b> — if that works but new sessions do not appear on their own, the webhook did not register; re-run the command in step 5.</li>
+        <li><b>The calendar is empty.</b> Google only hands over calendar access on a fresh consent. Sign out and back in.</li>
+        <li><b>The week is empty.</b> The plan starts 4 January 2027. Before then there is nothing to show — that is correct, not broken.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="foot">
+    Everything here is also written down in <code>SETUP.md</code> in the repository, in case you would rather read it there.<br>
+    Your ticks on this page are saved, so you can stop anywhere and pick it up later. <button class="reset" id="reset" type="button">Clear my progress</button>
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const steps = Array.from(document.querySelectorAll(".step"));
+  const state = { done: {}, db: null };
+
+  function paint() {
+    let n = 0;
+    for (const step of steps) {
+      const on = !!state.done[step.dataset.id];
+      step.classList.toggle("done", on);
+      step.querySelector(".tickbox").innerHTML = on
+        ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>'
+        : "";
+      step.querySelector(".steptop").setAttribute("aria-pressed", String(on));
+      if (on) n += 1;
+    }
+    document.getElementById("bar").style.width = Math.round(n / steps.length * 100) + "%";
+    document.getElementById("count").textContent =
+      n === steps.length ? "All done — go for a run" : n + " of " + steps.length + " done";
+  }
+
+  let queue = null;
+  function save() {
+    if (!state.db) return;
+    const run = () => state.db.doc("progress/setup").set({ done: state.done }).catch(() => {});
+    queue = queue ? queue.then(run) : run();
+  }
+
+  for (const step of steps) {
+    step.querySelector(".steptop").addEventListener("click", () => {
+      const id = step.dataset.id;
+      if (state.done[id]) delete state.done[id]; else state.done[id] = true;
+      paint();
+      save();
+    });
+  }
+
+  document.getElementById("reset").addEventListener("click", () => {
+    state.done = {};
+    paint();
+    save();
+  });
+
+  document.addEventListener("click", async (e) => {
+    const b = e.target.closest(".copy");
+    if (!b) return;
+    try {
+      await navigator.clipboard.writeText(b.dataset.copy);
+      b.dataset.copied = "true";
+      b.textContent = "Copied";
+      setTimeout(() => { b.dataset.copied = "false"; b.textContent = b.dataset.label; }, 1600);
+    } catch (err) { /* clipboard blocked — the text is right there to select */ }
+  });
+  document.querySelectorAll(".copy").forEach((b) => { b.dataset.label = b.textContent; });
+
+  paint();
+
+  (async () => {
+    const db = await (window.claude && window.claude.use ? window.claude.use("db") : Promise.resolve(null));
+    if (!db) return;
+    state.db = db;
+    const badge = document.getElementById("saved");
+    badge.textContent = "Progress saved";
+    badge.dataset.on = "true";
+    db.doc("progress/setup").onSnapshot((snap) => {
+      if (snap.exists) { state.done = (snap.data() || {}).done || {}; paint(); }
+    }, () => {});
+  })();
+})();
+</script>
