@@ -1,0 +1,7 @@
+{
+  "crons": [
+    { "path": "/api/cron/close-week",  "schedule": "0 3 * * *" },
+    { "path": "/api/strava/sync?days=7", "schedule": "30 3 * * *" },
+    { "path": "/api/cron/weekly-note", "schedule": "0 19 * * 0" }
+  ]
+}

@@ -1,0 +1,11 @@
+date,person,discipline,title,target,distance_m,duration_s,phase,week
+2027-03-01,both,swim,Endurance swim,3.0 km · steady long sets,3000,,base,1
+2027-03-01,both,run,Easy run,8 km · conversational,8000,,base,1
+2027-03-02,both,bike,Endurance ride,1h30 · zone 2,,5400,base,1
+2027-03-03,both,swim,Threshold sets,2.5 km · 10 × 100 m,2500,,base,1
+2027-03-04,Patri,run,Track intervals,6 × 800 m @ 4:15 /km,10000,,base,1
+2027-03-04,Jean,run,Track intervals,6 × 800 m @ 4:30 /km,10000,,base,1
+2027-03-05,both,strength,Gym,45 min · legs & core,,2700,base,1
+2027-03-06,both,bike,Long ride,70 km · steady,70000,,base,1
+2027-03-07,both,bike,Brick — ride,40 km · race effort,40000,,base,1
+2027-03-07,both,run,Brick — run off the bike,10 km · straight after,10000,,base,1
