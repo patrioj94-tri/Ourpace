@@ -95,7 +95,7 @@ details pre{max-height:320px;overflow:auto;background:var(--surface);margin-bott
   <header class="masthead">
     <p class="kicker">Our Pace · Setup</p>
     <h1>Getting Our Pace onto your phone</h1>
-    <p class="standfirst">Two minutes for the preview. About an hour for the real one, and the hour is mostly waiting on Google and Strava to say yes. Nothing here costs money.</p>
+    <p class="standfirst">Two minutes for the preview. About an hour for the real one, and the hour is mostly waiting on Google and Strava to say yes. Nothing here costs money, and nothing here needs a credit card &mdash; if a site asks for one, you have wandered off the path.</p>
   </header>
 
   <div class="progress">
@@ -481,6 +481,12 @@ on conflict (name) do nothing;
     <button class="steptop" type="button"><span class="tickbox"></span><span class="t"><b>Let Google in</b><span>Step 2 · sign-in + calendars · 15 min</span></span></button>
     <div class="stepbody">
       <p>One Google app does both jobs: proving who you are, and reading your calendars.</p>
+      <div class="callout">
+        <p><b>Google will wave a credit card at you. You do not need one.</b> The Calendar API is free — a million requests a day, and the two of you will use maybe a hundred. If a &ldquo;Set up billing&rdquo; or &ldquo;Start free trial&rdquo; banner appears, close it and carry on. Nothing in step 2 requires it.</p>
+      </div>
+      <div class="callout">
+        <p><b>Two other boxes that look alarming and are not:</b> when it asks for an <b>Organisation</b> or <b>Location</b>, choose <b>No organisation</b>. When it asks for an <b>audience</b>, choose <b>External</b> — that only means &ldquo;not a company account&rdquo;, and with test users it stays private to the two of you.</p>
+      </div>
       <ol>
         <li>Go to <a href="https://console.cloud.google.com">console.cloud.google.com</a> and create a project called <code>our-pace</code>.</li>
         <li>Search for <b>Google Calendar API</b> and press <b>Enable</b>.</li>
