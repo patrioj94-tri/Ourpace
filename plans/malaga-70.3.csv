@@ -1,0 +1,320 @@
+date,person,discipline,title,target,distance_m,duration_s,phase,week
+2027-01-04,both,swim,Technique swim,Drills and aerobic sets,2000,,seville,1
+2027-01-05,both,run,Threshold intervals,"5 × 1 km at threshold, 90 s jog",8000,,seville,1
+2027-01-06,both,bike,Zone 2 ride,"Steady, spin the legs out",,3600,seville,1
+2027-01-07,both,run,Easy run,Conversational the whole way,8000,,seville,1
+2027-01-08,both,strength,Gym,"Legs, glutes and core",,2700,seville,1
+2027-01-09,both,bike,Easy ride,"90 min, nothing hard",,4500,seville,1
+2027-01-10,both,run,Long run,Last 5 km at half-marathon effort,14000,,seville,1
+2027-01-11,both,swim,Technique swim,Drills and aerobic sets,2100,,seville,2
+2027-01-12,both,run,Threshold intervals,"5 × 1 km at threshold, 90 s jog",8500,,seville,2
+2027-01-13,both,bike,Zone 2 ride,"Steady, spin the legs out",,3800,seville,2
+2027-01-14,both,run,Easy run,Conversational the whole way,8300,,seville,2
+2027-01-15,both,strength,Gym,"Legs, glutes and core",,2700,seville,2
+2027-01-16,both,bike,Easy ride,"90 min, nothing hard",,4700,seville,2
+2027-01-17,both,run,Long run,Last 5 km at half-marathon effort,15000,,seville,2
+2027-01-18,both,swim,Technique swim,Drills and aerobic sets,2200,,seville,3
+2027-01-19,both,run,Threshold intervals,"5 × 1 km at threshold, 90 s jog",9000,,seville,3
+2027-01-20,both,bike,Zone 2 ride,"Steady, spin the legs out",,3900,seville,3
+2027-01-21,both,run,Easy run,Conversational the whole way,8700,,seville,3
+2027-01-22,both,strength,Gym,"Legs, glutes and core",,2700,seville,3
+2027-01-23,both,bike,Easy ride,"90 min, nothing hard",,4800,seville,3
+2027-01-24,both,run,Long run,Last 5 km at half-marathon effort,16000,,seville,3
+2027-01-25,both,swim,Technique swim,Drills and aerobic sets,1500,,seville,4
+2027-01-26,both,run,Threshold intervals,"6 × 1 km at threshold, 90 s jog",6200,,seville,4
+2027-01-27,both,bike,Zone 2 ride,"Steady, spin the legs out",,2600,seville,4
+2027-01-28,both,run,Easy run,Conversational the whole way,5900,,seville,4
+2027-01-29,both,strength,Gym,"Legs, glutes and core",,2700,seville,4
+2027-01-30,both,bike,Easy ride,"90 min, nothing hard",,3200,seville,4
+2027-01-31,both,run,Long run,Last 5 km at half-marathon effort,11000,,seville,4
+2027-02-01,both,swim,Technique swim,Drills and aerobic sets,2400,,seville,5
+2027-02-02,both,run,Threshold intervals,"6 × 1 km at threshold, 90 s jog",10000,,seville,5
+2027-02-03,both,bike,Zone 2 ride,"Steady, spin the legs out",,4200,seville,5
+2027-02-04,both,run,Easy run,Conversational the whole way,9300,,seville,5
+2027-02-05,both,strength,Gym,"Legs, glutes and core",,2700,seville,5
+2027-02-06,both,bike,Easy ride,"90 min, nothing hard",,5100,seville,5
+2027-02-07,both,run,Long run,Last 5 km at half-marathon effort,18000,,seville,5
+2027-02-08,both,swim,Technique swim,Drills and aerobic sets,2500,,seville,6
+2027-02-09,both,run,Threshold intervals,"6 × 1 km at threshold, 90 s jog",10500,,seville,6
+2027-02-10,both,bike,Zone 2 ride,"Steady, spin the legs out",,4400,seville,6
+2027-02-11,both,run,Easy run,Conversational the whole way,9700,,seville,6
+2027-02-12,both,strength,Gym,"Legs, glutes and core",,2700,seville,6
+2027-02-13,both,bike,Easy ride,"90 min, nothing hard",,5300,seville,6
+2027-02-14,both,run,Long run,Last 5 km at half-marathon effort,19000,,seville,6
+2027-02-15,both,swim,Loosener swim,"Easy, nothing hard",1500,,seville,7
+2027-02-16,both,run,Strides,5 km easy + 6 × 20 s fast,6000,,seville,7
+2027-02-17,both,bike,Spin,"45 min, keep it light",,2700,seville,7
+2027-02-18,both,run,Easy run,"5 km, legs only",5000,,seville,7
+2027-02-20,both,run,Shakeout,3 km + 4 × 20 s at race pace,3000,,seville,7
+2027-02-21,both,run,Seville Half Marathon,Race day. Go and enjoy it.,21097,,seville,7
+2027-02-22,both,swim,Easy swim,"Feel the water, no sets",1800,,recover,8
+2027-02-24,both,bike,Easy spin,"60 min, flat",,3600,recover,8
+2027-02-25,both,run,Easy run,Short and slow,6000,,recover,8
+2027-02-26,both,strength,Mobility,"30 min, hips and ankles",,1800,recover,8
+2027-02-28,both,run,Easy run,However far feels good,8000,,recover,8
+2027-03-01,both,swim,Technique swim,"Drills, then 10 × 100 m steady",2400,,base,9
+2027-03-02,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",9000,,base,9
+2027-03-03,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,35000,,base,9
+2027-03-04,both,swim,Endurance swim,Long continuous sets,2600,,base,9
+2027-03-04,both,run,Easy run,"Off the back of the swim, easy",8000,,base,9
+2027-03-05,both,strength,Gym,"Legs, glutes and core",,2700,base,9
+2027-03-06,both,bike,Long ride,"Steady, together",60000,,base,9
+2027-03-07,both,run,Long run,Flat and steady,14000,,base,9
+2027-03-08,both,swim,Technique swim,"Drills, then 10 × 100 m steady",2500,,base,10
+2027-03-09,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",9300,,base,10
+2027-03-10,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,37000,,base,10
+2027-03-11,both,swim,Endurance swim,Long continuous sets,2700,,base,10
+2027-03-11,both,run,Easy run,"Off the back of the swim, easy",8200,,base,10
+2027-03-12,both,strength,Gym,"Legs, glutes and core",,2700,base,10
+2027-03-13,both,bike,Long ride,"Steady, together",63500,,base,10
+2027-03-14,both,run,Long run,Flat and steady,14500,,base,10
+2027-03-15,both,swim,Technique swim,"Drills, then 10 × 100 m steady",2500,,base,11
+2027-03-16,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",9500,,base,11
+2027-03-17,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,38500,,base,11
+2027-03-18,both,swim,Endurance swim,Long continuous sets,2800,,base,11
+2027-03-18,both,run,Easy run,"Off the back of the swim, easy",8400,,base,11
+2027-03-19,both,strength,Gym,"Legs, glutes and core",,2700,base,11
+2027-03-20,both,bike,Long ride,"Steady, together",67500,,base,11
+2027-03-21,both,run,Long run,Flat and steady,15000,,base,11
+2027-03-22,both,swim,Technique swim,"Drills, then 10 × 100 m steady",1700,,base,12
+2027-03-23,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",6400,,base,12
+2027-03-24,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,26500,,base,12
+2027-03-25,both,swim,Endurance swim,Long continuous sets,1900,,base,12
+2027-03-25,both,run,Easy run,"Off the back of the swim, easy",5600,,base,12
+2027-03-26,both,strength,Gym,"Legs, glutes and core",,2700,base,12
+2027-03-27,both,bike,Long ride,"Steady, together",46000,,base,12
+2027-03-28,both,run,Long run,Flat and steady,10000,,base,12
+2027-03-29,both,swim,Technique swim,"Drills, then 10 × 100 m steady",2700,,base,13
+2027-03-30,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",10000,,base,13
+2027-03-31,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,42500,,base,13
+2027-04-01,both,swim,Endurance swim,Long continuous sets,3000,,base,13
+2027-04-01,both,run,Easy run,"Off the back of the swim, easy",8700,,base,13
+2027-04-02,both,strength,Gym,"Legs, glutes and core",,2700,base,13
+2027-04-03,both,bike,Long ride,"Steady, together",74500,,base,13
+2027-04-04,both,run,Long run,Flat and steady,16000,,base,13
+2027-04-05,both,swim,Technique swim,"Drills, then 10 × 100 m steady",2800,,base,14
+2027-04-06,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",10500,,base,14
+2027-04-07,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,44000,,base,14
+2027-04-08,both,swim,Endurance swim,Long continuous sets,3100,,base,14
+2027-04-08,both,run,Easy run,"Off the back of the swim, easy",8900,,base,14
+2027-04-09,both,strength,Gym,"Legs, glutes and core",,2700,base,14
+2027-04-10,both,bike,Long ride,"Steady, together",78000,,base,14
+2027-04-11,both,run,Long run,Flat and steady,16500,,base,14
+2027-04-12,both,swim,Technique swim,"Drills, then 10 × 100 m steady",2800,,base,15
+2027-04-13,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",10500,,base,15
+2027-04-14,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,46000,,base,15
+2027-04-15,both,swim,Endurance swim,Long continuous sets,3100,,base,15
+2027-04-15,both,run,Easy run,"Off the back of the swim, easy",9100,,base,15
+2027-04-16,both,strength,Gym,"Legs, glutes and core",,2700,base,15
+2027-04-17,both,bike,Long ride,"Steady, together",82000,,base,15
+2027-04-18,both,run,Long run,Flat and steady,17500,,base,15
+2027-04-17,both,run,Brick run,"Straight off the bike, easy",3000,,base,15
+2027-04-19,both,swim,Technique swim,"Drills, then 10 × 100 m steady",1900,,base,16
+2027-04-20,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",7100,,base,16
+2027-04-21,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,31000,,base,16
+2027-04-22,both,swim,Endurance swim,Long continuous sets,2100,,base,16
+2027-04-22,both,run,Easy run,"Off the back of the swim, easy",6000,,base,16
+2027-04-23,both,strength,Gym,"Legs, glutes and core",,2700,base,16
+2027-04-24,both,bike,Long ride,"Steady, together",55500,,base,16
+2027-04-25,both,run,Long run,Flat and steady,11500,,base,16
+2027-04-24,both,run,Brick run,"Straight off the bike, easy",2000,,base,16
+2027-04-26,both,swim,Technique swim,"Drills, then 10 × 100 m steady",3000,,base,17
+2027-04-27,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",11000,,base,17
+2027-04-28,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,49500,,base,17
+2027-04-29,both,swim,Endurance swim,Long continuous sets,3300,,base,17
+2027-04-29,both,run,Easy run,"Off the back of the swim, easy",9500,,base,17
+2027-04-30,both,strength,Gym,"Legs, glutes and core",,2700,base,17
+2027-05-01,both,bike,Long ride,"Steady, together",89000,,base,17
+2027-05-02,both,run,Long run,Flat and steady,18500,,base,17
+2027-05-01,both,run,Brick run,"Straight off the bike, easy",3000,,base,17
+2027-05-03,both,swim,Technique swim,"Drills, then 10 × 100 m steady",3100,,base,18
+2027-05-04,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",11500,,base,18
+2027-05-05,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,51500,,base,18
+2027-05-06,both,swim,Endurance swim,Long continuous sets,3400,,base,18
+2027-05-06,both,run,Easy run,"Off the back of the swim, easy",9600,,base,18
+2027-05-07,both,strength,Gym,"Legs, glutes and core",,2700,base,18
+2027-05-08,both,bike,Long ride,"Steady, together",92500,,base,18
+2027-05-09,both,run,Long run,Flat and steady,19000,,base,18
+2027-05-08,both,run,Brick run,"Straight off the bike, easy",3000,,base,18
+2027-05-10,both,swim,Technique swim,"Drills, then 10 × 100 m steady",3100,,base,19
+2027-05-11,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",11500,,base,19
+2027-05-12,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,53000,,base,19
+2027-05-13,both,swim,Endurance swim,Long continuous sets,3500,,base,19
+2027-05-13,both,run,Easy run,"Off the back of the swim, easy",9800,,base,19
+2027-05-14,both,strength,Gym,"Legs, glutes and core",,2700,base,19
+2027-05-15,both,bike,Long ride,"Steady, together",96500,,base,19
+2027-05-16,both,run,Long run,Flat and steady,19500,,base,19
+2027-05-15,both,run,Brick run,"Straight off the bike, easy",3000,,base,19
+2027-05-17,both,swim,Technique swim,"Drills, then 10 × 100 m steady",2100,,base,20
+2027-05-18,both,run,Threshold intervals,"4 × 6 min at threshold, 2 min jog",7800,,base,20
+2027-05-19,both,bike,Endurance ride,Zone 2 with 3 × 8 min cadence work,36000,,base,20
+2027-05-20,both,swim,Endurance swim,Long continuous sets,2300,,base,20
+2027-05-20,both,run,Easy run,"Off the back of the swim, easy",6500,,base,20
+2027-05-21,both,strength,Gym,"Legs, glutes and core",,2700,base,20
+2027-05-22,both,bike,Long ride,"Steady, together",65000,,base,20
+2027-05-23,both,run,Long run,Flat and steady,13000,,base,20
+2027-05-22,both,run,Brick run,"Straight off the bike, easy",2000,,base,20
+2027-05-24,both,swim,Easy swim,"Feel the water, no sets",1800,,recover,21
+2027-05-26,both,bike,Easy spin,"60 min, flat",,3600,recover,21
+2027-05-27,both,run,Easy run,Short and slow,6000,,recover,21
+2027-05-28,both,strength,Mobility,"30 min, hips and ankles",,1800,recover,21
+2027-05-30,both,run,Easy run,However far feels good,8000,,recover,21
+2027-05-31,both,swim,Threshold swim,8 × 200 m at race effort,3000,,build,22
+2027-06-01,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,11000,,build,22
+2027-06-02,both,bike,Sweet-spot ride,3 × 15 min just under threshold,45000,,build,22
+2027-06-03,both,swim,Open water,"Sighting, straight lines, no wall",3000,,build,22
+2027-06-03,both,run,Easy run,"Recovery pace, properly easy",9000,,build,22
+2027-06-04,both,strength,Gym,"Heavier, lower reps",,2700,build,22
+2027-06-05,both,bike,Long ride,Last hour at race effort,90000,,build,22
+2027-06-05,both,run,Brick run,Off the bike at race pace,4000,,build,22
+2027-06-06,both,run,Long run,Negative split it,16000,,build,22
+2027-06-07,both,swim,Threshold swim,8 × 200 m at race effort,3100,,build,23
+2027-06-08,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,11000,,build,23
+2027-06-09,both,bike,Sweet-spot ride,3 × 15 min just under threshold,46500,,build,23
+2027-06-10,both,swim,Open water,"Sighting, straight lines, no wall",3100,,build,23
+2027-06-10,both,run,Easy run,"Recovery pace, properly easy",9200,,build,23
+2027-06-11,both,strength,Gym,"Heavier, lower reps",,2700,build,23
+2027-06-12,both,bike,Long ride,Last hour at race effort,94500,,build,23
+2027-06-12,both,run,Brick run,Off the bike at race pace,4400,,build,23
+2027-06-13,both,run,Long run,Negative split it,16500,,build,23
+2027-06-14,both,swim,Threshold swim,8 × 200 m at race effort,3100,,build,24
+2027-06-15,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,11500,,build,24
+2027-06-16,both,bike,Sweet-spot ride,3 × 15 min just under threshold,47500,,build,24
+2027-06-17,both,swim,Open water,"Sighting, straight lines, no wall",3100,,build,24
+2027-06-17,both,run,Easy run,"Recovery pace, properly easy",9400,,build,24
+2027-06-18,both,strength,Gym,"Heavier, lower reps",,2700,build,24
+2027-06-19,both,bike,Long ride,Last hour at race effort,99000,,build,24
+2027-06-19,both,run,Brick run,Off the bike at race pace,4700,,build,24
+2027-06-20,both,run,Long run,Negative split it,17000,,build,24
+2027-06-21,both,swim,Threshold swim,8 × 200 m at race effort,2100,,build,25
+2027-06-22,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,7500,,build,25
+2027-06-23,both,bike,Sweet-spot ride,3 × 15 min just under threshold,32000,,build,25
+2027-06-24,both,swim,Open water,"Sighting, straight lines, no wall",2100,,build,25
+2027-06-24,both,run,Easy run,"Recovery pace, properly easy",6200,,build,25
+2027-06-25,both,strength,Gym,"Heavier, lower reps",,2700,build,25
+2027-06-26,both,bike,Long ride,Last hour at race effort,67500,,build,25
+2027-06-26,both,run,Brick run,Off the bike at race pace,3300,,build,25
+2027-06-27,both,run,Long run,Negative split it,11500,,build,25
+2027-06-28,both,swim,Threshold swim,8 × 200 m at race effort,3200,,build,26
+2027-06-29,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,11500,,build,26
+2027-06-30,both,bike,Sweet-spot ride,3 × 15 min just under threshold,50500,,build,26
+2027-07-01,both,swim,Open water,"Sighting, straight lines, no wall",3300,,build,26
+2027-07-01,both,run,Easy run,"Recovery pace, properly easy",9700,,build,26
+2027-07-02,both,strength,Gym,"Heavier, lower reps",,2700,build,26
+2027-07-03,both,bike,Long ride,Last hour at race effort,108000,,build,26
+2027-07-03,both,run,Brick run,Off the bike at race pace,5500,,build,26
+2027-07-04,both,run,Long run,Negative split it,18000,,build,26
+2027-07-05,both,swim,Threshold swim,8 × 200 m at race effort,3300,,build,27
+2027-07-06,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,12000,,build,27
+2027-07-07,both,bike,Sweet-spot ride,3 × 15 min just under threshold,52000,,build,27
+2027-07-08,both,swim,Open water,"Sighting, straight lines, no wall",3400,,build,27
+2027-07-08,both,run,Easy run,"Recovery pace, properly easy",9900,,build,27
+2027-07-09,both,strength,Gym,"Heavier, lower reps",,2700,build,27
+2027-07-10,both,bike,Long ride,Last hour at race effort,112500,,build,27
+2027-07-10,both,run,Brick run,Off the bike at race pace,5800,,build,27
+2027-07-11,both,run,Long run,Negative split it,18500,,build,27
+2027-07-12,both,swim,Easy swim,Loosen off,2000,,build,28
+2027-07-14,both,bike,Openers,45 min with 4 × 2 min at race effort,,2700,build,28
+2027-07-15,both,run,Strides,5 km + 6 × 20 s,5000,,build,28
+2027-07-18,both,swim,Olympic tune-up — swim,"Dress rehearsal, hard",1500,,build,28
+2027-07-18,both,bike,Olympic tune-up — bike,Race effort,40000,,build,28
+2027-07-18,both,run,Olympic tune-up — run,Hold on,10000,,build,28
+2027-07-19,both,swim,Threshold swim,8 × 200 m at race effort,2200,,build,29
+2027-07-20,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,8000,,build,29
+2027-07-21,both,bike,Sweet-spot ride,3 × 15 min just under threshold,35500,,build,29
+2027-07-22,both,swim,Open water,"Sighting, straight lines, no wall",2300,,build,29
+2027-07-22,both,run,Easy run,"Recovery pace, properly easy",6700,,build,29
+2027-07-23,both,strength,Gym,"Heavier, lower reps",,2700,build,29
+2027-07-24,both,bike,Long ride,Last hour at race effort,79000,,build,29
+2027-07-24,both,run,Brick run,Off the bike at race pace,4300,,build,29
+2027-07-25,both,run,Long run,Negative split it,13000,,build,29
+2027-07-26,both,swim,Threshold swim,8 × 200 m at race effort,3400,,build,30
+2027-07-27,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,12500,,build,30
+2027-07-28,both,bike,Sweet-spot ride,3 × 15 min just under threshold,56000,,build,30
+2027-07-29,both,swim,Open water,"Sighting, straight lines, no wall",3600,,build,30
+2027-07-29,both,run,Easy run,"Recovery pace, properly easy",10500,,build,30
+2027-07-30,both,strength,Gym,"Heavier, lower reps",,2700,build,30
+2027-07-31,both,bike,Long ride,Last hour at race effort,126500,,build,30
+2027-07-31,both,run,Brick run,Off the bike at race pace,6900,,build,30
+2027-08-01,both,run,Long run,Negative split it,20500,,build,30
+2027-08-02,both,swim,Threshold swim,8 × 200 m at race effort,3500,,build,31
+2027-08-03,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,12500,,build,31
+2027-08-04,both,bike,Sweet-spot ride,3 × 15 min just under threshold,57500,,build,31
+2027-08-05,both,swim,Open water,"Sighting, straight lines, no wall",3700,,build,31
+2027-08-05,both,run,Easy run,"Recovery pace, properly easy",10500,,build,31
+2027-08-06,both,strength,Gym,"Heavier, lower reps",,2700,build,31
+2027-08-07,both,bike,Long ride,Last hour at race effort,131000,,build,31
+2027-08-07,both,run,Brick run,Off the bike at race pace,7300,,build,31
+2027-08-08,both,run,Long run,Negative split it,21000,,build,31
+2027-08-09,both,swim,Threshold swim,8 × 200 m at race effort,3500,,build,32
+2027-08-10,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,13000,,build,32
+2027-08-11,both,bike,Sweet-spot ride,3 × 15 min just under threshold,58500,,build,32
+2027-08-12,both,swim,Open water,"Sighting, straight lines, no wall",3700,,build,32
+2027-08-12,both,run,Easy run,"Recovery pace, properly easy",11000,,build,32
+2027-08-13,both,strength,Gym,"Heavier, lower reps",,2700,build,32
+2027-08-14,both,bike,Long ride,Last hour at race effort,135500,,build,32
+2027-08-14,both,run,Brick run,Off the bike at race pace,7600,,build,32
+2027-08-15,both,run,Long run,Negative split it,21500,,build,32
+2027-08-16,both,swim,Threshold swim,8 × 200 m at race effort,2300,,build,33
+2027-08-17,both,run,Race-pace intervals,5 × 8 min at 70.3 run effort,8500,,build,33
+2027-08-18,both,bike,Sweet-spot ride,3 × 15 min just under threshold,39000,,build,33
+2027-08-19,both,swim,Open water,"Sighting, straight lines, no wall",2500,,build,33
+2027-08-19,both,run,Easy run,"Recovery pace, properly easy",7200,,build,33
+2027-08-20,both,strength,Gym,"Heavier, lower reps",,2700,build,33
+2027-08-21,both,bike,Long ride,Last hour at race effort,91000,,build,33
+2027-08-21,both,run,Brick run,Off the bike at race pace,5200,,build,33
+2027-08-22,both,run,Long run,Negative split it,14500,,build,33
+2027-08-23,both,swim,Easy swim,"Feel the water, no sets",1800,,recover,34
+2027-08-25,both,bike,Easy spin,"60 min, flat",,3600,recover,34
+2027-08-26,both,run,Easy run,Short and slow,6000,,recover,34
+2027-08-27,both,strength,Mobility,"30 min, hips and ankles",,1800,recover,34
+2027-08-29,both,run,Easy run,However far feels good,8000,,recover,34
+2027-08-30,both,swim,Race-pace swim,4 × 400 m at race effort,3400,,peak,35
+2027-08-31,both,run,Race-pace intervals,5 × 10 min at 70.3 effort,13000,,peak,35
+2027-09-01,both,bike,Sweet-spot ride,4 × 15 min just under threshold,55000,,peak,35
+2027-09-02,both,swim,Open water,"Wetsuit, sighting, mass starts",3200,,peak,35
+2027-09-02,both,run,Easy run,Recovery pace,10000,,peak,35
+2027-09-03,both,strength,Gym,Maintenance only,,2400,peak,35
+2027-09-04,both,bike,Long ride,Race effort in the last 90 min,140000,,peak,35
+2027-09-04,both,run,Brick run,"Off the bike, race pace",8000,,peak,35
+2027-09-05,both,run,Long run,"Steady, controlled",20000,,peak,35
+2027-09-06,both,swim,Race-pace swim,2 × 900 m at race effort,3400,,peak,36
+2027-09-07,both,run,Race-pace intervals,4 × 10 min at 70.3 effort,13000,,peak,36
+2027-09-08,both,bike,Sweet-spot ride,3 × 20 min,55000,,peak,36
+2027-09-09,both,swim,Open water,"Wetsuit, sighting, starts",3000,,peak,36
+2027-09-10,both,strength,Gym,"Light, keep it moving",,2400,peak,36
+2027-09-11,both,bike,Race simulation — bike,90 km at exactly race effort. Practise the food.,90000,,peak,36
+2027-09-11,both,run,Race simulation — run,"12 km straight off, race pace",12000,,peak,36
+2027-09-12,both,run,Easy run,Shake yesterday out,10000,,peak,36
+2027-09-13,both,swim,Race-pace swim,4 × 400 m at race effort,3800,,peak,37
+2027-09-14,both,run,Race-pace intervals,5 × 10 min at 70.3 effort,14000,,peak,37
+2027-09-15,both,bike,Sweet-spot ride,4 × 15 min just under threshold,60000,,peak,37
+2027-09-16,both,swim,Open water,"Wetsuit, sighting, mass starts",3800,,peak,37
+2027-09-16,both,run,Easy run,Recovery pace,11000,,peak,37
+2027-09-17,both,strength,Gym,Maintenance only,,2400,peak,37
+2027-09-18,both,bike,Long ride,Race effort in the last 90 min,150000,,peak,37
+2027-09-18,both,run,Brick run,"Off the bike, race pace",10000,,peak,37
+2027-09-19,both,run,Long run,"Steady, controlled",22000,,peak,37
+2027-09-20,both,swim,Race-pace swim,3 × 500 m at race effort,3000,,taper,38
+2027-09-21,both,run,Race-pace intervals,4 × 8 min at 70.3 effort,11000,,taper,38
+2027-09-22,both,bike,Sweet-spot ride,3 × 12 min,45000,,taper,38
+2027-09-23,both,swim,Open water,Last proper one,2800,,taper,38
+2027-09-24,both,strength,Gym,Light,,1800,taper,38
+2027-09-25,both,bike,Long ride,"100 km, steady",100000,,taper,38
+2027-09-25,both,run,Brick run,6 km off the bike,6000,,taper,38
+2027-09-26,both,run,Long run,"16 km, easy",16000,,taper,38
+2027-09-27,both,swim,Race-pace swim,4 × 300 m at race effort,2400,,taper,39
+2027-09-28,both,run,Sharpeners,5 × 4 min at race effort,9000,,taper,39
+2027-09-29,both,bike,Openers,2 × 12 min at race effort,35000,,taper,39
+2027-09-30,both,swim,Easy swim,"Feel, not fitness",2000,,taper,39
+2027-10-02,both,bike,Steady ride,"60 km, comfortable",60000,,taper,39
+2027-10-03,both,run,Long run,"12 km, easy",12000,,taper,39
+2027-10-04,both,swim,Loosener swim,"1.5 km, easy",1500,,taper,40
+2027-10-05,both,run,Strides,5 km + 6 × 20 s at race pace,5000,,taper,40
+2027-10-06,both,bike,Openers,40 min with 3 × 3 min at race effort,,2400,taper,40
+2027-10-07,both,swim,Shakeout swim,"1 km, easy. Travel day.",1000,,taper,40
+2027-10-08,both,bike,Course spin,"30 min, check the bike over",,1800,taper,40
+2027-10-09,both,run,Shakeout,3 km + 4 × 20 s. Rack the bike.,3000,,taper,40
+2027-10-10,both,swim,Ironman 70.3 Málaga — swim,"1.9 km. Steady, find your feet.",1900,,taper,40
+2027-10-10,both,bike,Ironman 70.3 Málaga — bike,90 km. Eat every 30 minutes.,90000,,taper,40
+2027-10-10,both,run,Ironman 70.3 Málaga — run,21.1 km. This is the bit you trained for.,21097,,taper,40

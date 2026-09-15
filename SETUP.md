@@ -135,7 +135,7 @@ Sessions come from a CSV so you can use a real half-Ironman plan rather than
 anything invented:
 
 ```bash
-node scripts/load-plan.mjs plans/example-week.csv
+node scripts/load-plan.mjs plans/malaga-70.3.csv
 ```
 
 See `plans/example-week.csv` for the columns. `person` takes `Patri`, `Jean` or
