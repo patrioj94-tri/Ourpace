@@ -5,29 +5,27 @@
   --ground:#E7EEEE; --surface:#FFFFFF; --surface-2:#F1F6F6; --line:#D4DFDF;
   --ink:#0E2226; --muted:#5B7479; --faint:#8CA1A5;
   --accent:#D64F17; --accent-soft:#FBE6DC;
-  --swim:#0083A0; --bike:#8A4FC4; --run:#D64F17; --strength:#516366;
+  --swim:#0083A0; --bike:#8A4FC4; --run:#D64F17; --strength:#516366; --rest:#8CA1A5; --other:#5B7479;
   --ok:#2A7350; --ok-soft:#DEEFE6; --miss:#A3353D; --miss-soft:#F7E1E2;
   --shadow:0 1px 2px rgba(14,34,38,.05), 0 8px 22px rgba(14,34,38,.06);
   --r:14px;
-  --display:'Archivo','Helvetica Neue',Arial,sans-serif;
-  --body:'Source Sans 3','Helvetica Neue',Arial,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --display:Archivo,"Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#07161A; --surface:#0F2328; --surface-2:#152C31; --line:#23414A;
-    --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
-    --accent:#FF7C46; --accent-soft:#3A1F14;
-    --swim:#2B96BC; --bike:#8F68D6; --run:#EE5F26; --strength:#8FA9AE;
-    --ok:#5DBE8A; --ok-soft:#11322A; --miss:#E78990; --miss-soft:#381E21;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
-  }
-}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#07161A; --surface:#0F2328; --surface-2:#152C31; --line:#23414A;
+  --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
+  --accent:#FF7C46; --accent-soft:#3A1F14;
+  --swim:#2B96BC; --bike:#8F68D6; --run:#EE5F26; --strength:#8FA9AE; --rest:#6D888E; --other:#90A9AE;
+  --ok:#5DBE8A; --ok-soft:#11322A; --miss:#E78990; --miss-soft:#381E21;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
+}}
 :root[data-theme="dark"]{
   --ground:#07161A; --surface:#0F2328; --surface-2:#152C31; --line:#23414A;
   --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
   --accent:#FF7C46; --accent-soft:#3A1F14;
-  --swim:#2B96BC; --bike:#8F68D6; --run:#EE5F26; --strength:#8FA9AE;
+  --swim:#2B96BC; --bike:#8F68D6; --run:#EE5F26; --strength:#8FA9AE; --rest:#6D888E; --other:#90A9AE;
   --ok:#5DBE8A; --ok-soft:#11322A; --miss:#E78990; --miss-soft:#381E21;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
 }
@@ -35,35 +33,36 @@
 html,body{height:100%}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 .shell{max-width:440px;margin:0 auto;min-height:100%;background:var(--surface);border-inline:1px solid var(--line);display:flex;flex-direction:column}
 .appbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);padding:14px 18px 12px;display:flex;align-items:center;gap:10px}
 .wordmark{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.03em;margin:0}
 .wordmark span{color:var(--accent)}
-.pill{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
+.savebadge{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:3px 8px;white-space:nowrap}
+.savebadge[data-on="true"]{color:var(--ok);border-color:currentColor}
 main{flex:1;padding:18px 18px 104px}
 .view[hidden]{display:none!important}
 h2{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h3{font-family:var(--display);font-weight:700;font-size:15.5px;letter-spacing:-.01em;margin:0 0 5px;text-wrap:balance}
 .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
-.stack{display:flex;flex-direction:column;gap:14px}
 .sub{color:var(--muted);font-size:13.5px;margin:0}
+.stack{display:flex;flex-direction:column;gap:14px}
+.note{margin:18px 0 0;font-size:12.5px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:12px}
+.empty{padding:26px 16px;text-align:center;color:var(--muted);font-size:13.5px;border:1px dashed var(--line);border-radius:var(--r)}
 
-/* countdown */
-.race{display:flex;align-items:flex-end;gap:14px;padding:16px 16px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2)}
+.race{display:flex;align-items:flex-end;gap:14px;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2)}
 .race .num{font-family:var(--display);font-weight:800;font-size:46px;line-height:.9;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
 .race .meta{padding-bottom:4px}
 .race .meta b{display:block;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:-.01em}
-.race .meta span{font-family:var(--mono);font-size:11px;color:var(--muted)}
-.race .days{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);display:block;margin-top:4px}
+.race .meta span{font-family:var(--mono);font-size:11px;color:var(--muted);display:block}
 
-/* segmented */
-.seg{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px}
-.seg button{flex:1;border-radius:999px;padding:7px 4px;font-family:var(--display);font-weight:600;font-size:13px;color:var(--muted);transition:background .15s,color .15s}
-.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.switch{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px}
+.switch button{flex:1;border-radius:999px;padding:7px 4px;font-family:var(--display);font-weight:600;font-size:13px;color:var(--muted);transition:background .15s,color .15s}
+.switch button[data-active="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
 
-/* week volume */
 .vol{display:flex;flex-direction:column;gap:9px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r)}
 .volrow{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:10px}
 .volrow .lab{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -72,10 +71,13 @@ h2{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.02
 .volrow .fig{font-family:var(--mono);font-size:11.5px;font-variant-numeric:tabular-nums;color:var(--muted)}
 .volrow .fig b{color:var(--ink);font-weight:600}
 
-/* sessions */
+.weeknav{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.weeknav button{flex:1;border:1px solid currentColor;color:var(--accent);border-radius:10px;padding:9px 8px;font-family:var(--display);font-weight:600;font-size:13.5px;white-space:nowrap}
+.weeklabel{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center;margin:10px 0 0}
+
 .day{margin-top:16px}
 .dayhead{display:flex;align-items:baseline;gap:8px;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--line)}
-.dayhead .dow{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.01em}
+.dayhead .dow{font-family:var(--display);font-weight:700;font-size:13px}
 .dayhead .date{font-family:var(--mono);font-size:11px;color:var(--faint)}
 .dayhead .today{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 7px}
 .sess{display:grid;grid-template-columns:3px 1fr auto;gap:12px;align-items:start;padding:11px 0}
@@ -86,15 +88,50 @@ h2{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.02
 .sess .target{margin:0;font-size:13px;color:var(--muted)}
 .proof{margin:6px 0 0;font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums;color:var(--ok);background:var(--ok-soft);border-radius:8px;padding:5px 8px;display:inline-block}
 .proof.bad{color:var(--miss);background:var(--miss-soft)}
-.mark{width:24px;height:24px;border-radius:999px;display:grid;place-items:center;flex:none;border:1.5px solid var(--line)}
+.mark{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;flex:none;border:1.5px solid var(--line);padding:0}
 .mark.done{background:var(--ok);border-color:var(--ok)}
 .mark.missed{border-color:var(--miss);color:var(--miss)}
-.mark.now{border-color:var(--accent);border-style:solid;box-shadow:0 0 0 3px var(--accent-soft)}
-.mark svg{display:block}
-.checkedline{margin:14px 0 0;font-family:var(--mono);font-size:10.5px;color:var(--faint);text-align:center;line-height:1.6}
+.mark.now{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 
-/* calendar */
-.cal{display:flex;flex-direction:column;gap:2px}
+.todo{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.box{width:21px;height:21px;border-radius:6px;border:1.5px solid var(--line);flex:none;display:grid;place-items:center;margin-top:1px;padding:0;transition:background .15s,border-color .15s}
+.todo[data-done="true"] .box{background:var(--ok);border-color:var(--ok)}
+.todo[data-done="true"] .tx b{text-decoration:line-through;color:var(--faint);text-decoration-thickness:1.5px}
+.tx{flex:1;min-width:0;text-align:left}
+.tx b{display:block;font-weight:600;font-size:14.5px}
+.tx span{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.who{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.06em;border-radius:999px;padding:3px 7px;flex:none;margin-top:2px}
+.del{color:var(--faint);font-size:17px;line-height:1;padding:2px 4px;flex:none}
+
+.dream{border:1px solid var(--line);border-radius:var(--r);padding:14px 15px}
+.dream p{margin:0;font-size:13.5px;color:var(--muted)}
+.dreamtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
+.dreamtop .eyebrow{margin:0}
+.chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:3px 8px;border:1px solid var(--line);color:var(--muted)}
+.chip.booked,.chip.done{color:var(--ok);border-color:currentColor}
+.chip.planning{color:var(--accent);border-color:currentColor}
+
+.score{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:18px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2);text-align:center}
+.score .n{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.score .nm{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
+.score .vs{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.game{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 0;border-top:1px solid var(--line)}
+.game b{font-weight:600;font-size:14.5px;display:block}
+.game .last{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.tally{display:flex;align-items:center;gap:6px}
+.tally .v{font-family:var(--mono);font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;min-width:18px;text-align:center}
+.tally .sep{color:var(--faint);font-family:var(--mono)}
+.tally button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);font-size:16px;line-height:1;color:var(--muted)}
+
+.addrow{display:flex;gap:8px;margin:14px 0 4px}
+.addrow input,.addrow select{flex:1;min-width:0;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 11px;font-size:16px}
+.addrow input::placeholder{color:var(--faint)}
+.btn{background:var(--accent);color:#fff;border-radius:10px;padding:10px 14px;font-family:var(--display);font-weight:600;font-size:14px;flex:none}
+.btn:disabled{opacity:.5}
+
+.notecard{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);padding:14px 16px;background:var(--surface-2)}
+.notecard p{margin:0;font-size:14px;line-height:1.6}
+
 .calday{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
 .calday .when{font-family:var(--mono);font-size:11px;color:var(--faint);line-height:1.35;padding-top:2px}
 .calday .when b{display:block;font-family:var(--display);font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
@@ -107,370 +144,458 @@ h2{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.02
 .legend{display:flex;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:12px 0 2px}
 .legend i{display:inline-block;width:7px;height:7px;border-radius:999px;margin-right:5px}
 
-/* todos */
-.todo{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
-.box{width:21px;height:21px;border-radius:6px;border:1.5px solid var(--line);flex:none;display:grid;place-items:center;margin-top:1px;transition:background .15s,border-color .15s}
-.todo[data-done="1"] .box{background:var(--ok);border-color:var(--ok)}
-.todo[data-done="1"] .tx b{text-decoration:line-through;color:var(--faint);text-decoration-thickness:1.5px}
-.tx{flex:1;min-width:0;text-align:left}
-.tx b{display:block;font-weight:600;font-size:14.5px}
-.tx span{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.who{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.06em;border-radius:999px;padding:3px 7px;flex:none;margin-top:2px}
-.who.p{color:var(--swim);background:color-mix(in srgb,var(--swim) 12%,transparent)}
-.who.l{color:var(--bike);background:color-mix(in srgb,var(--bike) 14%,transparent)}
-.who.us{color:var(--accent);background:var(--accent-soft)}
-
-/* dreams */
-.dream{border:1px solid var(--line);border-radius:var(--r);padding:14px 15px}
-.dream h3{font-family:var(--display);font-weight:700;font-size:15.5px;letter-spacing:-.01em;margin:0 0 5px;text-wrap:balance}
-.dream p{margin:0;font-size:13.5px;color:var(--muted)}
-.chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:3px 8px;border:1px solid var(--line);color:var(--muted)}
-.chip.booked{color:var(--ok);border-color:currentColor}
-.chip.plan{color:var(--accent);border-color:currentColor}
-.dreamtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
-.dreamtop .eyebrow{margin:0}
-
-/* battles */
-.score{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:18px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2);text-align:center}
-.score .n{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.score .nm{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
-.score .vs{font-family:var(--mono);font-size:11px;color:var(--faint)}
-.game{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 0;border-top:1px solid var(--line)}
-.game b{font-weight:600;font-size:14.5px;display:block}
-.game .last{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.tally{display:flex;align-items:center;gap:6px}
-.tally .v{font-family:var(--mono);font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;min-width:18px;text-align:center}
-.tally .v.p{color:var(--swim)} .tally .v.l{color:var(--bike)}
-.tally .sep{color:var(--faint);font-family:var(--mono)}
-.tally button{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);font-size:15px;line-height:1;color:var(--muted);transition:background .15s}
-.tally button:hover{background:var(--surface-2);color:var(--ink)}
-
-/* tabbar */
 .tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,440px);display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));z-index:30}
 .tabbar button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 2px;color:var(--faint);transition:color .15s}
 .tabbar button[aria-selected="true"]{color:var(--accent)}
 .tabbar .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.04em;text-transform:uppercase}
 .tabbar svg{display:block}
-.note{margin:18px 0 0;font-size:12.5px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:12px}
 </style>
 
 <div class="shell">
   <header class="appbar">
     <h1 class="wordmark">Our<span>&nbsp;Pace</span></h1>
-    <span class="pill">Prototype</span>
+    <span class="savebadge" id="savebadge">Preview</span>
   </header>
 
   <main>
-    <!-- ============ TRAINING ============ -->
-    <section class="view" id="v-training" aria-label="Training">
-      <div class="stack">
-        <div class="race">
-          <div class="num">390</div>
-          <div class="meta">
-            <b>Ironman 70.3 Málaga</b>
-            <span>Sun 10 Oct 2027 · day to confirm</span>
-            <span class="days">Pre-season · Seville half marathon in February</span>
-          </div>
-        </div>
-
-        <div class="seg" role="group" aria-label="Whose week">
-          <button type="button" data-who="patri" aria-pressed="true">Patri</button>
-          <button type="button" data-who="leo" aria-pressed="false">Jean</button>
-        </div>
-
-        <div class="vol" id="vol"></div>
-      </div>
-
-      <div id="week"></div>
-      <p class="checkedline" id="checkline"></p>
-    </section>
-
-    <!-- ============ CALENDAR ============ -->
-    <section class="view" id="v-calendar" hidden aria-label="Calendar">
-      <p class="eyebrow">Mon 14 — Sun 20 September</p>
-      <h2>This week, both of us</h2>
-      <p class="sub">Everything from your two Google calendars in one place. Anything you add here lands back in both.</p>
-      <div class="legend">
-        <span><i style="background:var(--swim)"></i>Patri</span>
-        <span><i style="background:var(--bike)"></i>Jean</span>
-        <span><i style="background:var(--accent)"></i>Our Pace</span>
-      </div>
-      <div class="cal">
-        <div class="calday is-today">
-          <div class="when"><b>15</b>Tue</div>
-          <div>
-            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>Team stand-up</b><span>09:00 · Patri / Work</span></div></div>
-            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Bike 1h30 — both of us</b><span>18:30 · Our Pace / Training</span></div></div>
-            <div class="ev"><i class="dot" style="background:var(--bike)"></i><div class="txt"><b>Dentist</b><span>16:15 · Jean / Appointments</span></div></div>
-          </div>
-        </div>
-        <div class="calday">
-          <div class="when"><b>16</b>Wed</div>
-          <div>
-            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>Dutch class</b><span>19:00 · Patri / Languages</span></div></div>
-            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Pool — Blocry, lane 3</b><span>07:00 · Our Pace / Training</span></div></div>
-          </div>
-        </div>
-        <div class="calday">
-          <div class="when"><b>17</b>Thu</div>
-          <div>
-            <div class="ev"><i class="dot" style="background:var(--bike)"></i><div class="txt"><b>Jean in Brussels — late</b><span>All day · Jean / Work</span></div></div>
-            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>Track session</b><span>18:45 · Patri / Sports</span></div></div>
-          </div>
-        </div>
-        <div class="calday">
-          <div class="when"><b>18</b>Fri</div>
-          <div>
-            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Dinner at Chez Léon</b><span>20:00 · Our Pace / Leisure time</span></div></div>
-          </div>
-        </div>
-        <div class="calday">
-          <div class="when"><b>19</b>Sat</div>
-          <div>
-            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Long ride — 70 km loop</b><span>09:00 · Our Pace / Training</span></div></div>
-            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>COLOC — apéro</b><span>19:30 · Patri / COLOC</span></div></div>
-          </div>
-        </div>
-        <div class="calday">
-          <div class="when"><b>20</b>Sun</div>
-          <div>
-            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Brick session + brunch after</b><span>09:30 · Our Pace / Training</span></div></div>
-          </div>
-        </div>
-      </div>
-      <p class="note">Sample events. The real thing reads your actual calendars — the six you already keep (Work, Sports, Languages, Leisure time, COLOC, Appointments) plus whatever Jean shares.</p>
-    </section>
-
-    <!-- ============ TO-DO ============ -->
-    <section class="view" id="v-todo" hidden aria-label="To-do">
-      <p class="eyebrow">Shared list</p>
-      <h2>Things we need to do</h2>
-      <p class="sub">Tap to tick. Whoever does it, the other one sees it straight away.</p>
-      <div id="todos" style="margin-top:14px"></div>
-      <p class="note">Sample items, so you can see the shape of it.</p>
-    </section>
-
-    <!-- ============ DREAMS ============ -->
-    <section class="view" id="v-dreams" hidden aria-label="Dreams">
-      <p class="eyebrow">Let's dream together</p>
-      <h2>Things we said we'd do one day</h2>
-      <p class="sub">No deadlines here. Just a place to keep them so they don't get lost in a chat.</p>
-      <div class="stack" style="margin-top:16px">
-        <article class="dream">
-          <div class="dreamtop"><p class="eyebrow">Ride</p><span class="chip plan">Planning</span></div>
-          <h3>Camino de Santiago, on the bikes</h3>
-          <p>Two weeks, León to Finisterre. Jean says September. I say May.</p>
-        </article>
-        <article class="dream">
-          <div class="dreamtop"><p class="eyebrow">Race</p><span class="chip booked">Booked</span></div>
-          <h3>Half Marathon of Seville</h3>
-          <p>Flights booked. His parents are coming to watch.</p>
-        </article>
-        <article class="dream">
-          <div class="dreamtop"><p class="eyebrow">Home</p><span class="chip">Someday</span></div>
-          <h3>A flat with a garage big enough for four bikes</h3>
-          <p>And a wall for the race bibs.</p>
-        </article>
-        <article class="dream">
-          <div class="dreamtop"><p class="eyebrow">Race</p><span class="chip">Someday</span></div>
-          <h3>A full Ironman — but only if we both want it</h3>
-          <p>Revisit after Málaga. Not before.</p>
-        </article>
-        <article class="dream">
-          <div class="dreamtop"><p class="eyebrow">Learn</p><span class="chip">Someday</span></div>
-          <h3>Cook his grandmother's recipes properly</h3>
-          <p>Write them down before nobody remembers them.</p>
-        </article>
-      </div>
-      <p class="note">Sample dreams — swap them for your real ones.</p>
-    </section>
-
-    <!-- ============ BATTLES ============ -->
-    <section class="view" id="v-battles" hidden aria-label="Game battles">
-      <p class="eyebrow">Since January 2026</p>
-      <h2>Game battles</h2>
-      <div class="score" style="margin-top:14px">
-        <div><div class="n" style="color:var(--swim)" id="tot-p">0</div><span class="nm">Patri</span></div>
-        <div class="vs">vs</div>
-        <div><div class="n" style="color:var(--bike)" id="tot-l">0</div><span class="nm">Jean</span></div>
-      </div>
-      <p class="sub" style="margin-top:12px" id="streak"></p>
-      <div id="games" style="margin-top:8px"></div>
-      <p class="note">Tap + to log a win. Sample record — we'll start yours from zero.</p>
-    </section>
+    <section class="view" id="v-training"></section>
+    <section class="view" id="v-calendar" hidden></section>
+    <section class="view" id="v-todo" hidden></section>
+    <section class="view" id="v-dreams" hidden></section>
+    <section class="view" id="v-battles" hidden></section>
   </main>
 
   <nav class="tabbar" role="tablist" aria-label="Sections">
     <button type="button" role="tab" data-view="training" aria-selected="true">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13h4l2.5-7 4 14 2.5-7H22"/></svg>
-      <span class="lbl">Training</span>
-    </button>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13h4l2.5-7 4 14 2.5-7H22"/></svg><span class="lbl">Training</span></button>
     <button type="button" role="tab" data-view="calendar" aria-selected="false">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-      <span class="lbl">Calendar</span>
-    </button>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span class="lbl">Calendar</span></button>
     <button type="button" role="tab" data-view="todo" aria-selected="false">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7l2 2 3.5-3.5M3.5 17l2 2 3.5-3.5M13 7.5h8M13 17.5h8"/></svg>
-      <span class="lbl">To-do</span>
-    </button>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7l2 2 3.5-3.5M3.5 17l2 2 3.5-3.5M13 7.5h8M13 17.5h8"/></svg><span class="lbl">To-do</span></button>
     <button type="button" role="tab" data-view="dreams" aria-selected="false">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 16.9 6.7 19.7l1.1-5.9L3.5 9.7l5.9-.8z"/></svg>
-      <span class="lbl">Dreams</span>
-    </button>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 16.9 6.7 19.7l1.1-5.9L3.5 9.7l5.9-.8z"/></svg><span class="lbl">Dreams</span></button>
     <button type="button" role="tab" data-view="battles" aria-selected="false">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V10M16 21V10M5 10h14a0 0 0 010 0v0a7 7 0 01-7 7 7 7 0 01-7-7zM9 3h6v4H9zM5 10V7a2 2 0 012-2M19 10V7a2 2 0 00-2-2"/></svg>
-      <span class="lbl">Battles</span>
-    </button>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V10M16 21V10M5 10h14a7 7 0 01-7 7 7 7 0 01-7-7zM9 3h6v4H9zM5 10V7a2 2 0 012-2M19 10V7a2 2 0 00-2-2"/></svg><span class="lbl">Battles</span></button>
   </nav>
 </div>
 
 <script>
-(function(){
+const DATA = {"sessions":[{"i":0,"w":"patri","date":"2026-09-07","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2400,"s":null,"ph":"pre","wk":0},{"i":1,"w":"jean","date":"2026-09-07","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2400,"s":null,"ph":"pre","wk":0},{"i":2,"w":"patri","date":"2026-09-08","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9000,"s":null,"ph":"pre","wk":0},{"i":3,"w":"jean","date":"2026-09-08","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9000,"s":null,"ph":"pre","wk":0},{"i":4,"w":"patri","date":"2026-09-09","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":35000,"s":null,"ph":"pre","wk":0},{"i":5,"w":"jean","date":"2026-09-09","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":35000,"s":null,"ph":"pre","wk":0},{"i":6,"w":"patri","date":"2026-09-10","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2600,"s":null,"ph":"pre","wk":0},{"i":7,"w":"jean","date":"2026-09-10","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2600,"s":null,"ph":"pre","wk":0},{"i":8,"w":"patri","date":"2026-09-10","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8000,"s":null,"ph":"pre","wk":0},{"i":9,"w":"jean","date":"2026-09-10","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8000,"s":null,"ph":"pre","wk":0},{"i":10,"w":"patri","date":"2026-09-11","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"pre","wk":0},{"i":11,"w":"jean","date":"2026-09-11","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"pre","wk":0},{"i":12,"w":"patri","date":"2026-09-12","d":"bike","t":"Long ride","g":"Steady, together","m":60000,"s":null,"ph":"pre","wk":0},{"i":13,"w":"jean","date":"2026-09-12","d":"bike","t":"Long ride","g":"Steady, together","m":60000,"s":null,"ph":"pre","wk":0},{"i":14,"w":"patri","date":"2026-09-13","d":"run","t":"Long run","g":"Flat and steady","m":14000,"s":null,"ph":"pre","wk":0},{"i":15,"w":"jean","date":"2026-09-13","d":"run","t":"Long run","g":"Flat and steady","m":14000,"s":null,"ph":"pre","wk":0},{"i":16,"w":"patri","date":"2026-09-14","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2400,"s":null,"ph":"pre","wk":0},{"i":17,"w":"jean","date":"2026-09-14","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2400,"s":null,"ph":"pre","wk":0},{"i":18,"w":"patri","date":"2026-09-14","d":"run","t":"Easy run","g":"Conversational the whole way","m":8000,"s":null,"ph":"pre","wk":0},{"i":19,"w":"jean","date":"2026-09-14","d":"run","t":"Easy run","g":"Conversational the whole way","m":8000,"s":null,"ph":"pre","wk":0},{"i":20,"w":"patri","date":"2026-09-15","d":"bike","t":"Endurance ride","g":"1h30 · zone 2, flat","m":null,"s":5400,"ph":"pre","wk":0},{"i":21,"w":"jean","date":"2026-09-15","d":"bike","t":"Endurance ride","g":"1h30 · zone 2, flat","m":null,"s":5400,"ph":"pre","wk":0},{"i":22,"w":"patri","date":"2026-09-16","d":"swim","t":"Threshold sets","g":"10 × 100 m, 15 s rest","m":2500,"s":null,"ph":"pre","wk":0},{"i":23,"w":"jean","date":"2026-09-16","d":"swim","t":"Threshold sets","g":"10 × 100 m, 15 s rest","m":2500,"s":null,"ph":"pre","wk":0},{"i":24,"w":"patri","date":"2026-09-17","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold","m":9500,"s":null,"ph":"pre","wk":0},{"i":25,"w":"jean","date":"2026-09-17","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold","m":9500,"s":null,"ph":"pre","wk":0},{"i":26,"w":"patri","date":"2026-09-18","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"pre","wk":0},{"i":27,"w":"jean","date":"2026-09-18","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"pre","wk":0},{"i":28,"w":"patri","date":"2026-09-19","d":"bike","t":"Long ride","g":"Steady, together","m":65000,"s":null,"ph":"pre","wk":0},{"i":29,"w":"jean","date":"2026-09-19","d":"bike","t":"Long ride","g":"Steady, together","m":65000,"s":null,"ph":"pre","wk":0},{"i":30,"w":"patri","date":"2026-09-20","d":"run","t":"Long run","g":"Flat and steady","m":15000,"s":null,"ph":"pre","wk":0},{"i":31,"w":"jean","date":"2026-09-20","d":"run","t":"Long run","g":"Flat and steady","m":15000,"s":null,"ph":"pre","wk":0},{"i":32,"w":"both","date":"2027-01-04","d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2000,"s":null,"ph":"seville","wk":1},{"i":33,"w":"both","date":"2027-01-05","d":"run","t":"Threshold intervals","g":"5 × 1 km at threshold, 90 s jog","m":8000,"s":null,"ph":"seville","wk":1},{"i":34,"w":"both","date":"2027-01-06","d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":3600,"ph":"seville","wk":1},{"i":35,"w":"both","date":"2027-01-07","d":"run","t":"Easy run","g":"Conversational the whole way","m":8000,"s":null,"ph":"seville","wk":1},{"i":36,"w":"both","date":"2027-01-08","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"seville","wk":1},{"i":37,"w":"both","date":"2027-01-09","d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":4500,"ph":"seville","wk":1},{"i":38,"w":"both","date":"2027-01-10","d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":14000,"s":null,"ph":"seville","wk":1},{"i":39,"w":"both","date":"2027-01-11","d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2100,"s":null,"ph":"seville","wk":2},{"i":40,"w":"both","date":"2027-01-12","d":"run","t":"Threshold intervals","g":"5 × 1 km at threshold, 90 s jog","m":8500,"s":null,"ph":"seville","wk":2},{"i":41,"w":"both","date":"2027-01-13","d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":3800,"ph":"seville","wk":2},{"i":42,"w":"both","date":"2027-01-14","d":"run","t":"Easy run","g":"Conversational the whole way","m":8300,"s":null,"ph":"seville","wk":2},{"i":43,"w":"both","date":"2027-01-15","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"seville","wk":2},{"i":44,"w":"both","date":"2027-01-16","d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":4700,"ph":"seville","wk":2},{"i":45,"w":"both","date":"2027-01-17","d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":15000,"s":null,"ph":"seville","wk":2},{"i":46,"w":"both","date":"2027-01-18","d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2200,"s":null,"ph":"seville","wk":3},{"i":47,"w":"both","date":"2027-01-19","d":"run","t":"Threshold intervals","g":"5 × 1 km at threshold, 90 s jog","m":9000,"s":null,"ph":"seville","wk":3},{"i":48,"w":"both","date":"2027-01-20","d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":3900,"ph":"seville","wk":3},{"i":49,"w":"both","date":"2027-01-21","d":"run","t":"Easy run","g":"Conversational the whole way","m":8700,"s":null,"ph":"seville","wk":3},{"i":50,"w":"both","date":"2027-01-22","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"seville","wk":3},{"i":51,"w":"both","date":"2027-01-23","d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":4800,"ph":"seville","wk":3},{"i":52,"w":"both","date":"2027-01-24","d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":16000,"s":null,"ph":"seville","wk":3},{"i":53,"w":"both","date":"2027-01-25","d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":1500,"s":null,"ph":"seville","wk":4},{"i":54,"w":"both","date":"2027-01-26","d":"run","t":"Threshold intervals","g":"6 × 1 km at threshold, 90 s jog","m":6200,"s":null,"ph":"seville","wk":4},{"i":55,"w":"both","date":"2027-01-27","d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":2600,"ph":"seville","wk":4},{"i":56,"w":"both","date":"2027-01-28","d":"run","t":"Easy run","g":"Conversational the whole way","m":5900,"s":null,"ph":"seville","wk":4},{"i":57,"w":"both","date":"2027-01-29","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"seville","wk":4},{"i":58,"w":"both","date":"2027-01-30","d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":3200,"ph":"seville","wk":4},{"i":59,"w":"both","date":"2027-01-31","d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":11000,"s":null,"ph":"seville","wk":4},{"i":60,"w":"both","date":"2027-02-01","d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2400,"s":null,"ph":"seville","wk":5},{"i":61,"w":"both","date":"2027-02-02","d":"run","t":"Threshold intervals","g":"6 × 1 km at threshold, 90 s jog","m":10000,"s":null,"ph":"seville","wk":5},{"i":62,"w":"both","date":"2027-02-03","d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":4200,"ph":"seville","wk":5},{"i":63,"w":"both","date":"2027-02-04","d":"run","t":"Easy run","g":"Conversational the whole way","m":9300,"s":null,"ph":"seville","wk":5},{"i":64,"w":"both","date":"2027-02-05","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"seville","wk":5},{"i":65,"w":"both","date":"2027-02-06","d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":5100,"ph":"seville","wk":5},{"i":66,"w":"both","date":"2027-02-07","d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":18000,"s":null,"ph":"seville","wk":5},{"i":67,"w":"both","date":"2027-02-08","d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2500,"s":null,"ph":"seville","wk":6},{"i":68,"w":"both","date":"2027-02-09","d":"run","t":"Threshold intervals","g":"6 × 1 km at threshold, 90 s jog","m":10500,"s":null,"ph":"seville","wk":6},{"i":69,"w":"both","date":"2027-02-10","d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":4400,"ph":"seville","wk":6},{"i":70,"w":"both","date":"2027-02-11","d":"run","t":"Easy run","g":"Conversational the whole way","m":9700,"s":null,"ph":"seville","wk":6},{"i":71,"w":"both","date":"2027-02-12","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"seville","wk":6},{"i":72,"w":"both","date":"2027-02-13","d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":5300,"ph":"seville","wk":6},{"i":73,"w":"both","date":"2027-02-14","d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":19000,"s":null,"ph":"seville","wk":6},{"i":74,"w":"both","date":"2027-02-15","d":"swim","t":"Loosener swim","g":"Easy, nothing hard","m":1500,"s":null,"ph":"seville","wk":7},{"i":75,"w":"both","date":"2027-02-16","d":"run","t":"Strides","g":"5 km easy + 6 × 20 s fast","m":6000,"s":null,"ph":"seville","wk":7},{"i":76,"w":"both","date":"2027-02-17","d":"bike","t":"Spin","g":"45 min, keep it light","m":null,"s":2700,"ph":"seville","wk":7},{"i":77,"w":"both","date":"2027-02-18","d":"run","t":"Easy run","g":"5 km, legs only","m":5000,"s":null,"ph":"seville","wk":7},{"i":78,"w":"both","date":"2027-02-20","d":"run","t":"Shakeout","g":"3 km + 4 × 20 s at race pace","m":3000,"s":null,"ph":"seville","wk":7},{"i":79,"w":"both","date":"2027-02-21","d":"run","t":"Seville Half Marathon","g":"Race day. Go and enjoy it.","m":21097,"s":null,"ph":"seville","wk":7},{"i":80,"w":"both","date":"2027-02-22","d":"swim","t":"Easy swim","g":"Feel the water, no sets","m":1800,"s":null,"ph":"recover","wk":8},{"i":81,"w":"both","date":"2027-02-24","d":"bike","t":"Easy spin","g":"60 min, flat","m":null,"s":3600,"ph":"recover","wk":8},{"i":82,"w":"both","date":"2027-02-25","d":"run","t":"Easy run","g":"Short and slow","m":6000,"s":null,"ph":"recover","wk":8},{"i":83,"w":"both","date":"2027-02-26","d":"strength","t":"Mobility","g":"30 min, hips and ankles","m":null,"s":1800,"ph":"recover","wk":8},{"i":84,"w":"both","date":"2027-02-28","d":"run","t":"Easy run","g":"However far feels good","m":8000,"s":null,"ph":"recover","wk":8},{"i":85,"w":"both","date":"2027-03-01","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2400,"s":null,"ph":"base","wk":9},{"i":86,"w":"both","date":"2027-03-02","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9000,"s":null,"ph":"base","wk":9},{"i":87,"w":"both","date":"2027-03-03","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":35000,"s":null,"ph":"base","wk":9},{"i":88,"w":"both","date":"2027-03-04","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2600,"s":null,"ph":"base","wk":9},{"i":89,"w":"both","date":"2027-03-04","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8000,"s":null,"ph":"base","wk":9},{"i":90,"w":"both","date":"2027-03-05","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":9},{"i":91,"w":"both","date":"2027-03-06","d":"bike","t":"Long ride","g":"Steady, together","m":60000,"s":null,"ph":"base","wk":9},{"i":92,"w":"both","date":"2027-03-07","d":"run","t":"Long run","g":"Flat and steady","m":14000,"s":null,"ph":"base","wk":9},{"i":93,"w":"both","date":"2027-03-08","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2500,"s":null,"ph":"base","wk":10},{"i":94,"w":"both","date":"2027-03-09","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9300,"s":null,"ph":"base","wk":10},{"i":95,"w":"both","date":"2027-03-10","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":37000,"s":null,"ph":"base","wk":10},{"i":96,"w":"both","date":"2027-03-11","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2700,"s":null,"ph":"base","wk":10},{"i":97,"w":"both","date":"2027-03-11","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8200,"s":null,"ph":"base","wk":10},{"i":98,"w":"both","date":"2027-03-12","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":10},{"i":99,"w":"both","date":"2027-03-13","d":"bike","t":"Long ride","g":"Steady, together","m":63500,"s":null,"ph":"base","wk":10},{"i":100,"w":"both","date":"2027-03-14","d":"run","t":"Long run","g":"Flat and steady","m":14500,"s":null,"ph":"base","wk":10},{"i":101,"w":"both","date":"2027-03-15","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2500,"s":null,"ph":"base","wk":11},{"i":102,"w":"both","date":"2027-03-16","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9500,"s":null,"ph":"base","wk":11},{"i":103,"w":"both","date":"2027-03-17","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":38500,"s":null,"ph":"base","wk":11},{"i":104,"w":"both","date":"2027-03-18","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2800,"s":null,"ph":"base","wk":11},{"i":105,"w":"both","date":"2027-03-18","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8400,"s":null,"ph":"base","wk":11},{"i":106,"w":"both","date":"2027-03-19","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":11},{"i":107,"w":"both","date":"2027-03-20","d":"bike","t":"Long ride","g":"Steady, together","m":67500,"s":null,"ph":"base","wk":11},{"i":108,"w":"both","date":"2027-03-21","d":"run","t":"Long run","g":"Flat and steady","m":15000,"s":null,"ph":"base","wk":11},{"i":109,"w":"both","date":"2027-03-22","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":1700,"s":null,"ph":"base","wk":12},{"i":110,"w":"both","date":"2027-03-23","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":6400,"s":null,"ph":"base","wk":12},{"i":111,"w":"both","date":"2027-03-24","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":26500,"s":null,"ph":"base","wk":12},{"i":112,"w":"both","date":"2027-03-25","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":1900,"s":null,"ph":"base","wk":12},{"i":113,"w":"both","date":"2027-03-25","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":5600,"s":null,"ph":"base","wk":12},{"i":114,"w":"both","date":"2027-03-26","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":12},{"i":115,"w":"both","date":"2027-03-27","d":"bike","t":"Long ride","g":"Steady, together","m":46000,"s":null,"ph":"base","wk":12},{"i":116,"w":"both","date":"2027-03-28","d":"run","t":"Long run","g":"Flat and steady","m":10000,"s":null,"ph":"base","wk":12},{"i":117,"w":"both","date":"2027-03-29","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2700,"s":null,"ph":"base","wk":13},{"i":118,"w":"both","date":"2027-03-30","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":10000,"s":null,"ph":"base","wk":13},{"i":119,"w":"both","date":"2027-03-31","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":42500,"s":null,"ph":"base","wk":13},{"i":120,"w":"both","date":"2027-04-01","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3000,"s":null,"ph":"base","wk":13},{"i":121,"w":"both","date":"2027-04-01","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8700,"s":null,"ph":"base","wk":13},{"i":122,"w":"both","date":"2027-04-02","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":13},{"i":123,"w":"both","date":"2027-04-03","d":"bike","t":"Long ride","g":"Steady, together","m":74500,"s":null,"ph":"base","wk":13},{"i":124,"w":"both","date":"2027-04-04","d":"run","t":"Long run","g":"Flat and steady","m":16000,"s":null,"ph":"base","wk":13},{"i":125,"w":"both","date":"2027-04-05","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2800,"s":null,"ph":"base","wk":14},{"i":126,"w":"both","date":"2027-04-06","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":10500,"s":null,"ph":"base","wk":14},{"i":127,"w":"both","date":"2027-04-07","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":44000,"s":null,"ph":"base","wk":14},{"i":128,"w":"both","date":"2027-04-08","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3100,"s":null,"ph":"base","wk":14},{"i":129,"w":"both","date":"2027-04-08","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8900,"s":null,"ph":"base","wk":14},{"i":130,"w":"both","date":"2027-04-09","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":14},{"i":131,"w":"both","date":"2027-04-10","d":"bike","t":"Long ride","g":"Steady, together","m":78000,"s":null,"ph":"base","wk":14},{"i":132,"w":"both","date":"2027-04-11","d":"run","t":"Long run","g":"Flat and steady","m":16500,"s":null,"ph":"base","wk":14},{"i":133,"w":"both","date":"2027-04-12","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2800,"s":null,"ph":"base","wk":15},{"i":134,"w":"both","date":"2027-04-13","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":10500,"s":null,"ph":"base","wk":15},{"i":135,"w":"both","date":"2027-04-14","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":46000,"s":null,"ph":"base","wk":15},{"i":136,"w":"both","date":"2027-04-15","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3100,"s":null,"ph":"base","wk":15},{"i":137,"w":"both","date":"2027-04-15","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9100,"s":null,"ph":"base","wk":15},{"i":138,"w":"both","date":"2027-04-16","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":15},{"i":139,"w":"both","date":"2027-04-17","d":"bike","t":"Long ride","g":"Steady, together","m":82000,"s":null,"ph":"base","wk":15},{"i":140,"w":"both","date":"2027-04-18","d":"run","t":"Long run","g":"Flat and steady","m":17500,"s":null,"ph":"base","wk":15},{"i":141,"w":"both","date":"2027-04-17","d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null,"ph":"base","wk":15},{"i":142,"w":"both","date":"2027-04-19","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":1900,"s":null,"ph":"base","wk":16},{"i":143,"w":"both","date":"2027-04-20","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":7100,"s":null,"ph":"base","wk":16},{"i":144,"w":"both","date":"2027-04-21","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":31000,"s":null,"ph":"base","wk":16},{"i":145,"w":"both","date":"2027-04-22","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2100,"s":null,"ph":"base","wk":16},{"i":146,"w":"both","date":"2027-04-22","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":6000,"s":null,"ph":"base","wk":16},{"i":147,"w":"both","date":"2027-04-23","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":16},{"i":148,"w":"both","date":"2027-04-24","d":"bike","t":"Long ride","g":"Steady, together","m":55500,"s":null,"ph":"base","wk":16},{"i":149,"w":"both","date":"2027-04-25","d":"run","t":"Long run","g":"Flat and steady","m":11500,"s":null,"ph":"base","wk":16},{"i":150,"w":"both","date":"2027-04-24","d":"run","t":"Brick run","g":"Straight off the bike, easy","m":2000,"s":null,"ph":"base","wk":16},{"i":151,"w":"both","date":"2027-04-26","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":3000,"s":null,"ph":"base","wk":17},{"i":152,"w":"both","date":"2027-04-27","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":11000,"s":null,"ph":"base","wk":17},{"i":153,"w":"both","date":"2027-04-28","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":49500,"s":null,"ph":"base","wk":17},{"i":154,"w":"both","date":"2027-04-29","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3300,"s":null,"ph":"base","wk":17},{"i":155,"w":"both","date":"2027-04-29","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9500,"s":null,"ph":"base","wk":17},{"i":156,"w":"both","date":"2027-04-30","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":17},{"i":157,"w":"both","date":"2027-05-01","d":"bike","t":"Long ride","g":"Steady, together","m":89000,"s":null,"ph":"base","wk":17},{"i":158,"w":"both","date":"2027-05-02","d":"run","t":"Long run","g":"Flat and steady","m":18500,"s":null,"ph":"base","wk":17},{"i":159,"w":"both","date":"2027-05-01","d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null,"ph":"base","wk":17},{"i":160,"w":"both","date":"2027-05-03","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":3100,"s":null,"ph":"base","wk":18},{"i":161,"w":"both","date":"2027-05-04","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":11500,"s":null,"ph":"base","wk":18},{"i":162,"w":"both","date":"2027-05-05","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":51500,"s":null,"ph":"base","wk":18},{"i":163,"w":"both","date":"2027-05-06","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3400,"s":null,"ph":"base","wk":18},{"i":164,"w":"both","date":"2027-05-06","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9600,"s":null,"ph":"base","wk":18},{"i":165,"w":"both","date":"2027-05-07","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":18},{"i":166,"w":"both","date":"2027-05-08","d":"bike","t":"Long ride","g":"Steady, together","m":92500,"s":null,"ph":"base","wk":18},{"i":167,"w":"both","date":"2027-05-09","d":"run","t":"Long run","g":"Flat and steady","m":19000,"s":null,"ph":"base","wk":18},{"i":168,"w":"both","date":"2027-05-08","d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null,"ph":"base","wk":18},{"i":169,"w":"both","date":"2027-05-10","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":3100,"s":null,"ph":"base","wk":19},{"i":170,"w":"both","date":"2027-05-11","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":11500,"s":null,"ph":"base","wk":19},{"i":171,"w":"both","date":"2027-05-12","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":53000,"s":null,"ph":"base","wk":19},{"i":172,"w":"both","date":"2027-05-13","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3500,"s":null,"ph":"base","wk":19},{"i":173,"w":"both","date":"2027-05-13","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9800,"s":null,"ph":"base","wk":19},{"i":174,"w":"both","date":"2027-05-14","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":19},{"i":175,"w":"both","date":"2027-05-15","d":"bike","t":"Long ride","g":"Steady, together","m":96500,"s":null,"ph":"base","wk":19},{"i":176,"w":"both","date":"2027-05-16","d":"run","t":"Long run","g":"Flat and steady","m":19500,"s":null,"ph":"base","wk":19},{"i":177,"w":"both","date":"2027-05-15","d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null,"ph":"base","wk":19},{"i":178,"w":"both","date":"2027-05-17","d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2100,"s":null,"ph":"base","wk":20},{"i":179,"w":"both","date":"2027-05-18","d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":7800,"s":null,"ph":"base","wk":20},{"i":180,"w":"both","date":"2027-05-19","d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":36000,"s":null,"ph":"base","wk":20},{"i":181,"w":"both","date":"2027-05-20","d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2300,"s":null,"ph":"base","wk":20},{"i":182,"w":"both","date":"2027-05-20","d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":6500,"s":null,"ph":"base","wk":20},{"i":183,"w":"both","date":"2027-05-21","d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700,"ph":"base","wk":20},{"i":184,"w":"both","date":"2027-05-22","d":"bike","t":"Long ride","g":"Steady, together","m":65000,"s":null,"ph":"base","wk":20},{"i":185,"w":"both","date":"2027-05-23","d":"run","t":"Long run","g":"Flat and steady","m":13000,"s":null,"ph":"base","wk":20},{"i":186,"w":"both","date":"2027-05-22","d":"run","t":"Brick run","g":"Straight off the bike, easy","m":2000,"s":null,"ph":"base","wk":20},{"i":187,"w":"both","date":"2027-05-24","d":"swim","t":"Easy swim","g":"Feel the water, no sets","m":1800,"s":null,"ph":"recover","wk":21},{"i":188,"w":"both","date":"2027-05-26","d":"bike","t":"Easy spin","g":"60 min, flat","m":null,"s":3600,"ph":"recover","wk":21},{"i":189,"w":"both","date":"2027-05-27","d":"run","t":"Easy run","g":"Short and slow","m":6000,"s":null,"ph":"recover","wk":21},{"i":190,"w":"both","date":"2027-05-28","d":"strength","t":"Mobility","g":"30 min, hips and ankles","m":null,"s":1800,"ph":"recover","wk":21},{"i":191,"w":"both","date":"2027-05-30","d":"run","t":"Easy run","g":"However far feels good","m":8000,"s":null,"ph":"recover","wk":21},{"i":192,"w":"both","date":"2027-05-31","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3000,"s":null,"ph":"build","wk":22},{"i":193,"w":"both","date":"2027-06-01","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11000,"s":null,"ph":"build","wk":22},{"i":194,"w":"both","date":"2027-06-02","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":45000,"s":null,"ph":"build","wk":22},{"i":195,"w":"both","date":"2027-06-03","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3000,"s":null,"ph":"build","wk":22},{"i":196,"w":"both","date":"2027-06-03","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9000,"s":null,"ph":"build","wk":22},{"i":197,"w":"both","date":"2027-06-04","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":22},{"i":198,"w":"both","date":"2027-06-05","d":"bike","t":"Long ride","g":"Last hour at race effort","m":90000,"s":null,"ph":"build","wk":22},{"i":199,"w":"both","date":"2027-06-05","d":"run","t":"Brick run","g":"Off the bike at race pace","m":4000,"s":null,"ph":"build","wk":22},{"i":200,"w":"both","date":"2027-06-06","d":"run","t":"Long run","g":"Negative split it","m":16000,"s":null,"ph":"build","wk":22},{"i":201,"w":"both","date":"2027-06-07","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3100,"s":null,"ph":"build","wk":23},{"i":202,"w":"both","date":"2027-06-08","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11000,"s":null,"ph":"build","wk":23},{"i":203,"w":"both","date":"2027-06-09","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":46500,"s":null,"ph":"build","wk":23},{"i":204,"w":"both","date":"2027-06-10","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3100,"s":null,"ph":"build","wk":23},{"i":205,"w":"both","date":"2027-06-10","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9200,"s":null,"ph":"build","wk":23},{"i":206,"w":"both","date":"2027-06-11","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":23},{"i":207,"w":"both","date":"2027-06-12","d":"bike","t":"Long ride","g":"Last hour at race effort","m":94500,"s":null,"ph":"build","wk":23},{"i":208,"w":"both","date":"2027-06-12","d":"run","t":"Brick run","g":"Off the bike at race pace","m":4400,"s":null,"ph":"build","wk":23},{"i":209,"w":"both","date":"2027-06-13","d":"run","t":"Long run","g":"Negative split it","m":16500,"s":null,"ph":"build","wk":23},{"i":210,"w":"both","date":"2027-06-14","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3100,"s":null,"ph":"build","wk":24},{"i":211,"w":"both","date":"2027-06-15","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11500,"s":null,"ph":"build","wk":24},{"i":212,"w":"both","date":"2027-06-16","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":47500,"s":null,"ph":"build","wk":24},{"i":213,"w":"both","date":"2027-06-17","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3100,"s":null,"ph":"build","wk":24},{"i":214,"w":"both","date":"2027-06-17","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9400,"s":null,"ph":"build","wk":24},{"i":215,"w":"both","date":"2027-06-18","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":24},{"i":216,"w":"both","date":"2027-06-19","d":"bike","t":"Long ride","g":"Last hour at race effort","m":99000,"s":null,"ph":"build","wk":24},{"i":217,"w":"both","date":"2027-06-19","d":"run","t":"Brick run","g":"Off the bike at race pace","m":4700,"s":null,"ph":"build","wk":24},{"i":218,"w":"both","date":"2027-06-20","d":"run","t":"Long run","g":"Negative split it","m":17000,"s":null,"ph":"build","wk":24},{"i":219,"w":"both","date":"2027-06-21","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":2100,"s":null,"ph":"build","wk":25},{"i":220,"w":"both","date":"2027-06-22","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":7500,"s":null,"ph":"build","wk":25},{"i":221,"w":"both","date":"2027-06-23","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":32000,"s":null,"ph":"build","wk":25},{"i":222,"w":"both","date":"2027-06-24","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":2100,"s":null,"ph":"build","wk":25},{"i":223,"w":"both","date":"2027-06-24","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":6200,"s":null,"ph":"build","wk":25},{"i":224,"w":"both","date":"2027-06-25","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":25},{"i":225,"w":"both","date":"2027-06-26","d":"bike","t":"Long ride","g":"Last hour at race effort","m":67500,"s":null,"ph":"build","wk":25},{"i":226,"w":"both","date":"2027-06-26","d":"run","t":"Brick run","g":"Off the bike at race pace","m":3300,"s":null,"ph":"build","wk":25},{"i":227,"w":"both","date":"2027-06-27","d":"run","t":"Long run","g":"Negative split it","m":11500,"s":null,"ph":"build","wk":25},{"i":228,"w":"both","date":"2027-06-28","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3200,"s":null,"ph":"build","wk":26},{"i":229,"w":"both","date":"2027-06-29","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11500,"s":null,"ph":"build","wk":26},{"i":230,"w":"both","date":"2027-06-30","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":50500,"s":null,"ph":"build","wk":26},{"i":231,"w":"both","date":"2027-07-01","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3300,"s":null,"ph":"build","wk":26},{"i":232,"w":"both","date":"2027-07-01","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9700,"s":null,"ph":"build","wk":26},{"i":233,"w":"both","date":"2027-07-02","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":26},{"i":234,"w":"both","date":"2027-07-03","d":"bike","t":"Long ride","g":"Last hour at race effort","m":108000,"s":null,"ph":"build","wk":26},{"i":235,"w":"both","date":"2027-07-03","d":"run","t":"Brick run","g":"Off the bike at race pace","m":5500,"s":null,"ph":"build","wk":26},{"i":236,"w":"both","date":"2027-07-04","d":"run","t":"Long run","g":"Negative split it","m":18000,"s":null,"ph":"build","wk":26},{"i":237,"w":"both","date":"2027-07-05","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3300,"s":null,"ph":"build","wk":27},{"i":238,"w":"both","date":"2027-07-06","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":12000,"s":null,"ph":"build","wk":27},{"i":239,"w":"both","date":"2027-07-07","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":52000,"s":null,"ph":"build","wk":27},{"i":240,"w":"both","date":"2027-07-08","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3400,"s":null,"ph":"build","wk":27},{"i":241,"w":"both","date":"2027-07-08","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9900,"s":null,"ph":"build","wk":27},{"i":242,"w":"both","date":"2027-07-09","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":27},{"i":243,"w":"both","date":"2027-07-10","d":"bike","t":"Long ride","g":"Last hour at race effort","m":112500,"s":null,"ph":"build","wk":27},{"i":244,"w":"both","date":"2027-07-10","d":"run","t":"Brick run","g":"Off the bike at race pace","m":5800,"s":null,"ph":"build","wk":27},{"i":245,"w":"both","date":"2027-07-11","d":"run","t":"Long run","g":"Negative split it","m":18500,"s":null,"ph":"build","wk":27},{"i":246,"w":"both","date":"2027-07-12","d":"swim","t":"Easy swim","g":"Loosen off","m":2000,"s":null,"ph":"build","wk":28},{"i":247,"w":"both","date":"2027-07-14","d":"bike","t":"Openers","g":"45 min with 4 × 2 min at race effort","m":null,"s":2700,"ph":"build","wk":28},{"i":248,"w":"both","date":"2027-07-15","d":"run","t":"Strides","g":"5 km + 6 × 20 s","m":5000,"s":null,"ph":"build","wk":28},{"i":249,"w":"both","date":"2027-07-18","d":"swim","t":"Olympic tune-up — swim","g":"Dress rehearsal, hard","m":1500,"s":null,"ph":"build","wk":28},{"i":250,"w":"both","date":"2027-07-18","d":"bike","t":"Olympic tune-up — bike","g":"Race effort","m":40000,"s":null,"ph":"build","wk":28},{"i":251,"w":"both","date":"2027-07-18","d":"run","t":"Olympic tune-up — run","g":"Hold on","m":10000,"s":null,"ph":"build","wk":28},{"i":252,"w":"both","date":"2027-07-19","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":2200,"s":null,"ph":"build","wk":29},{"i":253,"w":"both","date":"2027-07-20","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":8000,"s":null,"ph":"build","wk":29},{"i":254,"w":"both","date":"2027-07-21","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":35500,"s":null,"ph":"build","wk":29},{"i":255,"w":"both","date":"2027-07-22","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":2300,"s":null,"ph":"build","wk":29},{"i":256,"w":"both","date":"2027-07-22","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":6700,"s":null,"ph":"build","wk":29},{"i":257,"w":"both","date":"2027-07-23","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":29},{"i":258,"w":"both","date":"2027-07-24","d":"bike","t":"Long ride","g":"Last hour at race effort","m":79000,"s":null,"ph":"build","wk":29},{"i":259,"w":"both","date":"2027-07-24","d":"run","t":"Brick run","g":"Off the bike at race pace","m":4300,"s":null,"ph":"build","wk":29},{"i":260,"w":"both","date":"2027-07-25","d":"run","t":"Long run","g":"Negative split it","m":13000,"s":null,"ph":"build","wk":29},{"i":261,"w":"both","date":"2027-07-26","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3400,"s":null,"ph":"build","wk":30},{"i":262,"w":"both","date":"2027-07-27","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":12500,"s":null,"ph":"build","wk":30},{"i":263,"w":"both","date":"2027-07-28","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":56000,"s":null,"ph":"build","wk":30},{"i":264,"w":"both","date":"2027-07-29","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3600,"s":null,"ph":"build","wk":30},{"i":265,"w":"both","date":"2027-07-29","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":10500,"s":null,"ph":"build","wk":30},{"i":266,"w":"both","date":"2027-07-30","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":30},{"i":267,"w":"both","date":"2027-07-31","d":"bike","t":"Long ride","g":"Last hour at race effort","m":126500,"s":null,"ph":"build","wk":30},{"i":268,"w":"both","date":"2027-07-31","d":"run","t":"Brick run","g":"Off the bike at race pace","m":6900,"s":null,"ph":"build","wk":30},{"i":269,"w":"both","date":"2027-08-01","d":"run","t":"Long run","g":"Negative split it","m":20500,"s":null,"ph":"build","wk":30},{"i":270,"w":"both","date":"2027-08-02","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3500,"s":null,"ph":"build","wk":31},{"i":271,"w":"both","date":"2027-08-03","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":12500,"s":null,"ph":"build","wk":31},{"i":272,"w":"both","date":"2027-08-04","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":57500,"s":null,"ph":"build","wk":31},{"i":273,"w":"both","date":"2027-08-05","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3700,"s":null,"ph":"build","wk":31},{"i":274,"w":"both","date":"2027-08-05","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":10500,"s":null,"ph":"build","wk":31},{"i":275,"w":"both","date":"2027-08-06","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":31},{"i":276,"w":"both","date":"2027-08-07","d":"bike","t":"Long ride","g":"Last hour at race effort","m":131000,"s":null,"ph":"build","wk":31},{"i":277,"w":"both","date":"2027-08-07","d":"run","t":"Brick run","g":"Off the bike at race pace","m":7300,"s":null,"ph":"build","wk":31},{"i":278,"w":"both","date":"2027-08-08","d":"run","t":"Long run","g":"Negative split it","m":21000,"s":null,"ph":"build","wk":31},{"i":279,"w":"both","date":"2027-08-09","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3500,"s":null,"ph":"build","wk":32},{"i":280,"w":"both","date":"2027-08-10","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":13000,"s":null,"ph":"build","wk":32},{"i":281,"w":"both","date":"2027-08-11","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":58500,"s":null,"ph":"build","wk":32},{"i":282,"w":"both","date":"2027-08-12","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3700,"s":null,"ph":"build","wk":32},{"i":283,"w":"both","date":"2027-08-12","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":11000,"s":null,"ph":"build","wk":32},{"i":284,"w":"both","date":"2027-08-13","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":32},{"i":285,"w":"both","date":"2027-08-14","d":"bike","t":"Long ride","g":"Last hour at race effort","m":135500,"s":null,"ph":"build","wk":32},{"i":286,"w":"both","date":"2027-08-14","d":"run","t":"Brick run","g":"Off the bike at race pace","m":7600,"s":null,"ph":"build","wk":32},{"i":287,"w":"both","date":"2027-08-15","d":"run","t":"Long run","g":"Negative split it","m":21500,"s":null,"ph":"build","wk":32},{"i":288,"w":"both","date":"2027-08-16","d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":2300,"s":null,"ph":"build","wk":33},{"i":289,"w":"both","date":"2027-08-17","d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":8500,"s":null,"ph":"build","wk":33},{"i":290,"w":"both","date":"2027-08-18","d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":39000,"s":null,"ph":"build","wk":33},{"i":291,"w":"both","date":"2027-08-19","d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":2500,"s":null,"ph":"build","wk":33},{"i":292,"w":"both","date":"2027-08-19","d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":7200,"s":null,"ph":"build","wk":33},{"i":293,"w":"both","date":"2027-08-20","d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700,"ph":"build","wk":33},{"i":294,"w":"both","date":"2027-08-21","d":"bike","t":"Long ride","g":"Last hour at race effort","m":91000,"s":null,"ph":"build","wk":33},{"i":295,"w":"both","date":"2027-08-21","d":"run","t":"Brick run","g":"Off the bike at race pace","m":5200,"s":null,"ph":"build","wk":33},{"i":296,"w":"both","date":"2027-08-22","d":"run","t":"Long run","g":"Negative split it","m":14500,"s":null,"ph":"build","wk":33},{"i":297,"w":"both","date":"2027-08-23","d":"swim","t":"Easy swim","g":"Feel the water, no sets","m":1800,"s":null,"ph":"recover","wk":34},{"i":298,"w":"both","date":"2027-08-25","d":"bike","t":"Easy spin","g":"60 min, flat","m":null,"s":3600,"ph":"recover","wk":34},{"i":299,"w":"both","date":"2027-08-26","d":"run","t":"Easy run","g":"Short and slow","m":6000,"s":null,"ph":"recover","wk":34},{"i":300,"w":"both","date":"2027-08-27","d":"strength","t":"Mobility","g":"30 min, hips and ankles","m":null,"s":1800,"ph":"recover","wk":34},{"i":301,"w":"both","date":"2027-08-29","d":"run","t":"Easy run","g":"However far feels good","m":8000,"s":null,"ph":"recover","wk":34},{"i":302,"w":"both","date":"2027-08-30","d":"swim","t":"Race-pace swim","g":"4 × 400 m at race effort","m":3400,"s":null,"ph":"peak","wk":35},{"i":303,"w":"both","date":"2027-08-31","d":"run","t":"Race-pace intervals","g":"5 × 10 min at 70.3 effort","m":13000,"s":null,"ph":"peak","wk":35},{"i":304,"w":"both","date":"2027-09-01","d":"bike","t":"Sweet-spot ride","g":"4 × 15 min just under threshold","m":55000,"s":null,"ph":"peak","wk":35},{"i":305,"w":"both","date":"2027-09-02","d":"swim","t":"Open water","g":"Wetsuit, sighting, mass starts","m":3200,"s":null,"ph":"peak","wk":35},{"i":306,"w":"both","date":"2027-09-02","d":"run","t":"Easy run","g":"Recovery pace","m":10000,"s":null,"ph":"peak","wk":35},{"i":307,"w":"both","date":"2027-09-03","d":"strength","t":"Gym","g":"Maintenance only","m":null,"s":2400,"ph":"peak","wk":35},{"i":308,"w":"both","date":"2027-09-04","d":"bike","t":"Long ride","g":"Race effort in the last 90 min","m":140000,"s":null,"ph":"peak","wk":35},{"i":309,"w":"both","date":"2027-09-04","d":"run","t":"Brick run","g":"Off the bike, race pace","m":8000,"s":null,"ph":"peak","wk":35},{"i":310,"w":"both","date":"2027-09-05","d":"run","t":"Long run","g":"Steady, controlled","m":20000,"s":null,"ph":"peak","wk":35},{"i":311,"w":"both","date":"2027-09-06","d":"swim","t":"Race-pace swim","g":"2 × 900 m at race effort","m":3400,"s":null,"ph":"peak","wk":36},{"i":312,"w":"both","date":"2027-09-07","d":"run","t":"Race-pace intervals","g":"4 × 10 min at 70.3 effort","m":13000,"s":null,"ph":"peak","wk":36},{"i":313,"w":"both","date":"2027-09-08","d":"bike","t":"Sweet-spot ride","g":"3 × 20 min","m":55000,"s":null,"ph":"peak","wk":36},{"i":314,"w":"both","date":"2027-09-09","d":"swim","t":"Open water","g":"Wetsuit, sighting, starts","m":3000,"s":null,"ph":"peak","wk":36},{"i":315,"w":"both","date":"2027-09-10","d":"strength","t":"Gym","g":"Light, keep it moving","m":null,"s":2400,"ph":"peak","wk":36},{"i":316,"w":"both","date":"2027-09-11","d":"bike","t":"Race simulation — bike","g":"90 km at exactly race effort. Practise the food.","m":90000,"s":null,"ph":"peak","wk":36},{"i":317,"w":"both","date":"2027-09-11","d":"run","t":"Race simulation — run","g":"12 km straight off, race pace","m":12000,"s":null,"ph":"peak","wk":36},{"i":318,"w":"both","date":"2027-09-12","d":"run","t":"Easy run","g":"Shake yesterday out","m":10000,"s":null,"ph":"peak","wk":36},{"i":319,"w":"both","date":"2027-09-13","d":"swim","t":"Race-pace swim","g":"4 × 400 m at race effort","m":3800,"s":null,"ph":"peak","wk":37},{"i":320,"w":"both","date":"2027-09-14","d":"run","t":"Race-pace intervals","g":"5 × 10 min at 70.3 effort","m":14000,"s":null,"ph":"peak","wk":37},{"i":321,"w":"both","date":"2027-09-15","d":"bike","t":"Sweet-spot ride","g":"4 × 15 min just under threshold","m":60000,"s":null,"ph":"peak","wk":37},{"i":322,"w":"both","date":"2027-09-16","d":"swim","t":"Open water","g":"Wetsuit, sighting, mass starts","m":3800,"s":null,"ph":"peak","wk":37},{"i":323,"w":"both","date":"2027-09-16","d":"run","t":"Easy run","g":"Recovery pace","m":11000,"s":null,"ph":"peak","wk":37},{"i":324,"w":"both","date":"2027-09-17","d":"strength","t":"Gym","g":"Maintenance only","m":null,"s":2400,"ph":"peak","wk":37},{"i":325,"w":"both","date":"2027-09-18","d":"bike","t":"Long ride","g":"Race effort in the last 90 min","m":150000,"s":null,"ph":"peak","wk":37},{"i":326,"w":"both","date":"2027-09-18","d":"run","t":"Brick run","g":"Off the bike, race pace","m":10000,"s":null,"ph":"peak","wk":37},{"i":327,"w":"both","date":"2027-09-19","d":"run","t":"Long run","g":"Steady, controlled","m":22000,"s":null,"ph":"peak","wk":37},{"i":328,"w":"both","date":"2027-09-20","d":"swim","t":"Race-pace swim","g":"3 × 500 m at race effort","m":3000,"s":null,"ph":"taper","wk":38},{"i":329,"w":"both","date":"2027-09-21","d":"run","t":"Race-pace intervals","g":"4 × 8 min at 70.3 effort","m":11000,"s":null,"ph":"taper","wk":38},{"i":330,"w":"both","date":"2027-09-22","d":"bike","t":"Sweet-spot ride","g":"3 × 12 min","m":45000,"s":null,"ph":"taper","wk":38},{"i":331,"w":"both","date":"2027-09-23","d":"swim","t":"Open water","g":"Last proper one","m":2800,"s":null,"ph":"taper","wk":38},{"i":332,"w":"both","date":"2027-09-24","d":"strength","t":"Gym","g":"Light","m":null,"s":1800,"ph":"taper","wk":38},{"i":333,"w":"both","date":"2027-09-25","d":"bike","t":"Long ride","g":"100 km, steady","m":100000,"s":null,"ph":"taper","wk":38},{"i":334,"w":"both","date":"2027-09-25","d":"run","t":"Brick run","g":"6 km off the bike","m":6000,"s":null,"ph":"taper","wk":38},{"i":335,"w":"both","date":"2027-09-26","d":"run","t":"Long run","g":"16 km, easy","m":16000,"s":null,"ph":"taper","wk":38},{"i":336,"w":"both","date":"2027-09-27","d":"swim","t":"Race-pace swim","g":"4 × 300 m at race effort","m":2400,"s":null,"ph":"taper","wk":39},{"i":337,"w":"both","date":"2027-09-28","d":"run","t":"Sharpeners","g":"5 × 4 min at race effort","m":9000,"s":null,"ph":"taper","wk":39},{"i":338,"w":"both","date":"2027-09-29","d":"bike","t":"Openers","g":"2 × 12 min at race effort","m":35000,"s":null,"ph":"taper","wk":39},{"i":339,"w":"both","date":"2027-09-30","d":"swim","t":"Easy swim","g":"Feel, not fitness","m":2000,"s":null,"ph":"taper","wk":39},{"i":340,"w":"both","date":"2027-10-02","d":"bike","t":"Steady ride","g":"60 km, comfortable","m":60000,"s":null,"ph":"taper","wk":39},{"i":341,"w":"both","date":"2027-10-03","d":"run","t":"Long run","g":"12 km, easy","m":12000,"s":null,"ph":"taper","wk":39},{"i":342,"w":"both","date":"2027-10-04","d":"swim","t":"Loosener swim","g":"1.5 km, easy","m":1500,"s":null,"ph":"taper","wk":40},{"i":343,"w":"both","date":"2027-10-05","d":"run","t":"Strides","g":"5 km + 6 × 20 s at race pace","m":5000,"s":null,"ph":"taper","wk":40},{"i":344,"w":"both","date":"2027-10-06","d":"bike","t":"Openers","g":"40 min with 3 × 3 min at race effort","m":null,"s":2400,"ph":"taper","wk":40},{"i":345,"w":"both","date":"2027-10-07","d":"swim","t":"Shakeout swim","g":"1 km, easy. Travel day.","m":1000,"s":null,"ph":"taper","wk":40},{"i":346,"w":"both","date":"2027-10-08","d":"bike","t":"Course spin","g":"30 min, check the bike over","m":null,"s":1800,"ph":"taper","wk":40},{"i":347,"w":"both","date":"2027-10-09","d":"run","t":"Shakeout","g":"3 km + 4 × 20 s. Rack the bike.","m":3000,"s":null,"ph":"taper","wk":40},{"i":348,"w":"both","date":"2027-10-10","d":"swim","t":"Ironman 70.3 Málaga — swim","g":"1.9 km. Steady, find your feet.","m":1900,"s":null,"ph":"taper","wk":40},{"i":349,"w":"both","date":"2027-10-10","d":"bike","t":"Ironman 70.3 Málaga — bike","g":"90 km. Eat every 30 minutes.","m":90000,"s":null,"ph":"taper","wk":40},{"i":350,"w":"both","date":"2027-10-10","d":"run","t":"Ironman 70.3 Málaga — run","g":"21.1 km. This is the bit you trained for.","m":21097,"s":null,"ph":"taper","wk":40}],"weeks":["2026-09-07","2026-09-14","2027-01-04","2027-01-11","2027-01-18","2027-01-25","2027-02-01","2027-02-08","2027-02-15","2027-02-22","2027-03-01","2027-03-08","2027-03-15","2027-03-22","2027-03-29","2027-04-05","2027-04-12","2027-04-19","2027-04-26","2027-05-03","2027-05-10","2027-05-17","2027-05-24","2027-05-31","2027-06-07","2027-06-14","2027-06-21","2027-06-28","2027-07-05","2027-07-12","2027-07-19","2027-07-26","2027-08-02","2027-08-09","2027-08-16","2027-08-23","2027-08-30","2027-09-06","2027-09-13","2027-09-20","2027-09-27","2027-10-04"]};
+</script>
+<script>
+(function () {
   "use strict";
-  var TICK='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
-  var CROSS='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-  var DOT='<svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>';
 
-  /* ---- training data. Patri's Monday rows are her real Strava activities. ---- */
-  var DAYS=[["Mon","14 Sep"],["Tue","15 Sep"],["Wed","16 Sep"],["Thu","17 Sep"],["Fri","18 Sep"],["Sat","19 Sep"],["Sun","20 Sep"]];
-  var TODAY=1;
-  var WEEK={
-    patri:[
-      [{d:"swim",t:"Endurance swim",g:"3.0 km · steady, long sets",s:"done",p:"Strava · 3.30 km · 51:53 · 1:34 /100 m"},
-       {d:"run",t:"Easy run",g:"8 km · conversational",s:"done",p:"Strava · 8.65 km · 43:02 · 4:59 /km"}],
-      [{d:"bike",t:"Endurance ride",g:"1h30 · zone 2, flat",s:"now"}],
-      [{d:"swim",t:"Threshold sets",g:"2.5 km · 10 × 100 m",s:"plan"}],
-      [{d:"run",t:"Track intervals",g:"6 × 800 m @ 4:15 /km",s:"plan"}],
-      [{d:"strength",t:"Gym",g:"45 min · legs & core",s:"plan"}],
-      [{d:"bike",t:"Long ride",g:"70 km · steady, with Jean",s:"plan"}],
-      [{d:"bike",t:"Brick — ride",g:"40 km · race effort",s:"plan"},
-       {d:"run",t:"Brick — run off the bike",g:"10 km · straight after",s:"plan"}]
-    ],
-    leo:[
-      [{d:"run",t:"Easy run",g:"8 km · conversational",s:"done",p:"Strava · 8.12 km · 41:20 · 5:05 /km"},
-       {d:"swim",t:"Endurance swim",g:"2.5 km · steady",s:"miss",p:"Nothing on Strava for Mon 14"}],
-      [{d:"bike",t:"Endurance ride",g:"1h30 · zone 2, flat",s:"now"}],
-      [{d:"swim",t:"Threshold sets",g:"2.5 km · 10 × 100 m",s:"plan"}],
-      [{d:"run",t:"Track intervals",g:"6 × 800 m @ 4:30 /km",s:"plan"}],
-      [{d:"strength",t:"Gym",g:"45 min · legs & core",s:"plan"}],
-      [{d:"bike",t:"Long ride",g:"70 km · steady, with Patri",s:"plan"}],
-      [{d:"bike",t:"Brick — ride",g:"40 km · race effort",s:"plan"},
-       {d:"run",t:"Brick — run off the bike",g:"8 km · straight after",s:"plan"}]
-    ]
+  const PEOPLE = [{ id: "patri", name: "Patri", color: "swim" }, { id: "jean", name: "Jean", color: "bike" }];
+  const RACE = { name: "Ironman 70.3 Málaga", date: "2027-10-10", location: "Málaga, Spain" };
+  const DOW = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const MONTH = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const LABEL = { swim: "Swim", bike: "Bike", run: "Run", strength: "Strength", rest: "Rest", other: "Other" };
+  const CONFIDENT = 65;
+
+  /* ---------------------------------------------------------- dates ---- */
+  const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate() + n); return iso(d); };
+  const today = () => iso(new Date());
+  const mondayOf = (s) => addDays(s, -((parse(s).getDay() + 6) % 7));
+  const dayName = (s) => DOW[(parse(s).getDay() + 6) % 7];
+  const shortDate = (s) => { const d = parse(s); return d.getDate() + " " + MONTH[d.getMonth()]; };
+  const longDate = (s) => { const d = parse(s); return dayName(s) + " " + d.getDate() + " " + MONTH[d.getMonth()] + " " + d.getFullYear(); };
+  const daysUntil = (s) => Math.round((parse(s) - parse(today())) / 86400000);
+
+  const clock = (sec) => {
+    if (!sec) return "—";
+    const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = Math.round(sec % 60);
+    const p = (n) => String(n).padStart(2, "0");
+    return h ? h + ":" + p(m) + ":" + p(s) : m + ":" + p(s);
   };
-  var VOL={
-    patri:[["Swim",5.5,3.3,"km","swim"],["Bike",150,0,"km","bike"],["Run",28,8.7,"km","run"]],
-    leo:[["Swim",5,0,"km","swim"],["Bike",150,0,"km","bike"],["Run",26,8.1,"km","run"]]
-  };
-  var CHECKED={
-    patri:"Claude checked Strava at 07:12 this morning.<br>2 of 2 Monday sessions matched automatically.",
-    leo:"Claude checked Strava at 07:12 this morning.<br>1 of 2 Monday sessions matched — the swim is still open."
-  };
+  const km = (m, dp) => !m ? "—" : (m / 1000).toFixed(dp === undefined ? 2 : dp) + " km";
 
-  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
-
-  function renderWeek(who){
-    var vol=document.getElementById("vol"),h="";
-    VOL[who].forEach(function(r){
-      var pct=Math.min(100,Math.round(r[2]/r[1]*100));
-      h+='<div class="volrow"><span class="lab">'+r[0]+'</span>'
-       + '<span class="bar"><i style="width:'+pct+'%;background:var(--'+r[4]+')"></i></span>'
-       + '<span class="fig"><b>'+r[2]+'</b> / '+r[1]+' '+r[3]+'</span></div>';
-    });
-    vol.innerHTML=h;
-
-    var out="";
-    WEEK[who].forEach(function(sessions,i){
-      out+='<section class="day"><div class="dayhead"><span class="dow">'+DAYS[i][0]+'</span>'
-         + '<span class="date">'+DAYS[i][1]+'</span>'
-         + (i===TODAY?'<span class="today">Today</span>':'')+'</div>';
-      sessions.forEach(function(s){
-        var mark = s.s==="done" ? '<span class="mark done">'+TICK+'</span>'
-                 : s.s==="miss" ? '<span class="mark missed">'+CROSS+'</span>'
-                 : s.s==="now"  ? '<span class="mark now" style="color:var(--accent)">'+DOT+'</span>'
-                 : '<span class="mark"></span>';
-        out+='<div class="sess"><span class="stripe" style="background:var(--'+s.d+')"></span>'
-           + '<div><p class="title">'+esc(s.t)+'<span class="disc" style="color:var(--'+s.d+')">'+s.d+'</span></p>'
-           + '<p class="target">'+esc(s.g)+'</p>'
-           + (s.p?'<p class="proof'+(s.s==="miss"?" bad":"")+'">'+esc(s.p)+'</p>':'')
-           + '</div>'+mark+'</div>';
-      });
-      out+='</section>';
-    });
-    document.getElementById("week").innerHTML=out;
-    document.getElementById("checkline").innerHTML=CHECKED[who];
+  /* ------------------------------------------------- the same matcher --- */
+  /* Kept deliberately in step with src/lib/match.ts in the repository.     */
+  function scoreMatch(a, s, when) {
+    if (a.d !== s.d) return null;
+    const ad = a.start.slice(0, 10);
+    const off = Math.abs((Date.parse(ad + "T00:00:00") - Date.parse(s.date + "T00:00:00")) / 86400000);
+    if (off > 1) return null;
+    if (off > 0 && s.date >= when) return null;   // its own day has not come yet
+    let score = 100 - off * 20;
+    if (s.m && a.m) {
+      const r = a.m / s.m;
+      if (r < 0.5) return null;
+      score -= Math.min(40, Math.abs(1 - r) * 60);
+    } else if (s.s && a.sec) {
+      const r = a.sec / s.s;
+      if (r < 0.5) return null;
+      score -= Math.min(s.d === "strength" ? 15 : 40, Math.abs(1 - r) * 60);
+    }
+    return Math.max(0, Math.round(score));
   }
 
-  document.querySelectorAll(".seg button").forEach(function(b){
-    b.addEventListener("click",function(){
-      document.querySelectorAll(".seg button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b));});
-      renderWeek(b.dataset.who);
-    });
-  });
-  renderWeek("patri");
+  const keyOf = (session, personId) => session.i + "#" + personId;
+  const sessionsFor = (personId) => DATA.sessions.filter((s) => s.w === personId || s.w === "both");
 
-  /* ---- to-dos ---- */
-  var TODOS=[
-    {t:"Book the Málaga 70.3 entry",w:"us",d:"By Sunday",done:0},
-    {t:"Wetsuit for Jean — try the shop in Wavre",w:"l",d:"This month",done:0},
-    {t:"Send the lease signature to the agency",w:"p",d:"Thu 17 Sep",done:0},
-    {t:"Ask Mamá about Christmas dates",w:"p",d:"No rush",done:1},
-    {t:"Service both bikes before the long rides",w:"us",d:"Before 19 Sep",done:0},
-    {t:"Pick a hotel in Málaga",w:"us",d:"Someday soon",done:0}
-  ];
-  var WHOLBL={p:"Patri",l:"Jean",us:"Us"};
-  function renderTodos(){
-    document.getElementById("todos").innerHTML=TODOS.map(function(x,i){
-      return '<div class="todo" data-done="'+x.done+'" data-i="'+i+'">'
-        + '<span class="box">'+(x.done?TICK:"")+'</span>'
-        + '<button type="button" class="tx"><b>'+esc(x.t)+'</b><span>'+esc(x.d)+'</span></button>'
-        + '<span class="who '+x.w+'">'+WHOLBL[x.w]+'</span></div>';
-    }).join("");
+  /** Two passes, as the webhook then the nightly sync would run them. */
+  function computeMatches() {
+    const hits = new Map();     // sessionKey -> activity
+    for (const person of PEOPLE) {
+      const mine = sessionsFor(person.id);
+      const acts = (state.activities[person.id] || []).slice().sort((a, b) => a.start.localeCompare(b.start));
+      const taken = new Set(), used = new Set();
+      for (const s of mine) {
+        const ov = state.overrides[keyOf(s, person.id)];
+        if (ov && ov.status === "done") taken.add(s.i);
+      }
+      const run = (when) => {
+        for (const a of acts) {
+          if (used.has(a.id)) continue;
+          let best = null;
+          for (const s of mine) {
+            if (taken.has(s.i)) continue;
+            const sc = scoreMatch(a, s, when(a));
+            if (sc !== null && (!best || sc > best.score)) best = { s, score: sc };
+          }
+          if (best && best.score >= CONFIDENT) {
+            taken.add(best.s.i); used.add(a.id);
+            hits.set(keyOf(best.s, person.id), a);
+          }
+        }
+      };
+      run((a) => a.start.slice(0, 10));
+      run(() => today());
+    }
+    return hits;
   }
-  renderTodos();
-  document.getElementById("todos").addEventListener("click",function(e){
-    var row=e.target.closest(".todo"); if(!row) return;
-    var i=+row.dataset.i; TODOS[i].done=TODOS[i].done?0:1; renderTodos();
-  });
 
-  /* ---- battles ---- */
-  var GAMES=[
-    {g:"7 Wonders Duel",p:9,l:6,last:"Last: Patri, 68–61"},
-    {g:"Catan",p:4,l:7,last:"Last: Jean, longest road"},
-    {g:"Padel",p:11,l:13,last:"Last: Jean, 6–4 6–3"},
-    {g:"Mario Kart",p:15,l:8,last:"Last: Patri, Rainbow Road"},
-    {g:"Chess",p:3,l:9,last:"Last: Jean, 31 moves"},
-    {g:"Backgammon",p:6,l:5,last:"Last: Patri, gammon"}
-  ];
-  function renderGames(){
-    var tp=0,tl=0;
-    document.getElementById("games").innerHTML=GAMES.map(function(x,i){
-      tp+=x.p; tl+=x.l;
-      return '<div class="game"><div><b>'+esc(x.g)+'</b><span class="last">'+esc(x.last)+'</span></div>'
+  function statusOf(session, personId) {
+    const ov = state.overrides[keyOf(session, personId)];
+    if (ov) return ov.status;
+    if (state.matches.has(keyOf(session, personId))) return "done";
+    if (session.date < addDays(today(), -2)) return "missed";
+    return "planned";
+  }
+
+  function proofFor(a) {
+    const bits = ["Strava"];
+    if (!a.m) { bits.push(clock(a.sec)); return bits.join(" · "); }
+    bits.push(km(a.m), clock(a.sec));
+    if (a.d === "run") bits.push(clock(a.sec / (a.m / 1000)) + " /km");
+    else if (a.d === "swim") bits.push(clock(a.sec / (a.m / 100)) + " /100 m");
+    else if (a.d === "bike") bits.push((a.m / a.sec * 3.6).toFixed(1) + " km/h");
+    return bits.join(" · ");
+  }
+
+  /* ------------------------------------------------------------ state --- */
+  const state = {
+    tab: "training",
+    who: "patri",
+    week: null,
+    db: null,
+    overrides: {},
+    activities: { patri: [], jean: [] },
+    todos: [],
+    dreams: [],
+    games: [],
+    battles: [],
+    matches: new Map(),
+  };
+
+  const weekHasSessions = (w) => DATA.sessions.some((s) => s.date >= w && s.date <= addDays(w, 6));
+  function openingWeek() {
+    const now = mondayOf(today());
+    if (weekHasSessions(now)) return now;
+    // Nothing planned this week — open on the nearest week that has something.
+    let best = DATA.weeks[0], gap = Infinity;
+    for (const w of DATA.weeks) {
+      const d = Math.abs(parse(w) - parse(now));
+      if (d < gap) { gap = d; best = w; }
+    }
+    return best;
+  }
+  state.week = openingWeek();
+
+  const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const TICK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+  const TICKD = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+  const CROSS = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  const DOT = '<svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>';
+  const nameOf = (id) => (PEOPLE.find((p) => p.id === id) || {}).name || "Us";
+  const colorOf = (id) => (PEOPLE.find((p) => p.id === id) || {}).color || "accent";
+
+  /* --------------------------------------------------------- training --- */
+  function renderTraining() {
+    const days = Array.from({ length: 7 }, (_, i) => addDays(state.week, i));
+    const mine = sessionsFor(state.who).filter((s) => s.date >= state.week && s.date <= addDays(state.week, 6));
+    const d = daysUntil(RACE.date);
+
+    let html = '<div class="stack">'
+      + '<div class="race"><div class="num">' + (d > 0 ? d : 0) + '</div><div class="meta">'
+      + '<b>' + esc(RACE.name) + '</b><span>' + longDate(RACE.date) + '</span><span>' + esc(RACE.location) + '</span>'
+      + '</div></div>'
+      + '<div class="switch" role="group" aria-label="Whose week">'
+      + PEOPLE.map((p) => '<button type="button" data-who="' + p.id + '" data-active="' + (p.id === state.who) + '">' + p.name + '</button>').join("")
+      + '</div>';
+
+    const order = ["swim", "bike", "run", "strength"];
+    const rows = order.map((disc) => {
+      const list = mine.filter((s) => s.d === disc);
+      if (!list.length) return null;
+      const done = list.filter((s) => statusOf(s, state.who) === "done");
+      const dist = done.reduce((t, s) => t + ((state.matches.get(keyOf(s, state.who)) || {}).m || 0), 0);
+      const secs = done.reduce((t, s) => t + ((state.matches.get(keyOf(s, state.who)) || {}).sec || 0), 0);
+      return '<div class="volrow"><span class="lab">' + LABEL[disc] + '</span>'
+        + '<span class="bar"><i style="width:' + Math.round(done.length / list.length * 100) + '%;background:var(--' + disc + ')"></i></span>'
+        + '<span class="fig"><b>' + done.length + '</b>/' + list.length + ' · ' + (dist ? km(dist, 1) : clock(secs)) + '</span></div>';
+    }).filter(Boolean);
+    if (rows.length) html += '<div class="vol">' + rows.join("") + '</div>';
+    html += '</div>';
+
+    html += '<div class="weeknav">'
+      + '<button type="button" data-week="prev">← Last week</button>'
+      + (state.week !== mondayOf(today()) && weekHasSessions(mondayOf(today())) ? '<button type="button" data-week="now">This week</button>' : '')
+      + '<button type="button" data-week="next">Next week →</button></div>'
+      + '<p class="weeklabel">' + shortDate(state.week) + ' – ' + shortDate(addDays(state.week, 6)) + ' ' + parse(state.week).getFullYear()
+      + (mine.length && mine[0].wk ? ' · week ' + mine[0].wk + ' of 40 · ' + mine[0].ph : '') + '</p>';
+
+    if (!mine.length) {
+      // Between the pre-season weeks and January there is a long gap. Offer a
+      // way across it rather than fifteen taps on "next week".
+      const target = DATA.weeks.find((w) => w > state.week) || DATA.weeks[DATA.weeks.length - 1];
+      html += '<div class="empty" style="margin-top:18px">Nothing planned this week.'
+        + '<br><br><button type="button" class="btn" data-jump="' + target + '">Jump to ' + shortDate(target) + ' \u2192</button></div>';
+    }
+
+    for (const day of days) {
+      const list = mine.filter((s) => s.date === day);
+      if (!list.length) continue;
+      html += '<section class="day"><div class="dayhead"><span class="dow">' + dayName(day) + '</span>'
+        + '<span class="date">' + shortDate(day) + '</span>'
+        + (day === today() ? '<span class="today">Today</span>' : '') + '</div>';
+      for (const s of list) {
+        const st = statusOf(s, state.who);
+        const act = state.matches.get(keyOf(s, state.who));
+        const cls = st === "done" ? "mark done" : st === "missed" ? "mark missed" : day === today() ? "mark now" : "mark";
+        const inner = st === "done" ? TICK : st === "missed" ? CROSS : day === today() ? DOT : "";
+        html += '<div class="sess"><span class="stripe" style="background:var(--' + s.d + ')"></span><div>'
+          + '<p class="title">' + esc(s.t) + '<span class="disc" style="color:var(--' + s.d + ')">' + LABEL[s.d] + '</span></p>'
+          + (s.g ? '<p class="target">' + esc(s.g) + '</p>' : '')
+          + (st === "done" && act ? '<p class="proof">' + esc(proofFor(act)) + '</p>' : '')
+          + (st === "done" && !act ? '<p class="proof">Ticked off by hand</p>' : '')
+          + (st === "missed" ? '<p class="proof bad">Nothing on Strava for this one</p>' : '')
+          + '</div><button type="button" class="' + cls + '" data-tick="' + esc(keyOf(s, state.who)) + '" data-st="' + st + '" aria-label="'
+          + (st === "done" ? "Done. Tap to un-tick." : "Not done yet. Tap to tick it off.") + '">' + inner + '</button></div>';
+      }
+      html += '</section>';
+    }
+
+    html += '<p class="note">Sessions tick themselves off from Strava. Tap a circle to override it by hand — that is saved, and Jean sees it too.</p>';
+    document.getElementById("v-training").innerHTML = html;
+  }
+
+  /* --------------------------------------------------------- calendar --- */
+  function renderCalendar() {
+    const days = Array.from({ length: 7 }, (_, i) => addDays(state.week, i));
+    let html = '<p class="eyebrow">' + shortDate(state.week) + " — " + shortDate(addDays(state.week, 6)) + '</p>'
+      + '<h2>This week, both of us</h2>'
+      + '<p class="sub">The training for the two of you, side by side.</p>'
+      + '<div class="legend">' + PEOPLE.map((p) => '<span><i style="background:var(--' + p.color + ')"></i>' + p.name + '</span>').join("") + '</div><div>';
+
+    let any = false;
+    for (const day of days) {
+      const items = [];
+      for (const p of PEOPLE) {
+        for (const s of sessionsFor(p.id).filter((x) => x.date === day)) items.push({ p, s });
+      }
+      if (!items.length) continue;
+      any = true;
+      html += '<div class="calday' + (day === today() ? " is-today" : "") + '"><div class="when"><b>' + parse(day).getDate() + '</b>' + dayName(day) + '</div><div>';
+      for (const { p, s } of items) {
+        html += '<div class="ev"><i class="dot" style="background:var(--' + p.color + ')"></i><div class="txt"><b>' + esc(s.t) + '</b>'
+          + '<span>' + p.name + " · " + LABEL[s.d] + (s.g ? " · " + esc(s.g) : "") + '</span></div></div>';
+      }
+      html += '</div></div>';
+    }
+    html += '</div>';
+    if (!any) html += '<div class="empty">Nothing this week.</div>';
+    html += '<div class="weeknav"><button type="button" data-week="prev">← Last week</button><button type="button" data-week="next">Next week →</button></div>'
+      + '<p class="note">Your real Google calendars merge in here once the app is deployed — that part needs a server, so it is not in this preview.</p>';
+    document.getElementById("v-calendar").innerHTML = html;
+  }
+
+  /* ------------------------------------------------------------ to-do --- */
+  function renderTodos() {
+    let html = '<p class="eyebrow">Shared list</p><h2>Things we need to do</h2>'
+      + '<p class="sub">Tap to tick. Whoever does it, the other one sees it.</p>'
+      + '<form class="addrow" id="add-todo"><input id="todo-text" placeholder="Something we need to do" aria-label="New to-do">'
+      + '<select id="todo-who" aria-label="Who it is for" style="flex:0 0 88px"><option value="">Us</option>'
+      + PEOPLE.map((p) => '<option value="' + p.id + '">' + p.name + '</option>').join("")
+      + '</select><button class="btn" type="submit">Add</button></form>';
+
+    if (!state.todos.length) html += '<div class="empty" style="margin-top:16px">Nothing on the list. Enjoy it.</div>';
+    html += '<div style="margin-top:10px">' + state.todos.map((t, i) =>
+      '<div class="todo" data-done="' + !!t.done + '">'
+      + '<button type="button" class="box" data-todo="' + i + '" aria-label="' + (t.done ? "Un-tick" : "Tick off") + ' ' + esc(t.body) + '">' + (t.done ? TICK : "") + '</button>'
+      + '<div class="tx"><b>' + esc(t.body) + '</b><span>' + (t.due ? shortDate(t.due) : "No date") + (t.done && t.by ? " · done by " + esc(nameOf(t.by)) : "") + '</span></div>'
+      + '<span class="who" style="color:var(--' + colorOf(t.who) + ');background:color-mix(in srgb, var(--' + colorOf(t.who) + ') 13%, transparent)">' + esc(nameOf(t.who)) + '</span>'
+      + '<button type="button" class="del" data-deltodo="' + i + '" aria-label="Delete ' + esc(t.body) + '">×</button></div>').join("") + '</div>';
+    document.getElementById("v-todo").innerHTML = html;
+  }
+
+  /* ----------------------------------------------------------- dreams --- */
+  const STATES = ["someday", "planning", "booked", "done"];
+  const SLABEL = { someday: "Someday", planning: "Planning", booked: "Booked", done: "Done" };
+  function renderDreams() {
+    let html = '<p class="eyebrow">Let’s dream together</p><h2>Things we said we’d do one day</h2>'
+      + '<p class="sub">No deadlines. Just somewhere they don’t get lost in a chat.</p>'
+      + '<form class="addrow" id="add-dream"><input id="dream-text" placeholder="Something we said we’d do" aria-label="New dream">'
+      + '<button class="btn" type="submit">Add</button></form>';
+    if (!state.dreams.length) html += '<div class="empty" style="margin-top:16px">Nothing here yet.</div>';
+    html += '<div class="stack" style="margin-top:16px">' + state.dreams.map((d, i) =>
+      '<article class="dream"><div class="dreamtop"><p class="eyebrow">' + esc(d.category || "Us") + '</p>'
+      + '<button type="button" class="chip ' + d.state + '" data-dream="' + i + '" aria-label="' + SLABEL[d.state] + '. Tap to move it on.">' + SLABEL[d.state] + '</button></div>'
+      + '<h3>' + esc(d.title) + '</h3>' + (d.note ? '<p>' + esc(d.note) + '</p>' : '') + '</article>').join("") + '</div>';
+    document.getElementById("v-dreams").innerHTML = html;
+  }
+
+  /* ---------------------------------------------------------- battles --- */
+  function renderBattles() {
+    const [a, b] = PEOPLE;
+    const count = (pid) => state.battles.filter((x) => x.winner === pid).length;
+    const ta = count(a.id), tb = count(b.id);
+    const lead = ta === tb ? "Dead level." : ta > tb ? a.name + " leads by " + (ta - tb) + "." : b.name + " leads by " + (tb - ta) + ".";
+
+    let html = '<p class="eyebrow">Head to head</p><h2>Game battles</h2>'
+      + '<div class="score" style="margin-top:14px">'
+      + '<div><div class="n" style="color:var(--' + a.color + ')">' + ta + '</div><span class="nm">' + a.name + '</span></div>'
+      + '<div class="vs">vs</div>'
+      + '<div><div class="n" style="color:var(--' + b.color + ')">' + tb + '</div><span class="nm">' + b.name + '</span></div></div>'
+      + '<p class="sub" style="margin-top:12px">' + lead + " " + state.battles.length + ' games logged.</p><div style="margin-top:8px">';
+
+    for (const g of state.games) {
+      const played = state.battles.filter((x) => x.game === g.id).sort((x, y) => y.on.localeCompare(x.on));
+      const last = played[0];
+      html += '<div class="game"><div><b>' + (g.emoji ? esc(g.emoji) + " " : "") + esc(g.name) + '</b>'
+        + '<span class="last">' + (last ? "Last: " + esc(nameOf(last.winner)) + ", " + shortDate(last.on) : "Never played") + '</span></div>'
         + '<div class="tally">'
-        + '<button type="button" data-i="'+i+'" data-w="p" aria-label="Win for Patri in '+esc(x.g)+'">+</button>'
-        + '<span class="v p">'+x.p+'</span><span class="sep">–</span><span class="v l">'+x.l+'</span>'
-        + '<button type="button" data-i="'+i+'" data-w="l" aria-label="Win for Jean in '+esc(x.g)+'">+</button>'
+        + '<button type="button" data-win="' + esc(g.id) + '|' + a.id + '" style="color:var(--' + a.color + ')" aria-label="' + a.name + ' won at ' + esc(g.name) + '">+</button>'
+        + '<span class="v" style="color:var(--' + a.color + ')">' + played.filter((x) => x.winner === a.id).length + '</span>'
+        + '<span class="sep">–</span>'
+        + '<span class="v" style="color:var(--' + b.color + ')">' + played.filter((x) => x.winner === b.id).length + '</span>'
+        + '<button type="button" data-win="' + esc(g.id) + '|' + b.id + '" style="color:var(--' + b.color + ')" aria-label="' + b.name + ' won at ' + esc(g.name) + '">+</button>'
         + '</div></div>';
-    }).join("");
-    document.getElementById("tot-p").textContent=tp;
-    document.getElementById("tot-l").textContent=tl;
-    var lead = tp>tl ? "Patri leads by "+(tp-tl) : tl>tp ? "Jean leads by "+(tl-tp) : "Dead level";
-    document.getElementById("streak").textContent=lead+" across "+GAMES.length+" games. Chess is not going well.";
+    }
+    html += '</div><form class="addrow" id="add-game" style="margin-top:18px"><input id="game-name" placeholder="Add a game" aria-label="New game"><button class="btn" type="submit">Add</button></form>';
+    document.getElementById("v-battles").innerHTML = html;
   }
-  renderGames();
-  document.getElementById("games").addEventListener("click",function(e){
-    var b=e.target.closest("button"); if(!b) return;
-    GAMES[+b.dataset.i][b.dataset.w]++; renderGames();
+
+  const RENDER = { training: renderTraining, calendar: renderCalendar, todo: renderTodos, dreams: renderDreams, battles: renderBattles };
+  function render() {
+    state.matches = computeMatches();
+    RENDER[state.tab]();
+  }
+
+  /* ------------------------------------------------------------- save --- */
+  let saving = null;
+  function save(path, body) {
+    if (!state.db) return;                       // preview without storage
+    const run = () => state.db.doc(path).set(body).catch(() => {});
+    saving = saving ? saving.then(run) : run();  // one write at a time
+  }
+  const saveTodos = () => save("lists/todos", { items: state.todos });
+  const saveDreams = () => save("lists/dreams", { items: state.dreams });
+  const saveGames = () => save("lists/games", { items: state.games, battles: state.battles });
+  const saveOverrides = () => save("state/sessions", { overrides: state.overrides });
+
+  /* ------------------------------------------------------------ events -- */
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("button");
+    if (!t) return;
+
+    if (t.dataset.view) {
+      state.tab = t.dataset.view;
+      document.querySelectorAll(".tabbar button").forEach((b) => b.setAttribute("aria-selected", String(b === t)));
+      document.querySelectorAll(".view").forEach((v) => { v.hidden = v.id !== "v-" + state.tab; });
+      render();
+      window.scrollTo(0, 0);
+      return;
+    }
+    if (t.dataset.who) { state.who = t.dataset.who; render(); return; }
+    if (t.dataset.jump) { state.week = t.dataset.jump; render(); window.scrollTo(0, 0); return; }
+    if (t.dataset.week) {
+      state.week = t.dataset.week === "prev" ? addDays(state.week, -7)
+        : t.dataset.week === "next" ? addDays(state.week, 7) : mondayOf(today());
+      render(); window.scrollTo(0, 0); return;
+    }
+    if (t.dataset.tick) {
+      const key = t.dataset.tick;
+      const next = t.dataset.st === "done" ? "planned" : "done";
+      if (next === "planned" && state.matches.has(key)) state.overrides[key] = { status: "planned" };
+      else if (next === "done") state.overrides[key] = { status: "done" };
+      else delete state.overrides[key];
+      saveOverrides(); render(); return;
+    }
+    if (t.dataset.todo !== undefined) {
+      const todo = state.todos[+t.dataset.todo];
+      todo.done = !todo.done;
+      todo.by = todo.done ? state.who : null;
+      saveTodos(); render(); return;
+    }
+    if (t.dataset.deltodo !== undefined) { state.todos.splice(+t.dataset.deltodo, 1); saveTodos(); render(); return; }
+    if (t.dataset.dream !== undefined) {
+      const d = state.dreams[+t.dataset.dream];
+      d.state = STATES[(STATES.indexOf(d.state) + 1) % STATES.length];
+      saveDreams(); render(); return;
+    }
+    if (t.dataset.win) {
+      const [game, winner] = t.dataset.win.split("|");
+      state.battles.push({ id: "b" + Date.now(), game, winner, on: today() });
+      saveGames(); render(); return;
+    }
   });
 
-  /* ---- tabs ---- */
-  document.querySelectorAll(".tabbar button").forEach(function(b){
-    b.addEventListener("click",function(){
-      document.querySelectorAll(".tabbar button").forEach(function(o){o.setAttribute("aria-selected",String(o===b));});
-      document.querySelectorAll(".view").forEach(function(v){v.hidden = v.id!=="v-"+b.dataset.view;});
-      window.scrollTo({top:0,behavior:"instant"});
-    });
+  document.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (e.target.id === "add-todo") {
+      const input = document.getElementById("todo-text");
+      const body = input.value.trim();
+      if (!body) return;
+      state.todos.push({ id: "t" + Date.now(), body, who: document.getElementById("todo-who").value || null, due: null, done: false, by: null });
+      saveTodos(); render();
+    } else if (e.target.id === "add-dream") {
+      const body = document.getElementById("dream-text").value.trim();
+      if (!body) return;
+      state.dreams.unshift({ id: "d" + Date.now(), title: body, note: null, category: null, state: "someday" });
+      saveDreams(); render();
+    } else if (e.target.id === "add-game") {
+      const name = document.getElementById("game-name").value.trim();
+      if (!name) return;
+      state.games.push({ id: "g" + Date.now(), name, emoji: null });
+      saveGames(); render();
+    }
   });
+
+  render();
+
+  /* --------------------------------------------------------- storage --- */
+  /* The page works on its own; saving lights up when the store answers.  */
+  (async () => {
+    const db = await (window.claude && window.claude.use ? window.claude.use("db") : Promise.resolve(null));
+    if (!db) return;
+    state.db = db;
+    const badge = document.getElementById("savebadge");
+    badge.textContent = "Changes saved";
+    badge.dataset.on = "true";
+
+    const watch = (path, apply) => db.doc(path).onSnapshot((snap) => {
+      if (snap.exists) { apply(snap.data()); render(); }
+    }, () => {});
+
+    watch("state/sessions", (d) => { state.overrides = d.overrides || {}; });
+    watch("state/activities", (d) => { state.activities = d.byPerson || { patri: [], jean: [] }; });
+    watch("lists/todos", (d) => { state.todos = d.items || []; });
+    watch("lists/dreams", (d) => { state.dreams = d.items || []; });
+    watch("lists/games", (d) => { state.games = d.items || []; state.battles = d.battles || []; });
+  })();
 })();
 </script>
