@@ -1,0 +1,325 @@
+<title>The Road to Málaga</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap">
+<style>
+:root {
+  --ground:#F0F4F4; --surface:#FFFFFF; --surface-2:#F5F8F8; --line:#D4DFDF;
+  --ink:#0E2226; --muted:#5B7479; --faint:#8CA1A5;
+  --accent:#D64F17; --accent-soft:#FBE6DC;
+  --swim:#0083A0; --bike:#8A4FC4; --run:#D64F17;
+  --band:rgba(14,34,38,.035);
+  --display:Archivo,"Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:#07161A; --surface:#0F2328; --surface-2:#142A2F; --line:#23414A;
+    --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
+    --accent:#FF7C46; --accent-soft:#3A1F14;
+    --swim:#2B96BC; --bike:#8F68D6; --run:#EE5F26;
+    --band:rgba(255,255,255,.04);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:#07161A; --surface:#0F2328; --surface-2:#142A2F; --line:#23414A;
+  --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
+  --accent:#FF7C46; --accent-soft:#3A1F14;
+  --swim:#2B96BC; --bike:#8F68D6; --run:#EE5F26;
+  --band:rgba(255,255,255,.04);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.wrap{max-width:880px;margin:0 auto;padding-block:32px;padding-left:20px;padding-right:20px}
+
+.masthead{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:22px}
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,7vw,52px);line-height:.98;letter-spacing:-.04em;margin:0 0 12px;text-wrap:balance}
+.standfirst{color:var(--muted);font-size:16px;max-width:60ch;margin:0}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:22px 0 30px}
+.fact{background:var(--surface);padding:13px 15px}
+.fact b{display:block;font-family:var(--display);font-weight:800;font-size:25px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.fact span{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+h2{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.02em;margin:34px 0 4px;text-wrap:balance}
+.lede{color:var(--muted);font-size:14.5px;margin:0 0 18px;max-width:64ch}
+
+.phases{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:8px}
+.phase{padding:9px 8px;border-right:1px solid var(--line);min-width:0}
+.phase:last-child{border-right:none}
+.phase b{display:block;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phase span{font-family:var(--mono);font-size:9px;color:var(--faint);white-space:nowrap}
+
+.charts{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 14px 10px}
+.chart+.chart{margin-top:6px;padding-top:12px;border-top:1px solid var(--line)}
+.chart-head{display:flex;align-items:baseline;gap:10px;padding:0 4px 4px}
+.chart-head b{font-family:var(--display);font-weight:700;font-size:13.5px}
+.chart-head span{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.tick{font-family:var(--mono);font-size:8.5px;fill:var(--faint)}
+.bar{cursor:pointer}
+.bar:hover{opacity:.75}
+
+.tooltip{position:fixed;pointer-events:none;background:var(--ink);color:var(--ground);border-radius:8px;padding:7px 10px;font-family:var(--mono);font-size:11px;line-height:1.5;z-index:50;opacity:0;transition:opacity .1s;max-width:230px}
+.tooltip b{font-family:var(--display);font-size:12px}
+
+.weekbar{display:flex;align-items:center;gap:10px;margin:26px 0 0;flex-wrap:wrap}
+.weekbar .nav{border:1px solid var(--line);border-radius:8px;width:32px;height:32px;color:var(--muted);font-size:16px;line-height:1}
+.weekbar .nav:hover{background:var(--surface-2);color:var(--ink)}
+.weekbar .label{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.02em}
+.weekbar .sub{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:3px 9px;border:1px solid var(--line);color:var(--muted)}
+.tag.race{color:var(--accent);border-color:currentColor;background:var(--accent-soft)}
+
+.week{border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:12px;overflow:hidden}
+.dayrow{display:grid;grid-template-columns:78px 1fr;gap:14px;padding:12px 16px;border-top:1px solid var(--line)}
+.dayrow:first-child{border-top:none}
+.dayrow.rest{color:var(--faint)}
+.dname{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding-top:3px}
+.dname b{display:block;font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:0;color:var(--ink);text-transform:none}
+.s{display:flex;gap:10px;align-items:flex-start;padding:5px 0}
+.s+.s{border-top:1px dashed var(--line);margin-top:3px;padding-top:8px}
+.swatch{width:3px;border-radius:999px;align-self:stretch;min-height:26px;flex:none}
+.s .body{flex:1;min-width:0}
+.s .body b{display:block;font-weight:600;font-size:14.5px}
+.s .body span{font-size:13px;color:var(--muted)}
+.s .amt{font-family:var(--mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;padding-top:2px}
+.disc{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-left:7px}
+
+.prose p{max-width:64ch;color:var(--muted);font-size:14.5px}
+.prose strong{color:var(--ink);font-weight:600}
+.foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--faint);line-height:1.7}
+code{font-family:var(--mono);font-size:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Training plan · 4 Jan – 10 Oct 2027</p>
+    <h1>The Road to Málaga</h1>
+    <p class="standfirst">Forty weeks for Patri and Jean, from the first week of January to the finish line of Ironman 70.3 Málaga — with the Seville half marathon built in along the way, as a race to be run rather than an inconvenience to train through.</p>
+  </header>
+
+  <div class="facts">
+    <div class="fact"><b>40</b><span>weeks</span></div>
+    <div class="fact"><b>319</b><span>sessions each</span></div>
+    <div class="fact"><b>189<span style="font-size:14px"> km</span></b><span>swimming</span></div>
+    <div class="fact"><b>3,935<span style="font-size:14px"> km</span></b><span>riding</span></div>
+    <div class="fact"><b>1,392<span style="font-size:14px"> km</span></b><span>running</span></div>
+  </div>
+
+  <h2>The shape of it</h2>
+  <p class="lede">Each bar is one week. The dips every fourth week are deliberate — three weeks of loading, one of recovery, because the easy week is what makes the next three possible. Click any week to read it.</p>
+
+  <div id="phases" class="phases"></div>
+  <div class="charts" id="charts"></div>
+
+  <div class="weekbar">
+    <button class="nav" id="prev" type="button" aria-label="Previous week">←</button>
+    <button class="nav" id="next" type="button" aria-label="Next week">→</button>
+    <span class="label" id="wk-label"></span>
+    <span class="sub" id="wk-dates"></span>
+    <span class="tag" id="wk-phase"></span>
+    <span class="sub" id="wk-vol" style="margin-left:auto"></span>
+  </div>
+  <div class="week" id="week"></div>
+
+  <h2>How it was put together</h2>
+  <div class="prose">
+    <p><strong>Seville is week 7.</strong> The first block is run-heavy with swimming and cycling kept ticking over, tapers into race day on 21 February, then takes a full easy week afterwards. Triathlon proper starts in March.</p>
+    <p><strong>Targets are efforts, not paces.</strong> You two are not the same runner, and &ldquo;threshold&rdquo; means the right thing for both of you. Once Jean&rsquo;s Strava is connected there is enough data to put real numbers on them.</p>
+    <p><strong>Running off the bike starts in week 15</strong> and never stops. It is the thing that decides a 70.3, and it cannot be learned in the last month. Week 28 is an Olympic-distance tune-up race, and week 36 is the full dress rehearsal: 90 km at race effort followed by 12 km, eating exactly what you plan to eat on the day.</p>
+    <p><strong>Every session carries a distance or a duration.</strong> That is not decoration — it is what lets the app match a Strava upload to the session it answers, and tick it off without being asked.</p>
+  </div>
+
+  <p class="foot">
+    Load it with <code>node scripts/load-plan.mjs plans/malaga-70.3.csv</code>.<br>
+    The plan is generated by <code>scripts/build-plan.mjs</code>, so changing the race date moves all forty weeks with it.<br>
+    Race date is a placeholder Sunday until the real one is confirmed.
+  </p>
+</div>
+
+<div class="tooltip" id="tip" role="status"></div>
+
+<script>
+const PLAN = {"planStart":"2027-01-04","raceDay":"2027-10-10","weeks":[{"week":1,"phase":"seville","start":"2027-01-04","swim":2000,"bike":0,"run":30000,"seconds":10800,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2000,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"5 × 1 km at threshold, 90 s jog","m":8000,"s":null},{"dow":2,"d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":3600},{"dow":3,"d":"run","t":"Easy run","g":"Conversational the whole way","m":8000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":4500},{"dow":6,"d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":14000,"s":null}]},{"week":2,"phase":"seville","start":"2027-01-11","swim":2100,"bike":0,"run":31800,"seconds":11200,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2100,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"5 × 1 km at threshold, 90 s jog","m":8500,"s":null},{"dow":2,"d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":3800},{"dow":3,"d":"run","t":"Easy run","g":"Conversational the whole way","m":8300,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":4700},{"dow":6,"d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":15000,"s":null}]},{"week":3,"phase":"seville","start":"2027-01-18","swim":2200,"bike":0,"run":33700,"seconds":11400,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2200,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"5 × 1 km at threshold, 90 s jog","m":9000,"s":null},{"dow":2,"d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":3900},{"dow":3,"d":"run","t":"Easy run","g":"Conversational the whole way","m":8700,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":4800},{"dow":6,"d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":16000,"s":null}]},{"week":4,"phase":"seville","start":"2027-01-25","swim":1500,"bike":0,"run":23100,"seconds":8500,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":1500,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"6 × 1 km at threshold, 90 s jog","m":6200,"s":null},{"dow":2,"d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":2600},{"dow":3,"d":"run","t":"Easy run","g":"Conversational the whole way","m":5900,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":3200},{"dow":6,"d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":11000,"s":null}]},{"week":5,"phase":"seville","start":"2027-02-01","swim":2400,"bike":0,"run":37300,"seconds":12000,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2400,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"6 × 1 km at threshold, 90 s jog","m":10000,"s":null},{"dow":2,"d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":4200},{"dow":3,"d":"run","t":"Easy run","g":"Conversational the whole way","m":9300,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":5100},{"dow":6,"d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":18000,"s":null}]},{"week":6,"phase":"seville","start":"2027-02-08","swim":2500,"bike":0,"run":39200,"seconds":12400,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills and aerobic sets","m":2500,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"6 × 1 km at threshold, 90 s jog","m":10500,"s":null},{"dow":2,"d":"bike","t":"Zone 2 ride","g":"Steady, spin the legs out","m":null,"s":4400},{"dow":3,"d":"run","t":"Easy run","g":"Conversational the whole way","m":9700,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Easy ride","g":"90 min, nothing hard","m":null,"s":5300},{"dow":6,"d":"run","t":"Long run","g":"Last 5 km at half-marathon effort","m":19000,"s":null}]},{"week":7,"phase":"seville","start":"2027-02-15","swim":1500,"bike":0,"run":35097,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Loosener swim","g":"Easy, nothing hard","m":1500,"s":null},{"dow":1,"d":"run","t":"Strides","g":"5 km easy + 6 × 20 s fast","m":6000,"s":null},{"dow":2,"d":"bike","t":"Spin","g":"45 min, keep it light","m":null,"s":2700},{"dow":3,"d":"run","t":"Easy run","g":"5 km, legs only","m":5000,"s":null},{"dow":5,"d":"run","t":"Shakeout","g":"3 km + 4 × 20 s at race pace","m":3000,"s":null},{"dow":6,"d":"run","t":"Seville Half Marathon","g":"Race day. Go and enjoy it.","m":21097,"s":null}]},{"week":8,"phase":"recover","start":"2027-02-22","swim":1800,"bike":0,"run":14000,"seconds":5400,"sessions":[{"dow":0,"d":"swim","t":"Easy swim","g":"Feel the water, no sets","m":1800,"s":null},{"dow":2,"d":"bike","t":"Easy spin","g":"60 min, flat","m":null,"s":3600},{"dow":3,"d":"run","t":"Easy run","g":"Short and slow","m":6000,"s":null},{"dow":4,"d":"strength","t":"Mobility","g":"30 min, hips and ankles","m":null,"s":1800},{"dow":6,"d":"run","t":"Easy run","g":"However far feels good","m":8000,"s":null}]},{"week":9,"phase":"base","start":"2027-03-01","swim":5000,"bike":95000,"run":31000,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2400,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9000,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":35000,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2600,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":60000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":14000,"s":null}]},{"week":10,"phase":"base","start":"2027-03-08","swim":5200,"bike":100500,"run":32000,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2500,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9300,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":37000,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2700,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8200,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":63500,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":14500,"s":null}]},{"week":11,"phase":"base","start":"2027-03-15","swim":5300,"bike":106000,"run":32900,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2500,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":9500,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":38500,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2800,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8400,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":67500,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":15000,"s":null}]},{"week":12,"phase":"base","start":"2027-03-22","swim":3600,"bike":72500,"run":22000,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":1700,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":6400,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":26500,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":1900,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":5600,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":46000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":10000,"s":null}]},{"week":13,"phase":"base","start":"2027-03-29","swim":5700,"bike":117000,"run":34700,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2700,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":10000,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":42500,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3000,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8700,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":74500,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":16000,"s":null}]},{"week":14,"phase":"base","start":"2027-04-05","swim":5900,"bike":122000,"run":35900,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2800,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":10500,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":44000,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3100,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":8900,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":78000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":16500,"s":null}]},{"week":15,"phase":"base","start":"2027-04-12","swim":5900,"bike":128000,"run":40100,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2800,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":10500,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":46000,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3100,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9100,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":82000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":17500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null}]},{"week":16,"phase":"base","start":"2027-04-19","swim":4000,"bike":86500,"run":26600,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":1900,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":7100,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":31000,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2100,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":6000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":55500,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":11500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Straight off the bike, easy","m":2000,"s":null}]},{"week":17,"phase":"base","start":"2027-04-26","swim":6300,"bike":138500,"run":42000,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":3000,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":11000,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":49500,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3300,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9500,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":89000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":18500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null}]},{"week":18,"phase":"base","start":"2027-05-03","swim":6500,"bike":144000,"run":43100,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":3100,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":11500,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":51500,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3400,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9600,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":92500,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":19000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null}]},{"week":19,"phase":"base","start":"2027-05-10","swim":6600,"bike":149500,"run":43800,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":3100,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":11500,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":53000,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":3500,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":9800,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":96500,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":19500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Straight off the bike, easy","m":3000,"s":null}]},{"week":20,"phase":"base","start":"2027-05-17","swim":4400,"bike":101000,"run":29300,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Technique swim","g":"Drills, then 10 × 100 m steady","m":2100,"s":null},{"dow":1,"d":"run","t":"Threshold intervals","g":"4 × 6 min at threshold, 2 min jog","m":7800,"s":null},{"dow":2,"d":"bike","t":"Endurance ride","g":"Zone 2 with 3 × 8 min cadence work","m":36000,"s":null},{"dow":3,"d":"swim","t":"Endurance swim","g":"Long continuous sets","m":2300,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Off the back of the swim, easy","m":6500,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Legs, glutes and core","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Steady, together","m":65000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Flat and steady","m":13000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Straight off the bike, easy","m":2000,"s":null}]},{"week":21,"phase":"recover","start":"2027-05-24","swim":1800,"bike":0,"run":14000,"seconds":5400,"sessions":[{"dow":0,"d":"swim","t":"Easy swim","g":"Feel the water, no sets","m":1800,"s":null},{"dow":2,"d":"bike","t":"Easy spin","g":"60 min, flat","m":null,"s":3600},{"dow":3,"d":"run","t":"Easy run","g":"Short and slow","m":6000,"s":null},{"dow":4,"d":"strength","t":"Mobility","g":"30 min, hips and ankles","m":null,"s":1800},{"dow":6,"d":"run","t":"Easy run","g":"However far feels good","m":8000,"s":null}]},{"week":22,"phase":"build","start":"2027-05-31","swim":6000,"bike":135000,"run":40000,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3000,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":45000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3000,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":90000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":4000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":16000,"s":null}]},{"week":23,"phase":"build","start":"2027-06-07","swim":6200,"bike":141000,"run":41100,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3100,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":46500,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3100,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9200,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":94500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":4400,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":16500,"s":null}]},{"week":24,"phase":"build","start":"2027-06-14","swim":6200,"bike":146500,"run":42600,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3100,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11500,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":47500,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3100,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9400,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":99000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":4700,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":17000,"s":null}]},{"week":25,"phase":"build","start":"2027-06-21","swim":4200,"bike":99500,"run":28500,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":2100,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":7500,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":32000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":2100,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":6200,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":67500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":3300,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":11500,"s":null}]},{"week":26,"phase":"build","start":"2027-06-28","swim":6500,"bike":158500,"run":44700,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3200,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":11500,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":50500,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3300,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9700,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":108000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":5500,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":18000,"s":null}]},{"week":27,"phase":"build","start":"2027-07-05","swim":6700,"bike":164500,"run":46200,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3300,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":12000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":52000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3400,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":9900,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":112500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":5800,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":18500,"s":null}]},{"week":28,"phase":"build","start":"2027-07-12","swim":3500,"bike":40000,"run":15000,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Easy swim","g":"Loosen off","m":2000,"s":null},{"dow":2,"d":"bike","t":"Openers","g":"45 min with 4 × 2 min at race effort","m":null,"s":2700},{"dow":3,"d":"run","t":"Strides","g":"5 km + 6 × 20 s","m":5000,"s":null},{"dow":6,"d":"swim","t":"Olympic tune-up — swim","g":"Dress rehearsal, hard","m":1500,"s":null},{"dow":6,"d":"bike","t":"Olympic tune-up — bike","g":"Race effort","m":40000,"s":null},{"dow":6,"d":"run","t":"Olympic tune-up — run","g":"Hold on","m":10000,"s":null}]},{"week":29,"phase":"build","start":"2027-07-19","swim":4500,"bike":114500,"run":32000,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":2200,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":8000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":35500,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":2300,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":6700,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":79000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":4300,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":13000,"s":null}]},{"week":30,"phase":"build","start":"2027-07-26","swim":7000,"bike":182500,"run":50400,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3400,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":12500,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":56000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3600,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":10500,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":126500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":6900,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":20500,"s":null}]},{"week":31,"phase":"build","start":"2027-08-02","swim":7200,"bike":188500,"run":51300,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3500,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":12500,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":57500,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3700,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":10500,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":131000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":7300,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":21000,"s":null}]},{"week":32,"phase":"build","start":"2027-08-09","swim":7200,"bike":194000,"run":53100,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":3500,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":13000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":58500,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":3700,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":11000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":135500,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":7600,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":21500,"s":null}]},{"week":33,"phase":"build","start":"2027-08-16","swim":4800,"bike":130000,"run":35400,"seconds":2700,"sessions":[{"dow":0,"d":"swim","t":"Threshold swim","g":"8 × 200 m at race effort","m":2300,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 8 min at 70.3 run effort","m":8500,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 15 min just under threshold","m":39000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Sighting, straight lines, no wall","m":2500,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace, properly easy","m":7200,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Heavier, lower reps","m":null,"s":2700},{"dow":5,"d":"bike","t":"Long ride","g":"Last hour at race effort","m":91000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike at race pace","m":5200,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Negative split it","m":14500,"s":null}]},{"week":34,"phase":"recover","start":"2027-08-23","swim":1800,"bike":0,"run":14000,"seconds":5400,"sessions":[{"dow":0,"d":"swim","t":"Easy swim","g":"Feel the water, no sets","m":1800,"s":null},{"dow":2,"d":"bike","t":"Easy spin","g":"60 min, flat","m":null,"s":3600},{"dow":3,"d":"run","t":"Easy run","g":"Short and slow","m":6000,"s":null},{"dow":4,"d":"strength","t":"Mobility","g":"30 min, hips and ankles","m":null,"s":1800},{"dow":6,"d":"run","t":"Easy run","g":"However far feels good","m":8000,"s":null}]},{"week":35,"phase":"peak","start":"2027-08-30","swim":6600,"bike":195000,"run":51000,"seconds":2400,"sessions":[{"dow":0,"d":"swim","t":"Race-pace swim","g":"4 × 400 m at race effort","m":3400,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 10 min at 70.3 effort","m":13000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"4 × 15 min just under threshold","m":55000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Wetsuit, sighting, mass starts","m":3200,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace","m":10000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Maintenance only","m":null,"s":2400},{"dow":5,"d":"bike","t":"Long ride","g":"Race effort in the last 90 min","m":140000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike, race pace","m":8000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Steady, controlled","m":20000,"s":null}]},{"week":36,"phase":"peak","start":"2027-09-06","swim":6400,"bike":145000,"run":35000,"seconds":2400,"sessions":[{"dow":0,"d":"swim","t":"Race-pace swim","g":"2 × 900 m at race effort","m":3400,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"4 × 10 min at 70.3 effort","m":13000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 20 min","m":55000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Wetsuit, sighting, starts","m":3000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Light, keep it moving","m":null,"s":2400},{"dow":5,"d":"bike","t":"Race simulation — bike","g":"90 km at exactly race effort. Practise the food.","m":90000,"s":null},{"dow":5,"d":"run","t":"Race simulation — run","g":"12 km straight off, race pace","m":12000,"s":null},{"dow":6,"d":"run","t":"Easy run","g":"Shake yesterday out","m":10000,"s":null}]},{"week":37,"phase":"peak","start":"2027-09-13","swim":7600,"bike":210000,"run":57000,"seconds":2400,"sessions":[{"dow":0,"d":"swim","t":"Race-pace swim","g":"4 × 400 m at race effort","m":3800,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"5 × 10 min at 70.3 effort","m":14000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"4 × 15 min just under threshold","m":60000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Wetsuit, sighting, mass starts","m":3800,"s":null},{"dow":3,"d":"run","t":"Easy run","g":"Recovery pace","m":11000,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Maintenance only","m":null,"s":2400},{"dow":5,"d":"bike","t":"Long ride","g":"Race effort in the last 90 min","m":150000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"Off the bike, race pace","m":10000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"Steady, controlled","m":22000,"s":null}]},{"week":38,"phase":"taper","start":"2027-09-20","swim":5800,"bike":145000,"run":33000,"seconds":1800,"sessions":[{"dow":0,"d":"swim","t":"Race-pace swim","g":"3 × 500 m at race effort","m":3000,"s":null},{"dow":1,"d":"run","t":"Race-pace intervals","g":"4 × 8 min at 70.3 effort","m":11000,"s":null},{"dow":2,"d":"bike","t":"Sweet-spot ride","g":"3 × 12 min","m":45000,"s":null},{"dow":3,"d":"swim","t":"Open water","g":"Last proper one","m":2800,"s":null},{"dow":4,"d":"strength","t":"Gym","g":"Light","m":null,"s":1800},{"dow":5,"d":"bike","t":"Long ride","g":"100 km, steady","m":100000,"s":null},{"dow":5,"d":"run","t":"Brick run","g":"6 km off the bike","m":6000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"16 km, easy","m":16000,"s":null}]},{"week":39,"phase":"taper","start":"2027-09-27","swim":4400,"bike":95000,"run":21000,"seconds":0,"sessions":[{"dow":0,"d":"swim","t":"Race-pace swim","g":"4 × 300 m at race effort","m":2400,"s":null},{"dow":1,"d":"run","t":"Sharpeners","g":"5 × 4 min at race effort","m":9000,"s":null},{"dow":2,"d":"bike","t":"Openers","g":"2 × 12 min at race effort","m":35000,"s":null},{"dow":3,"d":"swim","t":"Easy swim","g":"Feel, not fitness","m":2000,"s":null},{"dow":5,"d":"bike","t":"Steady ride","g":"60 km, comfortable","m":60000,"s":null},{"dow":6,"d":"run","t":"Long run","g":"12 km, easy","m":12000,"s":null}]},{"week":40,"phase":"taper","start":"2027-10-04","swim":4400,"bike":90000,"run":29097,"seconds":4200,"sessions":[{"dow":0,"d":"swim","t":"Loosener swim","g":"1.5 km, easy","m":1500,"s":null},{"dow":1,"d":"run","t":"Strides","g":"5 km + 6 × 20 s at race pace","m":5000,"s":null},{"dow":2,"d":"bike","t":"Openers","g":"40 min with 3 × 3 min at race effort","m":null,"s":2400},{"dow":3,"d":"swim","t":"Shakeout swim","g":"1 km, easy. Travel day.","m":1000,"s":null},{"dow":4,"d":"bike","t":"Course spin","g":"30 min, check the bike over","m":null,"s":1800},{"dow":5,"d":"run","t":"Shakeout","g":"3 km + 4 × 20 s. Rack the bike.","m":3000,"s":null},{"dow":6,"d":"swim","t":"Ironman 70.3 Málaga — swim","g":"1.9 km. Steady, find your feet.","m":1900,"s":null},{"dow":6,"d":"bike","t":"Ironman 70.3 Málaga — bike","g":"90 km. Eat every 30 minutes.","m":90000,"s":null},{"dow":6,"d":"run","t":"Ironman 70.3 Málaga — run","g":"21.1 km. This is the bit you trained for.","m":21097,"s":null}]}]};
+</script>
+<script>
+(function () {
+  "use strict";
+  const weeks = PLAN.weeks;
+  const DISCIPLINES = [
+    { key: "swim", label: "Swim", color: "var(--swim)" },
+    { key: "bike", label: "Bike", color: "var(--bike)" },
+    { key: "run",  label: "Run",  color: "var(--run)"  },
+  ];
+  const DOW = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const MONTH = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const PHASE_NAME = { seville: "Seville block", recover: "Recovery", base: "Base", build: "Build", peak: "Peak", taper: "Taper" };
+
+  const fmtDate = (iso) => {
+    const d = new Date(iso + "T12:00:00Z");
+    return d.getUTCDate() + " " + MONTH[d.getUTCMonth()];
+  };
+  const addDays = (iso, n) => {
+    const d = new Date(iso + "T12:00:00Z");
+    d.setUTCDate(d.getUTCDate() + n);
+    return d.toISOString().slice(0, 10);
+  };
+  const km = (m) => {
+    const v = m >= 10000 ? (m / 1000).toFixed(0) : (m / 1000).toFixed(1);
+    return Number(v).toLocaleString("en-GB", { maximumFractionDigits: 1 }) + " km";
+  };
+  const hm = (s) => {
+    const h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60);
+    return h ? h + " h " + (m ? m + " min" : "") : m + " min";
+  };
+
+  let selected = 1;
+
+  /* ---- phase strip: proportional to how long each phase lasts ---- */
+  const runs = [];
+  weeks.forEach((w) => {
+    const last = runs[runs.length - 1];
+    if (last && last.phase === w.phase) last.end = w.week;
+    else runs.push({ phase: w.phase, start: w.week, end: w.week });
+  });
+
+  document.getElementById("phases").innerHTML = runs
+    .map((r) => {
+      const span = r.end - r.start + 1;
+      const label = r.start === r.end ? "wk " + r.start : "wk " + r.start + "–" + r.end;
+      // A one-week phase gets a stub of a column, so give it a name that fits in one.
+      const name = span === 1 ? "Easy" : PHASE_NAME[r.phase];
+      return '<div class="phase" style="flex:' + span + '" title="' + PHASE_NAME[r.phase] + ', ' + label + '">' +
+        "<b>" + name + "</b><span>" + label + "</span></div>";
+    })
+    .join("");
+
+  /* ---- three small multiples, one scale each ---- */
+  const W = 840, H = 132, PAD = { l: 40, r: 8, t: 12, b: 20 };
+  const plotW = W - PAD.l - PAD.r;
+  const plotH = H - PAD.t - PAD.b;
+  const step = plotW / weeks.length;
+  const barW = Math.min(15, step - 5);
+
+  /** A bar with its top corners rounded, still sitting flat on the baseline. */
+  function barPath(x, y, w, h, r) {
+    const rr = Math.min(r, w / 2, h);
+    return `M${x} ${y + h} L${x} ${y + rr} Q${x} ${y} ${x + rr} ${y} ` +
+           `L${x + w - rr} ${y} Q${x + w} ${y} ${x + w} ${y + rr} L${x + w} ${y + h} Z`;
+  }
+
+  document.getElementById("charts").innerHTML = DISCIPLINES.map((d) => {
+    const max = Math.max(...weeks.map((w) => w[d.key]));
+    const total = weeks.reduce((sum, w) => sum + w[d.key], 0);
+
+    const bands = runs
+      .filter((_, i) => i % 2 === 1)
+      .map((r) => {
+        const x = PAD.l + (r.start - 1) * step;
+        const w = (r.end - r.start + 1) * step;
+        return `<rect x="${x}" y="${PAD.t}" width="${w}" height="${plotH}" fill="var(--band)"/>`;
+      })
+      .join("");
+
+    const bars = weeks.map((w) => {
+      const h = max ? (w[d.key] / max) * plotH : 0;
+      const x = PAD.l + (w.week - 1) * step + (step - barW) / 2;
+      const y = PAD.t + plotH - h;
+      return h < 0.5
+        ? ""
+        : `<path class="bar" d="${barPath(x, y, barW, h, 4)}" fill="${d.color}" ` +
+          `data-week="${w.week}" data-key="${d.key}"><title>Week ${w.week}: ${km(w[d.key])}</title></path>`;
+    }).join("");
+
+    // Race weeks earn a marker: they are the two fixed points everything bends around.
+    const marks = [7, 40].map((n) => {
+      const x = PAD.l + (n - 1) * step + step / 2;
+      return `<line x1="${x}" y1="${PAD.t - 4}" x2="${x}" y2="${PAD.t + plotH}" ` +
+             `stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 3" opacity=".55"/>`;
+    }).join("");
+
+    return `<div class="chart">
+      <div class="chart-head"><b>${d.label}</b><span>${km(total)} in total · ${km(max)} at its peak</span></div>
+      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${d.label} kilometres per week across 40 weeks, peaking at ${km(max)}">
+        ${bands}${marks}
+        <line x1="${PAD.l}" y1="${PAD.t + plotH}" x2="${W - PAD.r}" y2="${PAD.t + plotH}" stroke="var(--line)" stroke-width="1"/>
+        <text class="tick" x="${PAD.l - 6}" y="${PAD.t + 4}" text-anchor="end">${km(max)}</text>
+        <text class="tick" x="${PAD.l - 6}" y="${PAD.t + plotH}" text-anchor="end">0</text>
+        ${bars}
+        <text class="tick" x="${PAD.l}" y="${H - 6}">wk 1</text>
+        <text class="tick" x="${PAD.l + 19 * step}" y="${H - 6}" text-anchor="middle">20</text>
+        <text class="tick" x="${W - PAD.r}" y="${H - 6}" text-anchor="end">40 · race</text>
+      </svg>
+    </div>`;
+  }).join("");
+
+  /* ---- hover ---- */
+  const tip = document.getElementById("tip");
+  document.getElementById("charts").addEventListener("mousemove", (e) => {
+    const bar = e.target.closest(".bar");
+    if (!bar) { tip.style.opacity = 0; return; }
+    const w = weeks[+bar.dataset.week - 1];
+    tip.innerHTML = "<b>Week " + w.week + "</b> · " + PHASE_NAME[w.phase] + "<br>" +
+      fmtDate(w.start) + " – " + fmtDate(addDays(w.start, 6)) + "<br>" +
+      "Swim " + km(w.swim) + " · Bike " + km(w.bike) + "<br>Run " + km(w.run);
+    tip.style.opacity = 1;
+    tip.style.left = Math.min(e.clientX + 14, window.innerWidth - 240) + "px";
+    tip.style.top = Math.max(e.clientY - 70, 8) + "px";
+  });
+  document.getElementById("charts").addEventListener("mouseleave", () => { tip.style.opacity = 0; });
+  document.getElementById("charts").addEventListener("click", (e) => {
+    const bar = e.target.closest(".bar");
+    if (bar) select(+bar.dataset.week);
+  });
+
+  /* ---- the selected week, written out ---- */
+  function select(n) {
+    selected = Math.min(40, Math.max(1, n));
+    const w = weeks[selected - 1];
+
+    document.getElementById("wk-label").textContent = "Week " + w.week;
+    document.getElementById("wk-dates").textContent =
+      fmtDate(w.start) + " – " + fmtDate(addDays(w.start, 6)) + " 2027";
+
+    const isRace = selected === 7 || selected === 40;
+    const phaseTag = document.getElementById("wk-phase");
+    phaseTag.textContent = selected === 7 ? "Seville half marathon"
+      : selected === 40 ? "Race week" : PHASE_NAME[w.phase];
+    phaseTag.className = "tag" + (isRace ? " race" : "");
+
+    // A week can prescribe a discipline by time rather than distance — saying
+    // "0.0 km" when there are two rides on the plan would just be wrong.
+    document.getElementById("wk-vol").textContent = DISCIPLINES.map((d) => {
+      if (w[d.key]) return d.label + " " + km(w[d.key]);
+      const secs = w.sessions.filter((s) => s.d === d.key).reduce((sum, s) => sum + (s.s || 0), 0);
+      return secs ? d.label + " " + hm(secs) : null;
+    }).filter(Boolean).join(" · ");
+
+    const byDay = DOW.map((_, i) => w.sessions.filter((s) => s.dow === i));
+    document.getElementById("week").innerHTML = byDay.map((list, i) => {
+      const date = fmtDate(addDays(w.start, i));
+      if (!list.length) {
+        return '<div class="dayrow rest"><div class="dname"><b>' + DOW[i].slice(0, 3) + "</b>" + date +
+          '</div><div style="padding-top:4px;font-size:13.5px">Rest</div></div>';
+      }
+      return '<div class="dayrow"><div class="dname"><b>' + DOW[i].slice(0, 3) + "</b>" + date + "</div><div>" +
+        list.map((s) => {
+          const amount = s.m ? km(s.m) : hm(s.s);
+          return '<div class="s"><span class="swatch" style="background:var(--' + s.d + ')"></span>' +
+            '<span class="body"><b>' + s.t + '<span class="disc" style="color:var(--' + s.d + ')">' + s.d +
+            "</span></b><span>" + (s.g || "") + "</span></span>" +
+            '<span class="amt">' + amount + "</span></div>";
+        }).join("") + "</div></div>";
+    }).join("");
+  }
+
+  document.getElementById("prev").addEventListener("click", () => select(selected - 1));
+  document.getElementById("next").addEventListener("click", () => select(selected + 1));
+  select(1);
+})();
+</script>

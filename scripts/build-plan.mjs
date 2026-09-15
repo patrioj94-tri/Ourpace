@@ -248,7 +248,10 @@ for (let week = 1; week <= 40; week += 1) {
     });
   }
 
-  summary.push({ week, phase: phase.name, start: dateOf(week, 0), ...totals, sessions: sessions.length });
+  summary.push({
+    week, phase: phase.name, start: dateOf(week, 0), ...totals,
+    sessions: sessions.map((s) => ({ dow: s.dow, d: s.discipline, t: s.title, g: s.target, m: s.m ?? null, s: s.s ?? null })),
+  });
 }
 
 // Race day has to be the last day of the plan, or the arithmetic is wrong.
@@ -269,7 +272,7 @@ if (process.argv.includes('--summary')) {
       `${(w.bike / 1000).toFixed(0)} km`.padStart(8),
       `${(w.run / 1000).toFixed(1)} km`.padStart(8),
       `${(w.seconds / 3600).toFixed(1)} h`.padStart(9),
-      String(w.sessions).padStart(9),
+      String(w.sessions.length).padStart(9),
     );
   }
   const totals = summary.reduce(
@@ -281,6 +284,8 @@ if (process.argv.includes('--summary')) {
       `${(totals.bike / 1000).toFixed(0)} km riding, ${(totals.run / 1000).toFixed(0)} km running, ` +
       `${rows.length} sessions each.`,
   );
+} else if (process.argv.includes('--json')) {
+  console.log(JSON.stringify({ planStart: PLAN_START, raceDay: RACE_DAY, weeks: summary }));
 } else {
   const escape = (v) => (/[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : v);
   console.log('date,person,discipline,title,target,distance_m,duration_s,phase,week');
