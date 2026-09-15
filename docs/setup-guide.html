@@ -81,6 +81,11 @@ pre code{background:none;border:none;padding:0;font-size:13px;line-height:1.65}
 .field span{font-size:13.5px;color:var(--muted)}
 .fields{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:6px 13px;margin-bottom:10px}
 
+details{border:1px solid var(--line);border-radius:9px;background:var(--surface-2);padding:10px 13px;margin:0 0 12px}
+details[open]{padding-bottom:13px}
+summary{font-family:var(--display);font-weight:600;font-size:14px;cursor:pointer;color:var(--muted)}
+details[open] summary{margin-bottom:10px;color:var(--ink)}
+details pre{max-height:320px;overflow:auto;background:var(--surface);margin-bottom:0}
 .bigbtn{display:block;background:var(--accent);color:#fff;text-decoration:none;text-align:center;border-radius:11px;padding:14px;font-family:var(--display);font-weight:700;font-size:16px;margin:14px 0}
 .foot{margin-top:38px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--faint);line-height:1.7}
 .reset{font-family:var(--mono);font-size:11px;color:var(--faint);text-decoration:underline}
@@ -149,8 +154,323 @@ pre code{background:none;border:none;padding:0;font-size:13px;line-height:1.65}
         <li>Go to <a href="https://supabase.com">supabase.com</a> and sign up with GitHub. Free, no card.</li>
         <li><b>New project</b>. Call it <code>our-pace</code>, choose region <b>Frankfurt</b> (closest to Belgium), and let it generate a database password — <b>save that password somewhere</b>.</li>
         <li>Wait about two minutes while it builds.</li>
-        <li>Open <b>SQL Editor</b> in the left sidebar. Open the file <code>supabase/migrations/0001_init.sql</code> from the repo, copy all of it, paste, and press <b>Run</b>. It should say success.</li>
-        <li>Open <code>supabase/seed.sql</code>. <b>Replace the placeholder with Jean's real email address</b> — that line is the only thing that lets him in. Then paste it into the SQL Editor and <b>Run</b>.</li>
+        <li>Open <b>SQL Editor</b> in the left sidebar, press <b>New query</b>, then copy the whole block below into it and press <b>Run</b>. It should say success. (It is long — the copy button gets all of it.)</li>
+      </ol>
+      <details>
+        <summary>The database structure — tap to open, then copy</summary>
+        <button class="copy">Copy all of it</button>
+        <pre><code>-- Our Pace — initial schema.
+-- Two people share every row in here, so the security model is simple:
+-- you are either one of them, or you see nothing at all.
+
+create extension if not exists pgcrypto;
+
+-- ---------------------------------------------------------------- people --
+
+-- The guest list. Only an address sitting in here can ever hold an account.
+create table public.allowed_emails (
+  email      text primary key,
+  short_name text not null,
+  color      text not null default &#x27;swim&#x27;
+);
+
+create table public.profiles (
+  id         uuid primary key references auth.users(id) on delete cascade,
+  email      text unique not null,
+  short_name text not null,
+  color      text not null default &#x27;swim&#x27; check (color in (&#x27;swim&#x27;,&#x27;bike&#x27;,&#x27;run&#x27;,&#x27;accent&#x27;)),
+  avatar_url text,
+  created_at timestamptz not null default now()
+);
+
+-- Turns a new sign-in into a profile, and turns anybody else away.
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  invited public.allowed_emails%rowtype;
+begin
+  select * into invited
+    from public.allowed_emails
+   where lower(email) = lower(new.email);
+
+  if not found then
+    raise exception &#x27;Our Pace is private.&#x27;;
+  end if;
+
+  insert into public.profiles (id, email, short_name, color)
+  values (new.id, lower(new.email), invited.short_name, invited.color)
+  on conflict (id) do nothing;
+
+  return new;
+end;
+$$;
+
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
+
+-- Every policy below leans on this.
+create or replace function public.is_member()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (select 1 from public.profiles where id = auth.uid());
+$$;
+
+-- ------------------------------------------------------------- the race --
+
+-- One row, always. The race everything else counts down to.
+create table public.settings (
+  id            boolean primary key default true check (id),
+  race_name     text not null default &#x27;Ironman 70.3 Málaga&#x27;,
+  race_date     date not null default &#x27;2027-10-10&#x27;,
+  race_location text default &#x27;Málaga, Spain&#x27;,
+  time_zone     text not null default &#x27;Europe/Madrid&#x27;,
+  started_on    date not null default current_date
+);
+
+-- ---------------------------------------------------------------- training --
+
+create type public.discipline     as enum (&#x27;swim&#x27;,&#x27;bike&#x27;,&#x27;run&#x27;,&#x27;strength&#x27;,&#x27;rest&#x27;,&#x27;other&#x27;);
+create type public.session_status as enum (&#x27;planned&#x27;,&#x27;done&#x27;,&#x27;missed&#x27;,&#x27;skipped&#x27;);
+
+-- What Strava told us actually happened.
+create table public.activities (
+  id             bigint primary key,            -- Strava&#x27;s own activity id
+  profile_id     uuid not null references public.profiles(id) on delete cascade,
+  sport_type     text not null,
+  discipline     public.discipline not null,
+  name           text,
+  start_local    timestamp not null,
+  distance_m     double precision,
+  moving_time_s  integer,
+  elapsed_time_s integer,
+  elevation_m    double precision,
+  avg_speed      double precision,
+  avg_heartrate  double precision,
+  calories       integer,
+  raw            jsonb,
+  created_at     timestamptz not null default now()
+);
+
+-- What the plan says should happen.
+create table public.sessions (
+  id                uuid primary key default gen_random_uuid(),
+  profile_id        uuid not null references public.profiles(id) on delete cascade,
+  date              date not null,
+  discipline        public.discipline not null,
+  title             text not null,
+  target            text,                       -- &quot;6 × 800 m @ 4:15 /km&quot;
+  target_distance_m integer,
+  target_duration_s integer,
+  phase             text,                       -- base / build / peak / taper
+  week_number       integer,
+  status            public.session_status not null default &#x27;planned&#x27;,
+  activity_id       bigint references public.activities(id) on delete set null,
+  matched_automatically boolean not null default false,
+  completed_at      timestamptz,
+  notes             text,
+  google_event_id   text,
+  position          integer not null default 0,
+  created_at        timestamptz not null default now()
+);
+
+create index sessions_by_person_date on public.sessions (profile_id, date);
+create index sessions_open           on public.sessions (date) where status = &#x27;planned&#x27;;
+create index activities_by_person    on public.activities (profile_id, start_local desc);
+
+-- ------------------------------------------------------------ the rest --
+
+create table public.todos (
+  id          uuid primary key default gen_random_uuid(),
+  body        text not null,
+  assignee_id uuid references public.profiles(id) on delete set null,  -- null means both of us
+  due_on      date,
+  done        boolean not null default false,
+  done_by     uuid references public.profiles(id) on delete set null,
+  done_at     timestamptz,
+  position    integer not null default 0,
+  created_by  uuid references public.profiles(id) on delete set null,
+  created_at  timestamptz not null default now()
+);
+
+create type public.dream_state as enum (&#x27;someday&#x27;,&#x27;planning&#x27;,&#x27;booked&#x27;,&#x27;done&#x27;);
+
+create table public.dreams (
+  id            uuid primary key default gen_random_uuid(),
+  title         text not null,
+  note          text,
+  category      text,
+  state         public.dream_state not null default &#x27;someday&#x27;,
+  target_date   date,
+  cost_estimate integer,          -- whole euros, near enough for a daydream
+  saved         integer not null default 0,
+  image_url     text,
+  position      integer not null default 0,
+  created_by    uuid references public.profiles(id) on delete set null,
+  created_at    timestamptz not null default now()
+);
+
+create table public.games (
+  id         uuid primary key default gen_random_uuid(),
+  name       text not null unique,
+  emoji      text,
+  created_at timestamptz not null default now()
+);
+
+create table public.battles (
+  id         uuid primary key default gen_random_uuid(),
+  game_id    uuid not null references public.games(id) on delete cascade,
+  winner_id  uuid not null references public.profiles(id) on delete cascade,
+  played_on  date not null default current_date,
+  note       text,
+  created_by uuid references public.profiles(id) on delete set null,
+  created_at timestamptz not null default now()
+);
+
+create index battles_by_game on public.battles (game_id, played_on desc);
+
+-- Write something now, read it on a date you choose.
+create table public.letters (
+  id           uuid primary key default gen_random_uuid(),
+  author_id    uuid not null references public.profiles(id) on delete cascade,
+  recipient_id uuid references public.profiles(id) on delete cascade,
+  title        text,
+  body         text not null,
+  unlock_on    date not null,
+  opened_at    timestamptz,
+  created_at   timestamptz not null default now()
+);
+
+-- The Sunday summary.
+create table public.weekly_notes (
+  id         uuid primary key default gen_random_uuid(),
+  week_start date not null unique,
+  body       text not null,
+  stats      jsonb,
+  created_at timestamptz not null default now()
+);
+
+-- --------------------------------------------------------------- tokens --
+-- Nobody signed in can read these. Only the server, which bypasses RLS.
+
+create table public.strava_accounts (
+  profile_id    uuid primary key references public.profiles(id) on delete cascade,
+  athlete_id    bigint unique not null,
+  access_token  text not null,
+  refresh_token text not null,
+  expires_at    timestamptz not null,
+  scope         text,
+  last_synced_at timestamptz,
+  connected_at  timestamptz not null default now()
+);
+
+create table public.google_accounts (
+  profile_id    uuid primary key references public.profiles(id) on delete cascade,
+  refresh_token text not null,
+  calendar_ids  text[] not null default &#x27;{}&#x27;,
+  write_calendar_id text,
+  connected_at  timestamptz not null default now()
+);
+
+-- ------------------------------------------------------ row-level security --
+
+alter table public.profiles        enable row level security;
+alter table public.settings        enable row level security;
+alter table public.activities      enable row level security;
+alter table public.sessions        enable row level security;
+alter table public.todos           enable row level security;
+alter table public.dreams          enable row level security;
+alter table public.games           enable row level security;
+alter table public.battles         enable row level security;
+alter table public.weekly_notes    enable row level security;
+alter table public.letters         enable row level security;
+alter table public.allowed_emails  enable row level security;
+alter table public.strava_accounts enable row level security;
+alter table public.google_accounts enable row level security;
+
+-- The two of them share everything, so one policy shape covers most tables.
+do $$
+declare t text;
+begin
+  foreach t in array array[
+    &#x27;profiles&#x27;,&#x27;settings&#x27;,&#x27;activities&#x27;,&#x27;sessions&#x27;,&#x27;todos&#x27;,
+    &#x27;dreams&#x27;,&#x27;games&#x27;,&#x27;battles&#x27;,&#x27;weekly_notes&#x27;
+  ]
+  loop
+    execute format(
+      &#x27;create policy %I on public.%I for all to authenticated
+         using (public.is_member()) with check (public.is_member())&#x27;,
+      t || &#x27;_shared&#x27;, t);
+  end loop;
+end;
+$$;
+
+-- A letter stays shut until its date, even from the person it is for.
+create policy letters_read on public.letters
+  for select to authenticated
+  using (public.is_member() and (unlock_on &lt;= current_date or author_id = auth.uid()));
+
+create policy letters_write on public.letters
+  for insert to authenticated
+  with check (public.is_member() and author_id = auth.uid());
+
+create policy letters_open on public.letters
+  for update to authenticated
+  using (public.is_member() and unlock_on &lt;= current_date)
+  with check (public.is_member());
+
+-- allowed_emails, strava_accounts and google_accounts get RLS and no policies:
+-- unreachable from the browser, readable by the server.
+
+-- ------------------------------------------------------------- realtime --
+-- So a tick on one phone lands on the other without a refresh.
+
+alter publication supabase_realtime add table public.sessions;
+alter publication supabase_realtime add table public.todos;
+alter publication supabase_realtime add table public.dreams;
+alter publication supabase_realtime add table public.battles;
+alter publication supabase_realtime add table public.activities;
+</code></pre>
+      </details>
+      <ol start="5">
+        <li>Press <b>New query</b> again. Copy the block below, <b>replace Jean's placeholder address with his real one</b>, and press <b>Run</b>. That line is the only thing that lets him in.</li>
+      </ol>
+      <details open>
+        <summary>The starting data — edit Jean's email before running</summary>
+        <button class="copy">Copy</button>
+        <pre><code>-- Run this once, after 0001_init.sql.
+-- Replace Jean&#x27;s address before you run it — it is the only thing that lets him in.
+
+insert into public.allowed_emails (email, short_name, color) values
+  (&#x27;patrioj94@gmail.com&#x27;,          &#x27;Patri&#x27;, &#x27;swim&#x27;),
+  (&#x27;jean.schoenlaub@example.com&#x27;,  &#x27;Jean&#x27;,  &#x27;bike&#x27;)   -- &lt;-- his real address goes here
+on conflict (email) do update
+  set short_name = excluded.short_name,
+      color      = excluded.color;
+
+insert into public.settings (id, race_name, race_date, race_location, time_zone)
+values (true, &#x27;Ironman 70.3 Málaga&#x27;, &#x27;2027-10-10&#x27;, &#x27;Málaga, Spain&#x27;, &#x27;Europe/Madrid&#x27;)
+on conflict (id) do nothing;
+
+insert into public.games (name, emoji) values
+  (&#x27;7 Wonders Duel&#x27;, &#x27;🏛️&#x27;),
+  (&#x27;Catan&#x27;,          &#x27;🐑&#x27;),
+  (&#x27;Padel&#x27;,          &#x27;🎾&#x27;),
+  (&#x27;Mario Kart&#x27;,     &#x27;🏎️&#x27;),
+  (&#x27;Chess&#x27;,          &#x27;♟️&#x27;),
+  (&#x27;Backgammon&#x27;,     &#x27;🎲&#x27;)
+on conflict (name) do nothing;
+</code></pre>
+      </details>
+      <ol start="6">
         <li>Go to <b>Project Settings → API</b> and keep that tab open. You need three values from it in step 4.</li>
       </ol>
       <div class="callout warn"><p>The <code>service_role</code> key on that page bypasses every security rule. It goes into Vercel and nowhere else — never into a browser, a chat, or a commit.</p></div>
@@ -352,7 +672,11 @@ node scripts/load-plan.mjs plans/malaga-70.3.csv</code></pre>
     const b = e.target.closest(".copy");
     if (!b) return;
     try {
-      await navigator.clipboard.writeText(b.dataset.copy);
+      const block = b.dataset.copy
+        || (b.nextElementSibling && b.nextElementSibling.tagName === "PRE"
+            ? b.nextElementSibling.innerText
+            : (b.parentElement.querySelector("pre") || {}).innerText);
+      await navigator.clipboard.writeText(block);
       b.dataset.copied = "true";
       b.textContent = "Copied";
       setTimeout(() => { b.dataset.copied = "false"; b.textContent = b.dataset.label; }, 1600);
