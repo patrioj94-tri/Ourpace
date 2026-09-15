@@ -113,27 +113,42 @@ export function Battles({
                   {last ? `Last: ${lastName}, ${shortDate(last.played_on)}` : 'Never played'}
                 </span>
               </div>
+              {/* Mirrored, so each + sits on its own player's side — the same
+                  way round as the scoreboard at the top of the page. */}
               <div className="tally">
-                {people.map((person, index) => (
-                  <span key={person.id} style={{ display: 'contents' }}>
-                    {index > 0 && <span className="sep">–</span>}
-                    <span className="v" style={{ color: `var(--${person.color})` }}>
-                      {played.filter((x) => x.winner_id === person.id).length}
-                    </span>
-                  </span>
-                ))}
-                {people.map((person) => (
+                {a && (
                   <button
-                    key={person.id}
                     type="button"
-                    onClick={() => logWin(game.id, person.id)}
-                    aria-label={`${person.short_name} won at ${game.name}`}
-                    title={`${person.short_name} won`}
-                    style={{ color: `var(--${person.color})` }}
+                    onClick={() => logWin(game.id, a.id)}
+                    aria-label={`${a.short_name} won at ${game.name}`}
+                    title={`${a.short_name} won`}
+                    style={{ color: `var(--${a.color})` }}
                   >
                     +
                   </button>
-                ))}
+                )}
+                {a && (
+                  <span className="v" style={{ color: `var(--${a.color})` }}>
+                    {played.filter((x) => x.winner_id === a.id).length}
+                  </span>
+                )}
+                <span className="sep">–</span>
+                {b && (
+                  <span className="v" style={{ color: `var(--${b.color})` }}>
+                    {played.filter((x) => x.winner_id === b.id).length}
+                  </span>
+                )}
+                {b && (
+                  <button
+                    type="button"
+                    onClick={() => logWin(game.id, b.id)}
+                    aria-label={`${b.short_name} won at ${game.name}`}
+                    title={`${b.short_name} won`}
+                    style={{ color: `var(--${b.color})` }}
+                  >
+                    +
+                  </button>
+                )}
               </div>
             </div>
           );

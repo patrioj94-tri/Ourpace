@@ -17,7 +17,11 @@ type ActivityRow = {
  * arithmetic does not hallucinate. Returns null when the two can't be the
  * same thing at all, otherwise 0-100.
  */
-export function scoreMatch(activity: ActivityRow, session: Session): number | null {
+export function scoreMatch(
+  activity: ActivityRow,
+  session: Session,
+  today = new Date().toISOString().slice(0, 10),
+): number | null {
   if (activity.discipline !== session.discipline) return null;
 
   const activityDate = activity.start_local.slice(0, 10);
@@ -27,7 +31,16 @@ export function scoreMatch(activity: ActivityRow, session: Session): number | nu
   // A session done the next morning still counts. Three days later doesn't.
   if (offset > 1) return null;
 
-  let score = 100 - offset * 35;
+  // A session whose own day has not arrived yet is not up for grabs. Monday's
+  // run is a poor stand-in for Tuesday's intervals while Tuesday is still to
+  // come — and if Tuesday's run does arrive, it is the better answer. Once the
+  // day has passed, the nightly re-check lets the near miss count.
+  if (offset > 0 && session.date >= today) return null;
+
+  // Training moves around. Sunday's long run happens on Monday, the Thursday
+  // swim gets done on Wednesday. A day's slip is normal, so it costs 20 rather
+  // than enough to sink an otherwise perfect match.
+  let score = 100 - offset * 20;
 
   const target = session.target_distance_m;
   if (target && activity.distance_m) {
@@ -38,7 +51,10 @@ export function scoreMatch(activity: ActivityRow, session: Session): number | nu
   } else if (session.target_duration_s && activity.moving_time_s) {
     const ratio = activity.moving_time_s / session.target_duration_s;
     if (ratio < 0.5) return null;
-    score -= Math.min(40, Math.abs(1 - ratio) * 60);
+    // "45 minutes in the gym" is a round number somebody wrote down, not a
+    // measurement. Judge it far more loosely than a distance.
+    const cap = session.discipline === 'strength' ? 15 : 40;
+    score -= Math.min(cap, Math.abs(1 - ratio) * 60);
   }
 
   return Math.max(0, Math.round(score));
@@ -66,6 +82,15 @@ export async function linkActivity(activityId: number): Promise<{
     .single();
 
   if (!activity) return { matched: false };
+
+  // The nightly sync re-checks activities it has already seen. Without this,
+  // one ride could tick off every ride in the week.
+  const { data: already } = await db
+    .from('sessions')
+    .select('id')
+    .eq('activity_id', activityId)
+    .limit(1);
+  if (already?.length) return { matched: false };
 
   const day = activity.start_local.slice(0, 10);
   const { data: candidates } = await db

@@ -21,8 +21,9 @@ export default async function TrainingPage({
   const end = addDays(start, 6);
   const days = weekDays(start);
 
-  const [{ data: profiles }, { data: settings }, { data: rows }, { data: notes }] =
+  const [{ data: { user } }, { data: profiles }, { data: settings }, { data: rows }, { data: notes }] =
     await Promise.all([
+      supabase.auth.getUser(),
       supabase.from('profiles').select('*').order('short_name'),
       supabase.from('settings').select('*').single(),
       supabase
@@ -43,7 +44,9 @@ export default async function TrainingPage({
   }
 
   const people = profiles as Profile[];
-  const current = people.find((p) => p.id === who) ?? people[0];
+  // Your own week is the one you open the app to see.
+  const current =
+    people.find((p) => p.id === who) ?? people.find((p) => p.id === user?.id) ?? people[0];
   const sessions = ((rows ?? []) as SessionWithActivity[]).filter(
     (s) => s.profile_id === current.id,
   );
@@ -56,19 +59,18 @@ export default async function TrainingPage({
         {race && <RaceCard settings={race} />}
 
         {people.length > 1 && (
-          <div className="seg" role="group" aria-label="Whose week">
+          <nav className="switch" aria-label="Whose week">
             {people.map((p) => (
               <Link
                 key={p.id}
                 href={`/?week=${start}&who=${p.id}`}
-                aria-pressed={p.id === current.id}
-                role="button"
-                style={{ textDecoration: 'none', textAlign: 'center' }}
+                data-active={p.id === current.id}
+                aria-current={p.id === current.id ? 'page' : undefined}
               >
                 {p.short_name}
               </Link>
             ))}
-          </div>
+          </nav>
         )}
 
         <Volume sessions={sessions} />
@@ -128,10 +130,7 @@ function RaceCard({ settings }: { settings: Settings }) {
 function WeekNav({ start, who }: { start: string; who: string }) {
   const thisWeek = weekStart(new Date());
   return (
-    <div
-      className="seg"
-      style={{ marginTop: 18, background: 'none', border: 'none', padding: 0, gap: 8 }}
-    >
+    <nav className="weeknav" aria-label="Change week">
       <Link className="btn ghost" href={`/?week=${addDays(start, -7)}&who=${who}`}>
         ← Last week
       </Link>
@@ -143,7 +142,7 @@ function WeekNav({ start, who }: { start: string; who: string }) {
       <Link className="btn ghost" href={`/?week=${addDays(start, 7)}&who=${who}`}>
         Next week →
       </Link>
-    </div>
+    </nav>
   );
 }
 

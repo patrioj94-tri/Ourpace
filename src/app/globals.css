@@ -195,6 +195,13 @@ h3 { font-family: var(--display); font-weight: 700; font-size: 15.5px; letter-sp
 .seg button { flex: 1; border-radius: 999px; padding: 7px 4px; font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--muted); transition: background 0.15s, color 0.15s; }
 .seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
 
+.switch { display: flex; gap: 4px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px; }
+.switch a { flex: 1; border-radius: 999px; padding: 7px 4px; font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--muted); text-align: center; text-decoration: none; transition: background 0.15s, color 0.15s; }
+.switch a[data-active="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+
+.weeknav { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+.weeknav .btn { flex: 1; text-align: center; text-decoration: none; white-space: nowrap; }
+
 .vol { display: flex; flex-direction: column; gap: 9px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); }
 .volrow { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 10px; }
 .volrow .lab { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }

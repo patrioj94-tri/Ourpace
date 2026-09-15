@@ -108,14 +108,14 @@ export default async function CalendarPage({
         })}
       </div>
 
-      <div className="seg" style={{ marginTop: 18, background: 'none', border: 'none', padding: 0, gap: 8 }}>
+      <nav className="weeknav" aria-label="Change week">
         <Link className="btn ghost" href={`/calendar?week=${addDays(start, -7)}`}>
           ← Last week
         </Link>
         <Link className="btn ghost" href={`/calendar?week=${addDays(start, 7)}`}>
           Next week →
         </Link>
-      </div>
+      </nav>
     </>
   );
 }
