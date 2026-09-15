@@ -1,0 +1,476 @@
+<title>Our Pace</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#E7EEEE; --surface:#FFFFFF; --surface-2:#F1F6F6; --line:#D4DFDF;
+  --ink:#0E2226; --muted:#5B7479; --faint:#8CA1A5;
+  --accent:#D64F17; --accent-soft:#FBE6DC;
+  --swim:#16768D; --bike:#A87613; --run:#D64F17; --strength:#516366;
+  --ok:#2A7350; --ok-soft:#DEEFE6; --miss:#A3353D; --miss-soft:#F7E1E2;
+  --shadow:0 1px 2px rgba(14,34,38,.05), 0 8px 22px rgba(14,34,38,.06);
+  --r:14px;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --body:'Source Sans 3','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#07161A; --surface:#0F2328; --surface-2:#152C31; --line:#23414A;
+    --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
+    --accent:#FF7C46; --accent-soft:#3A1F14;
+    --swim:#4CB4CF; --bike:#DFA83B; --run:#FF7C46; --strength:#8FA9AE;
+    --ok:#5DBE8A; --ok-soft:#11322A; --miss:#E78990; --miss-soft:#381E21;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#07161A; --surface:#0F2328; --surface-2:#152C31; --line:#23414A;
+  --ink:#E6EFEF; --muted:#90A9AE; --faint:#6D888E;
+  --accent:#FF7C46; --accent-soft:#3A1F14;
+  --swim:#4CB4CF; --bike:#DFA83B; --run:#FF7C46; --strength:#8FA9AE;
+  --ok:#5DBE8A; --ok-soft:#11322A; --miss:#E78990; --miss-soft:#381E21;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.shell{max-width:440px;margin:0 auto;min-height:100%;background:var(--surface);border-inline:1px solid var(--line);display:flex;flex-direction:column}
+.appbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);padding:14px 18px 12px;display:flex;align-items:center;gap:10px}
+.wordmark{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.03em;margin:0}
+.wordmark span{color:var(--accent)}
+.pill{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
+main{flex:1;padding:18px 18px 104px}
+.view[hidden]{display:none!important}
+h2{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+.stack{display:flex;flex-direction:column;gap:14px}
+.sub{color:var(--muted);font-size:13.5px;margin:0}
+
+/* countdown */
+.race{display:flex;align-items:flex-end;gap:14px;padding:16px 16px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2)}
+.race .num{font-family:var(--display);font-weight:800;font-size:46px;line-height:.9;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
+.race .meta{padding-bottom:4px}
+.race .meta b{display:block;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:-.01em}
+.race .meta span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.race .days{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);display:block;margin-top:4px}
+
+/* segmented */
+.seg{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px}
+.seg button{flex:1;border-radius:999px;padding:7px 4px;font-family:var(--display);font-weight:600;font-size:13px;color:var(--muted);transition:background .15s,color .15s}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+
+/* week volume */
+.vol{display:flex;flex-direction:column;gap:9px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r)}
+.volrow{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:10px}
+.volrow .lab{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bar{height:7px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px}
+.volrow .fig{font-family:var(--mono);font-size:11.5px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.volrow .fig b{color:var(--ink);font-weight:600}
+
+/* sessions */
+.day{margin-top:16px}
+.dayhead{display:flex;align-items:baseline;gap:8px;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.dayhead .dow{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.01em}
+.dayhead .date{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.dayhead .today{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 7px}
+.sess{display:grid;grid-template-columns:3px 1fr auto;gap:12px;align-items:start;padding:11px 0}
+.sess+.sess{border-top:1px dashed var(--line)}
+.sess .stripe{border-radius:999px;align-self:stretch;min-height:34px}
+.sess .title{font-weight:600;font-size:14.5px;margin:0 0 2px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.disc{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}
+.sess .target{margin:0;font-size:13px;color:var(--muted)}
+.proof{margin:6px 0 0;font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums;color:var(--ok);background:var(--ok-soft);border-radius:8px;padding:5px 8px;display:inline-block}
+.proof.bad{color:var(--miss);background:var(--miss-soft)}
+.mark{width:24px;height:24px;border-radius:999px;display:grid;place-items:center;flex:none;border:1.5px solid var(--line)}
+.mark.done{background:var(--ok);border-color:var(--ok)}
+.mark.missed{border-color:var(--miss);color:var(--miss)}
+.mark.now{border-color:var(--accent);border-style:solid;box-shadow:0 0 0 3px var(--accent-soft)}
+.mark svg{display:block}
+.checkedline{margin:14px 0 0;font-family:var(--mono);font-size:10.5px;color:var(--faint);text-align:center;line-height:1.6}
+
+/* calendar */
+.cal{display:flex;flex-direction:column;gap:2px}
+.calday{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.calday .when{font-family:var(--mono);font-size:11px;color:var(--faint);line-height:1.35;padding-top:2px}
+.calday .when b{display:block;font-family:var(--display);font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
+.calday.is-today .when b{color:var(--accent)}
+.ev{display:flex;gap:9px;align-items:baseline;padding:4px 0}
+.dot{width:7px;height:7px;border-radius:999px;flex:none;transform:translateY(-1px)}
+.ev .txt{flex:1;min-width:0}
+.ev .txt b{display:block;font-weight:600;font-size:14px}
+.ev .txt span{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:12px 0 2px}
+.legend i{display:inline-block;width:7px;height:7px;border-radius:999px;margin-right:5px}
+
+/* todos */
+.todo{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.box{width:21px;height:21px;border-radius:6px;border:1.5px solid var(--line);flex:none;display:grid;place-items:center;margin-top:1px;transition:background .15s,border-color .15s}
+.todo[data-done="1"] .box{background:var(--ok);border-color:var(--ok)}
+.todo[data-done="1"] .tx b{text-decoration:line-through;color:var(--faint);text-decoration-thickness:1.5px}
+.tx{flex:1;min-width:0;text-align:left}
+.tx b{display:block;font-weight:600;font-size:14.5px}
+.tx span{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.who{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.06em;border-radius:999px;padding:3px 7px;flex:none;margin-top:2px}
+.who.p{color:var(--swim);background:color-mix(in srgb,var(--swim) 12%,transparent)}
+.who.l{color:var(--bike);background:color-mix(in srgb,var(--bike) 14%,transparent)}
+.who.us{color:var(--accent);background:var(--accent-soft)}
+
+/* dreams */
+.dream{border:1px solid var(--line);border-radius:var(--r);padding:14px 15px}
+.dream h3{font-family:var(--display);font-weight:700;font-size:15.5px;letter-spacing:-.01em;margin:0 0 5px;text-wrap:balance}
+.dream p{margin:0;font-size:13.5px;color:var(--muted)}
+.chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:3px 8px;border:1px solid var(--line);color:var(--muted)}
+.chip.booked{color:var(--ok);border-color:currentColor}
+.chip.plan{color:var(--accent);border-color:currentColor}
+.dreamtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
+.dreamtop .eyebrow{margin:0}
+
+/* battles */
+.score{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:18px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2);text-align:center}
+.score .n{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.score .nm{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
+.score .vs{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.game{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 0;border-top:1px solid var(--line)}
+.game b{font-weight:600;font-size:14.5px;display:block}
+.game .last{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.tally{display:flex;align-items:center;gap:6px}
+.tally .v{font-family:var(--mono);font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;min-width:18px;text-align:center}
+.tally .v.p{color:var(--swim)} .tally .v.l{color:var(--bike)}
+.tally .sep{color:var(--faint);font-family:var(--mono)}
+.tally button{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);font-size:15px;line-height:1;color:var(--muted);transition:background .15s}
+.tally button:hover{background:var(--surface-2);color:var(--ink)}
+
+/* tabbar */
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,440px);display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));z-index:30}
+.tabbar button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 2px;color:var(--faint);transition:color .15s}
+.tabbar button[aria-selected="true"]{color:var(--accent)}
+.tabbar .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.04em;text-transform:uppercase}
+.tabbar svg{display:block}
+.note{margin:18px 0 0;font-size:12.5px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:12px}
+</style>
+
+<div class="shell">
+  <header class="appbar">
+    <h1 class="wordmark">Our<span>&nbsp;Pace</span></h1>
+    <span class="pill">Prototype</span>
+  </header>
+
+  <main>
+    <!-- ============ TRAINING ============ -->
+    <section class="view" id="v-training" aria-label="Training">
+      <div class="stack">
+        <div class="race">
+          <div class="num">243</div>
+          <div class="meta">
+            <b>Ironman 70.3 Barcelona</b>
+            <span>Sun 16 May 2027 · Calella</span>
+            <span class="days">Base phase · week 1 of 34</span>
+          </div>
+        </div>
+
+        <div class="seg" role="group" aria-label="Whose week">
+          <button type="button" data-who="patri" aria-pressed="true">Patri</button>
+          <button type="button" data-who="leo" aria-pressed="false">Leo</button>
+        </div>
+
+        <div class="vol" id="vol"></div>
+      </div>
+
+      <div id="week"></div>
+      <p class="checkedline" id="checkline"></p>
+    </section>
+
+    <!-- ============ CALENDAR ============ -->
+    <section class="view" id="v-calendar" hidden aria-label="Calendar">
+      <p class="eyebrow">Mon 14 — Sun 20 September</p>
+      <h2>This week, both of us</h2>
+      <p class="sub">Everything from your two Google calendars in one place. Anything you add here lands back in both.</p>
+      <div class="legend">
+        <span><i style="background:var(--swim)"></i>Patri</span>
+        <span><i style="background:var(--bike)"></i>Leo</span>
+        <span><i style="background:var(--accent)"></i>Our Pace</span>
+      </div>
+      <div class="cal">
+        <div class="calday is-today">
+          <div class="when"><b>15</b>Tue</div>
+          <div>
+            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>Team stand-up</b><span>09:00 · Patri / Work</span></div></div>
+            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Bike 1h30 — both of us</b><span>18:30 · Our Pace / Training</span></div></div>
+            <div class="ev"><i class="dot" style="background:var(--bike)"></i><div class="txt"><b>Dentist</b><span>16:15 · Leo / Appointments</span></div></div>
+          </div>
+        </div>
+        <div class="calday">
+          <div class="when"><b>16</b>Wed</div>
+          <div>
+            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>Dutch class</b><span>19:00 · Patri / Languages</span></div></div>
+            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Pool — Blocry, lane 3</b><span>07:00 · Our Pace / Training</span></div></div>
+          </div>
+        </div>
+        <div class="calday">
+          <div class="when"><b>17</b>Thu</div>
+          <div>
+            <div class="ev"><i class="dot" style="background:var(--bike)"></i><div class="txt"><b>Leo in Brussels — late</b><span>All day · Leo / Work</span></div></div>
+            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>Track session</b><span>18:45 · Patri / Sports</span></div></div>
+          </div>
+        </div>
+        <div class="calday">
+          <div class="when"><b>18</b>Fri</div>
+          <div>
+            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Dinner at Chez Léon</b><span>20:00 · Our Pace / Leisure time</span></div></div>
+          </div>
+        </div>
+        <div class="calday">
+          <div class="when"><b>19</b>Sat</div>
+          <div>
+            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Long ride — 70 km loop</b><span>09:00 · Our Pace / Training</span></div></div>
+            <div class="ev"><i class="dot" style="background:var(--swim)"></i><div class="txt"><b>COLOC — apéro</b><span>19:30 · Patri / COLOC</span></div></div>
+          </div>
+        </div>
+        <div class="calday">
+          <div class="when"><b>20</b>Sun</div>
+          <div>
+            <div class="ev"><i class="dot" style="background:var(--accent)"></i><div class="txt"><b>Brick session + brunch after</b><span>09:30 · Our Pace / Training</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="note">Sample events. The real thing reads your actual calendars — the six you already keep (Work, Sports, Languages, Leisure time, COLOC, Appointments) plus whatever Leo shares.</p>
+    </section>
+
+    <!-- ============ TO-DO ============ -->
+    <section class="view" id="v-todo" hidden aria-label="To-do">
+      <p class="eyebrow">Shared list</p>
+      <h2>Things we need to do</h2>
+      <p class="sub">Tap to tick. Whoever does it, the other one sees it straight away.</p>
+      <div id="todos" style="margin-top:14px"></div>
+      <p class="note">Sample items, so you can see the shape of it.</p>
+    </section>
+
+    <!-- ============ DREAMS ============ -->
+    <section class="view" id="v-dreams" hidden aria-label="Dreams">
+      <p class="eyebrow">Let's dream together</p>
+      <h2>Things we said we'd do one day</h2>
+      <p class="sub">No deadlines here. Just a place to keep them so they don't get lost in a chat.</p>
+      <div class="stack" style="margin-top:16px">
+        <article class="dream">
+          <div class="dreamtop"><p class="eyebrow">Ride</p><span class="chip plan">Planning</span></div>
+          <h3>Camino de Santiago, on the bikes</h3>
+          <p>Two weeks, León to Finisterre. Leo says September. I say May.</p>
+        </article>
+        <article class="dream">
+          <div class="dreamtop"><p class="eyebrow">Race</p><span class="chip booked">Booked</span></div>
+          <h3>Half Marathon of Seville</h3>
+          <p>Flights booked. His parents are coming to watch.</p>
+        </article>
+        <article class="dream">
+          <div class="dreamtop"><p class="eyebrow">Home</p><span class="chip">Someday</span></div>
+          <h3>A flat with a garage big enough for four bikes</h3>
+          <p>And a wall for the race bibs.</p>
+        </article>
+        <article class="dream">
+          <div class="dreamtop"><p class="eyebrow">Race</p><span class="chip">Someday</span></div>
+          <h3>A full Ironman — but only if we both want it</h3>
+          <p>Revisit after Barcelona. Not before.</p>
+        </article>
+        <article class="dream">
+          <div class="dreamtop"><p class="eyebrow">Learn</p><span class="chip">Someday</span></div>
+          <h3>Cook his grandmother's recipes properly</h3>
+          <p>Write them down before nobody remembers them.</p>
+        </article>
+      </div>
+      <p class="note">Sample dreams — swap them for your real ones.</p>
+    </section>
+
+    <!-- ============ BATTLES ============ -->
+    <section class="view" id="v-battles" hidden aria-label="Game battles">
+      <p class="eyebrow">Since January 2026</p>
+      <h2>Game battles</h2>
+      <div class="score" style="margin-top:14px">
+        <div><div class="n" style="color:var(--swim)" id="tot-p">0</div><span class="nm">Patri</span></div>
+        <div class="vs">vs</div>
+        <div><div class="n" style="color:var(--bike)" id="tot-l">0</div><span class="nm">Leo</span></div>
+      </div>
+      <p class="sub" style="margin-top:12px" id="streak"></p>
+      <div id="games" style="margin-top:8px"></div>
+      <p class="note">Tap + to log a win. Sample record — we'll start yours from zero.</p>
+    </section>
+  </main>
+
+  <nav class="tabbar" role="tablist" aria-label="Sections">
+    <button type="button" role="tab" data-view="training" aria-selected="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13h4l2.5-7 4 14 2.5-7H22"/></svg>
+      <span class="lbl">Training</span>
+    </button>
+    <button type="button" role="tab" data-view="calendar" aria-selected="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      <span class="lbl">Calendar</span>
+    </button>
+    <button type="button" role="tab" data-view="todo" aria-selected="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7l2 2 3.5-3.5M3.5 17l2 2 3.5-3.5M13 7.5h8M13 17.5h8"/></svg>
+      <span class="lbl">To-do</span>
+    </button>
+    <button type="button" role="tab" data-view="dreams" aria-selected="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 16.9 6.7 19.7l1.1-5.9L3.5 9.7l5.9-.8z"/></svg>
+      <span class="lbl">Dreams</span>
+    </button>
+    <button type="button" role="tab" data-view="battles" aria-selected="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V10M16 21V10M5 10h14a0 0 0 010 0v0a7 7 0 01-7 7 7 7 0 01-7-7zM9 3h6v4H9zM5 10V7a2 2 0 012-2M19 10V7a2 2 0 00-2-2"/></svg>
+      <span class="lbl">Battles</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var TICK='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+  var CROSS='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  var DOT='<svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>';
+
+  /* ---- training data. Patri's Monday rows are her real Strava activities. ---- */
+  var DAYS=[["Mon","14 Sep"],["Tue","15 Sep"],["Wed","16 Sep"],["Thu","17 Sep"],["Fri","18 Sep"],["Sat","19 Sep"],["Sun","20 Sep"]];
+  var TODAY=1;
+  var WEEK={
+    patri:[
+      [{d:"swim",t:"Endurance swim",g:"3.0 km · steady, long sets",s:"done",p:"Strava · 3.30 km · 51:53 · 1:34 /100 m"},
+       {d:"run",t:"Easy run",g:"8 km · conversational",s:"done",p:"Strava · 8.65 km · 43:02 · 4:59 /km"}],
+      [{d:"bike",t:"Endurance ride",g:"1h30 · zone 2, flat",s:"now"}],
+      [{d:"swim",t:"Threshold sets",g:"2.5 km · 10 × 100 m",s:"plan"}],
+      [{d:"run",t:"Track intervals",g:"6 × 800 m @ 4:15 /km",s:"plan"}],
+      [{d:"strength",t:"Gym",g:"45 min · legs & core",s:"plan"}],
+      [{d:"bike",t:"Long ride",g:"70 km · steady, with Leo",s:"plan"}],
+      [{d:"bike",t:"Brick — ride",g:"40 km · race effort",s:"plan"},
+       {d:"run",t:"Brick — run off the bike",g:"10 km · straight after",s:"plan"}]
+    ],
+    leo:[
+      [{d:"run",t:"Easy run",g:"8 km · conversational",s:"done",p:"Strava · 8.12 km · 41:20 · 5:05 /km"},
+       {d:"swim",t:"Endurance swim",g:"2.5 km · steady",s:"miss",p:"Nothing on Strava for Mon 14"}],
+      [{d:"bike",t:"Endurance ride",g:"1h30 · zone 2, flat",s:"now"}],
+      [{d:"swim",t:"Threshold sets",g:"2.5 km · 10 × 100 m",s:"plan"}],
+      [{d:"run",t:"Track intervals",g:"6 × 800 m @ 4:30 /km",s:"plan"}],
+      [{d:"strength",t:"Gym",g:"45 min · legs & core",s:"plan"}],
+      [{d:"bike",t:"Long ride",g:"70 km · steady, with Patri",s:"plan"}],
+      [{d:"bike",t:"Brick — ride",g:"40 km · race effort",s:"plan"},
+       {d:"run",t:"Brick — run off the bike",g:"8 km · straight after",s:"plan"}]
+    ]
+  };
+  var VOL={
+    patri:[["Swim",5.5,3.3,"km","swim"],["Bike",150,0,"km","bike"],["Run",28,8.7,"km","run"]],
+    leo:[["Swim",5,0,"km","swim"],["Bike",150,0,"km","bike"],["Run",26,8.1,"km","run"]]
+  };
+  var CHECKED={
+    patri:"Claude checked Strava at 07:12 this morning.<br>2 of 2 Monday sessions matched automatically.",
+    leo:"Claude checked Strava at 07:12 this morning.<br>1 of 2 Monday sessions matched — the swim is still open."
+  };
+
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+
+  function renderWeek(who){
+    var vol=document.getElementById("vol"),h="";
+    VOL[who].forEach(function(r){
+      var pct=Math.min(100,Math.round(r[2]/r[1]*100));
+      h+='<div class="volrow"><span class="lab">'+r[0]+'</span>'
+       + '<span class="bar"><i style="width:'+pct+'%;background:var(--'+r[4]+')"></i></span>'
+       + '<span class="fig"><b>'+r[2]+'</b> / '+r[1]+' '+r[3]+'</span></div>';
+    });
+    vol.innerHTML=h;
+
+    var out="";
+    WEEK[who].forEach(function(sessions,i){
+      out+='<section class="day"><div class="dayhead"><span class="dow">'+DAYS[i][0]+'</span>'
+         + '<span class="date">'+DAYS[i][1]+'</span>'
+         + (i===TODAY?'<span class="today">Today</span>':'')+'</div>';
+      sessions.forEach(function(s){
+        var mark = s.s==="done" ? '<span class="mark done">'+TICK+'</span>'
+                 : s.s==="miss" ? '<span class="mark missed">'+CROSS+'</span>'
+                 : s.s==="now"  ? '<span class="mark now" style="color:var(--accent)">'+DOT+'</span>'
+                 : '<span class="mark"></span>';
+        out+='<div class="sess"><span class="stripe" style="background:var(--'+s.d+')"></span>'
+           + '<div><p class="title">'+esc(s.t)+'<span class="disc" style="color:var(--'+s.d+')">'+s.d+'</span></p>'
+           + '<p class="target">'+esc(s.g)+'</p>'
+           + (s.p?'<p class="proof'+(s.s==="miss"?" bad":"")+'">'+esc(s.p)+'</p>':'')
+           + '</div>'+mark+'</div>';
+      });
+      out+='</section>';
+    });
+    document.getElementById("week").innerHTML=out;
+    document.getElementById("checkline").innerHTML=CHECKED[who];
+  }
+
+  document.querySelectorAll(".seg button").forEach(function(b){
+    b.addEventListener("click",function(){
+      document.querySelectorAll(".seg button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b));});
+      renderWeek(b.dataset.who);
+    });
+  });
+  renderWeek("patri");
+
+  /* ---- to-dos ---- */
+  var TODOS=[
+    {t:"Book the 70.3 entry before prices go up",w:"us",d:"By Sunday",done:0},
+    {t:"Wetsuit for Leo — try the shop in Wavre",w:"l",d:"This month",done:0},
+    {t:"Send the lease signature to the agency",w:"p",d:"Thu 17 Sep",done:0},
+    {t:"Ask Mamá about Christmas dates",w:"p",d:"No rush",done:1},
+    {t:"Service both bikes before the long rides",w:"us",d:"Before 19 Sep",done:0},
+    {t:"Pick a hotel in Calella",w:"us",d:"Someday soon",done:0}
+  ];
+  var WHOLBL={p:"Patri",l:"Leo",us:"Us"};
+  function renderTodos(){
+    document.getElementById("todos").innerHTML=TODOS.map(function(x,i){
+      return '<div class="todo" data-done="'+x.done+'" data-i="'+i+'">'
+        + '<span class="box">'+(x.done?TICK:"")+'</span>'
+        + '<button type="button" class="tx"><b>'+esc(x.t)+'</b><span>'+esc(x.d)+'</span></button>'
+        + '<span class="who '+x.w+'">'+WHOLBL[x.w]+'</span></div>';
+    }).join("");
+  }
+  renderTodos();
+  document.getElementById("todos").addEventListener("click",function(e){
+    var row=e.target.closest(".todo"); if(!row) return;
+    var i=+row.dataset.i; TODOS[i].done=TODOS[i].done?0:1; renderTodos();
+  });
+
+  /* ---- battles ---- */
+  var GAMES=[
+    {g:"7 Wonders Duel",p:9,l:6,last:"Last: Patri, 68–61"},
+    {g:"Catan",p:4,l:7,last:"Last: Leo, longest road"},
+    {g:"Padel",p:11,l:13,last:"Last: Leo, 6–4 6–3"},
+    {g:"Mario Kart",p:15,l:8,last:"Last: Patri, Rainbow Road"},
+    {g:"Chess",p:3,l:9,last:"Last: Leo, 31 moves"},
+    {g:"Backgammon",p:6,l:5,last:"Last: Patri, gammon"}
+  ];
+  function renderGames(){
+    var tp=0,tl=0;
+    document.getElementById("games").innerHTML=GAMES.map(function(x,i){
+      tp+=x.p; tl+=x.l;
+      return '<div class="game"><div><b>'+esc(x.g)+'</b><span class="last">'+esc(x.last)+'</span></div>'
+        + '<div class="tally">'
+        + '<button type="button" data-i="'+i+'" data-w="p" aria-label="Win for Patri in '+esc(x.g)+'">+</button>'
+        + '<span class="v p">'+x.p+'</span><span class="sep">–</span><span class="v l">'+x.l+'</span>'
+        + '<button type="button" data-i="'+i+'" data-w="l" aria-label="Win for Leo in '+esc(x.g)+'">+</button>'
+        + '</div></div>';
+    }).join("");
+    document.getElementById("tot-p").textContent=tp;
+    document.getElementById("tot-l").textContent=tl;
+    var lead = tp>tl ? "Patri leads by "+(tp-tl) : tl>tp ? "Leo leads by "+(tl-tp) : "Dead level";
+    document.getElementById("streak").textContent=lead+" across "+GAMES.length+" games. Chess is not going well.";
+  }
+  renderGames();
+  document.getElementById("games").addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b) return;
+    GAMES[+b.dataset.i][b.dataset.w]++; renderGames();
+  });
+
+  /* ---- tabs ---- */
+  document.querySelectorAll(".tabbar button").forEach(function(b){
+    b.addEventListener("click",function(){
+      document.querySelectorAll(".tabbar button").forEach(function(o){o.setAttribute("aria-selected",String(o===b));});
+      document.querySelectorAll(".view").forEach(function(v){v.hidden = v.id!=="v-"+b.dataset.view;});
+      window.scrollTo({top:0,behavior:"instant"});
+    });
+  });
+})();
+</script>
